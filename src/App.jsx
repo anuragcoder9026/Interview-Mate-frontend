@@ -8,6 +8,7 @@ function App() {
   return (
     <>
       <div>
+        <nav>Home</nav>
       <h1> Interview Mate</h1>
    </div>
     </>
