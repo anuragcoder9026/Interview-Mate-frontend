@@ -1,15 +1,22 @@
 import { useState } from 'react'
+import NavBar from './components/navbar'
+import Header from './components/header'
+import { FooterWithSocialLinks } from './components/footer'
+import About from './components/about'
+
 
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <div>
-      <h1> Interview Mate</h1>
-   </div>
+    <Header/>
+<NavBar/>
+<About/>
+
+<FooterWithSocialLinks/>
+
     </>
   )
 }
