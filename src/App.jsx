@@ -11,12 +11,9 @@ function App() {
 
   return (
     <>
-    <Header/>
-<NavBar/>
-<About/>
-
-<FooterWithSocialLinks/>
-
+      <div>
+      <h1> Interview Mate</h1>
+   </div>
     </>
   )
 }
