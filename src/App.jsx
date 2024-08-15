@@ -11,9 +11,10 @@ function App() {
 
   return (
     <>
-      <div>
-      <h1> Interview Mate</h1>
-   </div>
+     <Header/>
+     <NavBar/>
+     <About/>
+     <FooterWithSocialLinks/>
     </>
   )
 }
