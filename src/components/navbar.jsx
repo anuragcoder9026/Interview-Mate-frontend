@@ -52,31 +52,31 @@ export default function NavBar() {
         </a>
       </div>
       <div className="justify-between bg-black justify-items-center text-white  py-2 hidden md:flex ">
-       <img  className="px-4 " src = {logo} height={20} width={170}/>
+       <img  className="px-4 " src = {logo} height={10} width={170}/>
        
 
-        <div className="flex align-items-center justify-content-center">
+        <div className="flex items-center justify-center h-10 mt-3">
         <a
           href="#rules"
-          className=" p-4 rounded-1xl place-items-center hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins"
+          className=" p-2 px-5 mx-2 rounded-2xl place-items-center hover:border-2 hover:cursor-pointer font-bold text-2xl font-Poppins"
         >
           Home
         </a>
         <a
           href="#tracks"
-          className="p-4 rounded-1xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins"
+          className="p-2 px-5 mx-2 rounded-2xl hover:border-2 hover:cursor-pointer font-bold text-2xl font-Poppins"
         >
           Blog
         </a>
         <a
           href="#judges"
-          className="p-4 rounded-1xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins"
+          className="p-2 px-5 mx-2 rounded-2xl hover:border-2 hover:cursor-pointer font-bold text-2xl font-Poppins"
         >
           About
         </a>
         <a
           href="#faq"
-          className="p-4 rounded-1xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins"
+          className="p-2 px-5 mx-2 rounded-2xl hover:border-2 hover:cursor-pointer font-bold text-2xl font-Poppins"
         >
           Contact
         </a>
