@@ -4,9 +4,10 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const SearchBar = () => {
     return (
-        <div style={styles.searchContainer}>
-            <FontAwesomeIcon icon={faSearch} style={styles.icon} />
+        <div style={styles.searchContainer}  >
+            <FontAwesomeIcon icon={faSearch} style={styles.icon} className="px-3" />
             <input 
+                className="py-1" 
                 type="text" 
                 placeholder="Search..." 
                 style={styles.input}
@@ -20,7 +21,7 @@ const styles = {
         display: 'flex',
         alignItems: 'center',
         backgroundColor: '#1b1b1b', // Dark gray color
-        padding: 'px',
+        padding: '2px',
         borderRadius: '4px',
         width: '250px',
     },

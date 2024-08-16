@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { FaArrowDown, FaArrowUp, FaBars } from "react-icons/fa";
+import logo from '../assets/images/logo.png'
 
 export default function NavBar() {
   const [isNavBarToggled, setIsNavBarToggled] = useState(false);
@@ -50,34 +51,34 @@ export default function NavBar() {
           FAQ
         </a>
       </div>
-      <div className="px-5 justify-between bg-white justify-items-center text-black p-2 hidden md:flex">
-      <h1 className="text-black font-bold text-4xl font-Poppins"> Interview Mate</h1>
+      <div className="justify-between bg-black justify-items-center text-white  py-2 hidden md:flex ">
+       <img  className="px-4 " src = {logo} height={20} width={170}/>
        
 
-        <div>
+        <div className="flex align-items-center justify-content-center">
         <a
           href="#rules"
-          className="p-4 rounded-2xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins"
+          className=" p-4 rounded-1xl place-items-center hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins"
         >
-          HOME
+          Home
         </a>
         <a
           href="#tracks"
-          className="p-4 rounded-2xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins"
+          className="p-4 rounded-1xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins"
         >
-          BLOG
+          Blog
         </a>
         <a
           href="#judges"
-          className="p-4 rounded-2xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins"
+          className="p-4 rounded-1xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins"
         >
-          ABOUT
+          About
         </a>
         <a
           href="#faq"
-          className="p-4 rounded-2xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins"
+          className="p-4 rounded-1xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins"
         >
-          CONTACT
+          Contact
         </a>
         </div>
       </div>
