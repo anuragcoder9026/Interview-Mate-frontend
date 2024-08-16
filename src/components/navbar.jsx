@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { FaArrowDown, FaArrowUp, FaBars } from "react-icons/fa";
 import logo from '../assets/images/logo.png'
+import SearchBar from "./searbar";
 
 export default function NavBar() {
   const [isNavBarToggled, setIsNavBarToggled] = useState(false);
@@ -12,6 +13,9 @@ export default function NavBar() {
           className="size-6"
           onClick={() => setIsNavBarToggled(!isNavBarToggled)}
         ></FaBars>
+        <div className="flex  justify-center px-5 py-2">
+       <SearchBar/>
+       </div>
         <div
           className="flex gap-1 items-center"
           onClick={() => setIsNavBarToggled(!isNavBarToggled)}
@@ -53,6 +57,7 @@ export default function NavBar() {
       </div>
       <div className="justify-between bg-black justify-items-center text-white  py-2 hidden md:flex ">
        <img  className="px-4 " src = {logo} height={20} width={170}/>
+       
        
 
         <div className="flex align-items-center justify-content-center">
