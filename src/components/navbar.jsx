@@ -20,12 +20,6 @@ export default function NavBar() {
           className="flex gap-1 items-center"
           onClick={() => setIsNavBarToggled(!isNavBarToggled)}
         >
-          <h1>MENU</h1>
-          {isNavBarToggled ? (
-            <FaArrowUp className="size-5"></FaArrowUp>
-          ) : (
-            <FaArrowDown className="size-5"></FaArrowDown>
-          )}
         </div>
        </div>
       <div
@@ -56,32 +50,32 @@ export default function NavBar() {
         </a>
       </div>
       <div className="justify-between bg-black justify-items-center text-white  py-2 hidden md:flex ">
-       <img  className="px-4 " src = {logo} height={10} width={170}/>
+       <img  className="px-4 " src = {logo} height={20} width={170}/>
        
        
 
-        <div className="flex items-center justify-center h-10 mt-3">
+        <div className="flex align-items-center justify-content-center">
         <a
           href="#rules"
-          className=" p-2 px-4 m-2 rounded-2xl hover:border-2 hover:cursor-pointer font-bold text-2xl font-Poppins"
+          className=" p-4 rounded-2xl place-items-center hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins"
         >
           Home
         </a>
         <a
           href="#tracks"
-          className="p-2 px-4 m-2 rounded-2xl  hover:border-2 hover:cursor-pointer font-bold text-2xl font-Poppins"
+          className="p-4 rounded-2xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins"
         >
           Blog
         </a>
         <a
           href="#judges"
-          className="p-2 px-4 m-2 rounded-2xl  hover:border-2 hover:cursor-pointer font-bold text-2xl font-Poppins"
+          className="p-4 rounded-2xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins"
         >
           About
         </a>
         <a
           href="#faq"
-          className="p-2 px-4 m-2 rounded-2xl  hover:border-2 hover:cursor-pointer font-bold text-2xl font-Poppins"
+          className="p-4 rounded-2xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins"
         >
           Contact
         </a>
