@@ -6,6 +6,7 @@ import About from './components/about'
 import Card from './components/card'
 import CardGrid from './components/homearrangecard'
 
+
 import './App.css'
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
      <CardGrid/>
      {/* <Card/> */}
      
-     <About/>
+     {/* <About/> */}
      <FooterWithSocialLinks/>
     </>
   )
