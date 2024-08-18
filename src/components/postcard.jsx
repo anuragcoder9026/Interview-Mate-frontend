@@ -1,26 +1,6 @@
-import React, { useState } from "react";
-import { BiSolidLike } from "react-icons/bi";
-import { FaRegComment } from "react-icons/fa6";
-import { IoClose } from "react-icons/io5";
+import React from "react";
 
-import toast, { Toaster } from 'react-hot-toast';
 function CustomCard() {
-  const [showCommentBox, setShowCommentBox] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleCommentBox = () => {
-    setShowCommentBox(!showCommentBox);
-  };
-
-  const handleSubmit = () => {
-    setLoading(true);
-    setTimeout(() => {
-      toast.success('Successfully Commented');
-      setLoading(false);
-      setShowCommentBox(false);
-    }, 2000);
-  };
-
   return (
 
      <div className="relative flex flex-col mt-6 text-white bg-gray-800 shadow-md border border-gray-400 bg-clip-border rounded-xl w-96 p-5">
@@ -40,15 +20,16 @@ function CustomCard() {
           The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main nightlife in Barcelona.
         </p>
       </div>
-      <div className="p-6 pt-0">
-        <button
-          className=""
-          type="button"
-        >
-          Read More
-        </button>
-      </div>
+      <div class="p-6 pt-0">
+      <button
+      className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-blue text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+      type="button"
+    >
+      Read More
+    </button>
     </div>
+      </div>
+    
   );
 }
 
