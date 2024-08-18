@@ -20,12 +20,6 @@ export default function NavBar() {
           className="flex gap-1 items-center"
           onClick={() => setIsNavBarToggled(!isNavBarToggled)}
         >
-          <h1>MENU</h1>
-          {isNavBarToggled ? (
-            <FaArrowUp className="size-5"></FaArrowUp>
-          ) : (
-            <FaArrowDown className="size-5"></FaArrowDown>
-          )}
         </div>
        </div>
       <div
