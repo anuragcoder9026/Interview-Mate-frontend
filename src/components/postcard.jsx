@@ -1,26 +1,6 @@
-import React, { useState } from "react";
-import { BiSolidLike } from "react-icons/bi";
-import { FaRegComment } from "react-icons/fa6";
-import { IoClose } from "react-icons/io5";
+import React from "react";
 
-import toast, { Toaster } from 'react-hot-toast';
 function CustomCard() {
-  const [showCommentBox, setShowCommentBox] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleCommentBox = () => {
-    setShowCommentBox(!showCommentBox);
-  };
-
-  const handleSubmit = () => {
-    setLoading(true);
-    setTimeout(() => {
-      toast.success('Successfully Commented');
-      setLoading(false);
-      setShowCommentBox(false);
-    }, 2000);
-  };
-
   return (
 
      <div className="relative flex flex-col mt-6 text-white bg-gray-800 shadow-md border border-gray-400 bg-clip-border rounded-xl w-96 p-5">
