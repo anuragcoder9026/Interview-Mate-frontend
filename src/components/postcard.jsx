@@ -40,7 +40,7 @@ function CustomCard() {
             UI/UX Review Check
           </h5>
           <p className="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
-            The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main nightlife in Barcelona.
+            The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main nightlife in Barcelona
           </p>
         </div>
         <div className="flex pr-0 p-4 sm:p-6 pt-0 justify-between">
