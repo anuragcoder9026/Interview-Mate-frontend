@@ -1,7 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
+import { BiSolidLike } from "react-icons/bi";
+import { FaRegComment } from "react-icons/fa6";
+import { IoClose } from "react-icons/io5";
 
+import toast, { Toaster } from 'react-hot-toast';
 function CustomCard() {
- 
+  const [showCommentBox, setShowCommentBox] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleCommentBox = () => {
+    setShowCommentBox(!showCommentBox);
+  };
+
+  const handleSubmit = () => {
+    setLoading(true);
+    setTimeout(() => {
+      toast.success('Successfully Commented');
+      setLoading(false);
+      setShowCommentBox(false);
+    }, 2000);
+  };
 
   return (
     <div className="relative w-96">
@@ -40,8 +58,45 @@ function CustomCard() {
             />
           </div>
         </div>
-     
+      </div>
 
+      {showCommentBox && (
+        <div
+          className={`absolute bottom-0 left-0 z-30 flex flex-col p-4 bg-gray-700 bg-opacity-95 rounded-b-lg w-full transform transition-transform duration-300 ease-in-out ${
+            showCommentBox ? "translate-y-0" : "translate-y-full"
+          }`}
+        >
+          <div className="flex justify-between items-center">
+            <p className="text-lg font-semibold text-white">Add a comment</p>
+            <IoClose
+              style={{ color: "white" }}
+              className="text-2xl cursor-pointer"
+              onClick={handleCommentBox}
+            />
+          </div>
+          <textarea
+            className="w-full p-2 my-2 text-gray-800 rounded-md resize-none focus:outline-none border-none"
+            placeholder="Write a comment..."
+          />
+          <button
+            className="self-end bg-blue-600 text-white p-2 rounded-md hover:bg-blue"
+            type="button"
+            onClick={handleSubmit}
+          >
+            {loading ? (
+              <div > submitting....</div> 
+            ) : (
+              "Submit"
+            )}
+          </button>
+        </div>
+      )}
+      <Toaster
+  position="top-center"
+  reverseOrder={false}
+/>
+    </div>
+  );
 }
 
 export default CustomCard;
