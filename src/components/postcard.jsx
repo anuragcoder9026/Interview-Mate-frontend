@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import { BiSolidLike } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
-
 import toast, { Toaster } from 'react-hot-toast';
+import Sparkle from 'react-sparkle';
+import user from "../assets/images/user.png";
+
 function CustomCard() {
   const [showCommentBox, setShowCommentBox] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [showSparkle, setShowSparkle] = useState(false);
+  const [liked,setLiked]=useState(false);
   const handleCommentBox = () => {
     setShowCommentBox(!showCommentBox);
   };
@@ -21,44 +25,83 @@ function CustomCard() {
     }, 2000);
   };
 
+  const toggleFollow = () => {
+    setIsFollowing(!isFollowing);
+  };
+
+  const handleLikeClick = () => {
+    setShowSparkle(true);
+    setLiked(!liked);
+    setTimeout(() => setShowSparkle(false), 2000); // Sparkle effect disappears after 2 seconds
+  };
+
   return (
-    <div className="relative w-96">
-      <div
-        className={`relative flex flex-col text-black bg-custom shadow-md border border-none bg-clip-border rounded-xl p-2 sm:p-4 sm:pt-5 transition-all duration-300 ${
-          showCommentBox ? "z-10 opacity-80" : "z-20 opacity-100"
-        }`}
-      >
-        <div className="relative h-56 mx-2 sm:mx-4 mt-1 overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
-          <img
-            src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
-            alt="card-image"
-            className="object-cover w-full h-full"
-          />
-        </div>
-        <div className=" p-3 sm:p-6">
-          <h5 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-            UI/UX Review Check
-          </h5>
-          <p className="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
-            The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main nightlife in Barcelona
-            <span className="text-blue text-xxl px-2">Read More..</span>
-          </p>
-        </div>
-        <div className="flex pr-0 p-4 sm:p-6 pt-0 justify-between">
-          <div className="flex items-center justify-center">
-            {/* <button className="bg-blue p-2 py-1 sm:p-2 sm:px-3 " type="button">
-              Read More
-            </button> */}
-            <BiSolidLike className="text-2xl sm:text-3xl mx-3" />
-            <p className="mt-1">238</p>
+    <div className="relative w-96 border border-gray-300 rounded-lg shadow-lg p-4 bg-white">
+      {/* Profile Header */}
+      <div className="flex items-center w-full">
+        <img className="w-12 h-12 rounded-full bg-gray-400 mr-3" src={user} alt="User" />
+        <div className="flex p-2 flex-col w-full">
+          <div className="flex justify-between">
+            <h4 className="text-lg font-semibold">Anurag Singh</h4>
+            <button
+              className={`text-sm font-semibold ${isFollowing ? "text-gray-500" : "text-blue-500"}`}
+              onClick={toggleFollow}
+            >
+              {isFollowing ? "Following" : "Follow +"}
+            </button>
           </div>
-          <div className="flex items-center float-left mr-3">
-            <FaRegComment
-              className="text-1xl sm:text-2xl mt-1 cursor-pointer"
-              onClick={handleCommentBox}
+          <p className="text-sm text-gray-600">4th year student at NIT Jalandhar</p>
+        </div>
+      </div>
+
+      {/* Post Date */}
+      <p className="text-sm text-gray-500 mt-3">posted on 18 aug 2024</p>
+
+      {/* Image Section */}
+      <div className="w-full h-48 bg-gray-400 mt-3 rounded-lg">
+        <img className="h-full w-full" src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10" alt="" />
+      </div>
+
+      {/* Description Section */}
+      <div className="mt-3">
+        <p className="text-sm text-gray-800">
+          🌱 <span className="font-semibold">Learning Experience:</span> Working on this project was an incredible journey of discovery and growth. I delved deep into full-stack development, learning how to integrate various technologies to create a cohesive and best........
+          <span className="text-blue ml-1 cursor-pointer hover:underline">Read More</span>
+        </p>
+      </div>
+
+      {/* Like and Comment Section */}
+      <div className="flex justify-between items-center mt-3">
+        <p className="text-sm text-gray-600">Liked by alok and 18 others</p>
+        <p className="text-sm text-gray-600">18 comments</p>
+      </div>
+      
+      {/* Action Buttons */}
+      <div className="flex justify-between items-center mt-3 pt-2 border-t border-gray-300">
+        <button 
+          className="relative flex items-center space-x-1 text-gray-600"
+          onClick={handleLikeClick}
+        >
+          {showSparkle && liked &&  (
+            <Sparkle 
+              color="blue" 
+              count={30} 
+              minSize={7} 
+              maxSize={12} 
+              overflowPx={10} 
+              fadeOutSpeed={15} 
             />
-          </div>
-        </div>
+          )}
+          <BiSolidLike className="text-2xl"  style={{color:`${liked?'blue':'grey'}`}}/>
+          <span>Like</span>
+        </button>
+        <button 
+          className="flex items-center space-x-1 text-gray-600 cursor-pointer"
+          onClick={handleCommentBox}
+        >
+          <FaRegComment className="text-2xl"/>
+          <span>Comment</span>
+        </button>
       </div>
 
       {showCommentBox && (
@@ -85,7 +128,7 @@ function CustomCard() {
             onClick={handleSubmit}
           >
             {loading ? (
-              <div > submitting....</div> 
+              <div> submitting....</div> 
             ) : (
               "Submit"
             )}
@@ -93,9 +136,9 @@ function CustomCard() {
         </div>
       )}
       <Toaster
-  position="top-center"
-  reverseOrder={false}
-/>
+        position="top-center"
+        reverseOrder={false}
+      />
     </div>
   );
 }
