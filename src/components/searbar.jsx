@@ -30,7 +30,7 @@ const SearchBar = () => {
     };
 
     return (
-        <div className="relative ">
+        <div className="relative">
             <div
                 className={`flex items-center transition-all duration-300 ease-in-out ${
                     isExpanded ? 'w-48' : 'w-12'
@@ -49,7 +49,7 @@ const SearchBar = () => {
                 />
                 <button
                     onClick={handleClick}
-                    className="flex items-center justify-center w-10 h-9 bg-gray-800 rounded-full"
+                    className="flex items-center justify-center w-10 h-10 bg-gray-800 rounded-full"
                 >
                     <FontAwesomeIcon
                         icon={faSearch}

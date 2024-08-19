@@ -3,7 +3,7 @@ import NavBar from './components/navbar'
 import Header from './components/header'
 import { FooterWithSocialLinks } from './components/footer'
 import About from './components/about'
-import Founder from './components/founder'
+import Card from './components/card'
 import CardGrid from './components/homearrangecard'
 import './App.css'
 import { Outlet } from "react-router-dom";
@@ -14,7 +14,6 @@ function App() {
      <Header/>
      <NavBar/>
      <Outlet/>
-      <Founder/>
      <FooterWithSocialLinks/>
     </>
   )

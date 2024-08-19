@@ -79,14 +79,14 @@ const ResponsiveDashboard = () => {
             <h1 className="text-2xl lg:text-3xl font-extrabold mb-4 lg:mb-0">
               Welcome, Anurag!
             </h1>
-            {/* <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4">
               <span className="font-medium">Anurag</span>
               <img
                 src={user}
                 alt="Profile"
                 className="rounded-full w-12 h-12 border-4 border-indigo-600"
               />
-            </div> */}
+            </div>
           </div>
           <div className="mt-4 flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-6">
             <a href="#" className="p-3 bg-blue-900 rounded-xl shadow-md text-lg hover:text-indigo-400 font-medium">
