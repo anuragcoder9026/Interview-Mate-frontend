@@ -9,7 +9,7 @@ function Header() {
       {/* <div className="  md:hidden flex bg-black justify-center px-5 py-2">
       <h1 className="text-white font-bold text-2xl font-Poppins"> Interview-Mate</h1>
       </div> */}
-    <div className=" hidden md:flex flex bg-black justify-between px-5 py-2">
+    <div className=" hidden md:flex flex bg-black justify-between pt-1 px-6">
     {/* <h1 className="text-white font-bold text-2xl font-Poppins"> Interview-Mate</h1> */}
    <div className="hidden md:flex">< SearchIcon/></div> 
     <div className="flex flex-row place-items-center gap-10 hidden md:flex"> 
