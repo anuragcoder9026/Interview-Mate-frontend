@@ -5,7 +5,7 @@ import user from "../assets/images/user.png";
 import SearchBar from "./searbar";
 import LoginPopup from "./sigin";
 import { Link } from "react-router-dom";
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 export default function NavBar() {
   const [isNavBarToggled, setIsNavBarToggled] = useState(false);
   const [isLoginPopupVisible, setIsLoginPopupVisible] = useState(false);
@@ -47,76 +47,97 @@ export default function NavBar() {
           !isNavBarToggled ? "h-0 opacity-0 " : "h-52 opacity-100"
         }`}
       >
-        <a href="#about" className="font-bold text-lg font-Poppins">
-          HOME
-        </a>
-        <a href="#schedule" className="font-bold text-lg font-Poppins">
-          DASHBOARD
-        </a>
-        <a href="#prizes" className="font-bold text-lg font-Poppins">
-          ABOUT
-        </a>
-        <a href="#rules" className="font-bold text-lg font-Poppins">
-          CONTACT
-        </a>
-        <a href="#tracks" className="font-bold text-lg font-Poppins">
-          AI
-        </a>
-        <a href="#judges" className="font-bold text-lg font-Poppins">
-          NOTES
-        </a>
-        <a href="#faq" className="font-bold text-lg font-Poppins">
-          FAQ
-        </a>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            `font-bold text-2xl font-Poppins hover:cursor-pointer ${
+              isActive ? "text-white" : "text-gray-500 hover:text-white"
+            }`
+          }
+        >
+          Home
+        </NavLink>
+
+        <NavLink
+          to="/blog"
+          className={({ isActive }) =>
+            `font-bold text-2xl font-Poppins hover:cursor-pointer ${
+              isActive ? "text-white" : "text-gray-500 hover:text-white"
+            }`
+          }
+        >
+          Blog
+        </NavLink>
+
+        <NavLink
+          to="/dashboard"
+          className={({ isActive }) =>
+            ` font-bold text-2xl font-Poppins hover:cursor-pointer ${
+              isActive ? "text-white" : "text-gray-500 hover:text-white"
+            }`
+          }
+        >
+          Dashboard
+        </NavLink>
+
+        <NavLink
+          to="/contact"
+          className={({ isActive }) =>
+            `font-bold text-2xl font-Poppins hover:cursor-pointer ${
+              isActive ? "text-white" : "text-gray-500 hover:text-white"
+            }`
+          }
+        >
+          Contact
+        </NavLink>
       </div>
       <div className="justify-between bg-black justify-items-center text-white py-2 hidden md:flex">
         <img className="px-4" src={logo} height={20} width={170} alt="Logo" />
 
         <div className="flex align-items-center justify-content-center">
-           
-<NavLink
-  to="/"
-  className={({ isActive }) =>
-    `p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer ${
-      isActive ? 'text-white' : 'text-gray-500 hover:text-white'
-    }`
-  }
->
-  Home
-</NavLink>
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              ` font-bold text-2xl font-Poppins hover:cursor-pointer ${
+                isActive ? "text-white" : "text-gray-500 hover:text-white"
+              }`
+            }
+          >
+            Home
+          </NavLink>
 
-<NavLink
-  to="/blog"
-  className={({ isActive }) =>
-    `p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer ${
-      isActive ? 'text-white' : 'text-gray-500 hover:text-white'
-    }`
-  }
->
-  Blog
-</NavLink>
+          <NavLink
+            to="/blog"
+            className={({ isActive }) =>
+              `font-bold text-2xl font-Poppins hover:cursor-pointer ${
+                isActive ? "text-white" : "text-gray-500 hover:text-white"
+              }`
+            }
+          >
+            Blog
+          </NavLink>
 
-<NavLink
-  to="/dashboard"
-  className={({ isActive }) =>
-    `p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer ${
-      isActive ? 'text-white' : 'text-gray-500 hover:text-white'
-    }`
-  }
->
-  Dashboard
-</NavLink>
+          <NavLink
+            to="/dashboard"
+            className={({ isActive }) =>
+              `p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer ${
+                isActive ? "text-white" : "text-gray-500 hover:text-white"
+              }`
+            }
+          >
+            Dashboard
+          </NavLink>
 
-<NavLink
-  to="/contact"
-  className={({ isActive }) =>
-    `p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer ${
-      isActive ? 'text-white' : 'text-gray-500 hover:text-white'
-    }`
-  }
->
-  Contact
-</NavLink>
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              `p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer ${
+                isActive ? "text-white" : "text-gray-500 hover:text-white"
+              }`
+            }
+          >
+            Contact
+          </NavLink>
 
           <div className="flex items-center pr-5">
             <img
