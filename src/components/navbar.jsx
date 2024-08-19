@@ -5,6 +5,7 @@ import user from "../assets/images/user.png";
 import SearchBar from "./searbar";
 import LoginPopup from "./sigin";
 import { Link } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 export default function NavBar() {
   const [isNavBarToggled, setIsNavBarToggled] = useState(false);
   const [isLoginPopupVisible, setIsLoginPopupVisible] = useState(false);
@@ -41,7 +42,6 @@ export default function NavBar() {
           </a>
         </div>
       </div>
-
       <div
         className={`flex md:hidden flex-col bg-black text-white pl-3.5 transition-all duration-300 ease-out ${
           !isNavBarToggled ? "h-0 opacity-0 " : "h-52 opacity-100"
@@ -69,18 +69,54 @@ export default function NavBar() {
           FAQ
         </a>
       </div>
-
       <div className="justify-between bg-black justify-items-center text-white py-2 hidden md:flex">
         <img className="px-4" src={logo} height={20} width={170} alt="Logo" />
 
         <div className="flex align-items-center justify-content-center">
-        <Link to="/" className="p-4 rounded-2xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins">Home</Link>
+           
+<NavLink
+  to="/"
+  className={({ isActive }) =>
+    `p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer ${
+      isActive ? 'text-white' : 'text-gray-500 hover:text-white'
+    }`
+  }
+>
+  Home
+</NavLink>
 
-        <Link to="" className="p-4 rounded-2xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins">Blog</Link>
+<NavLink
+  to="/blog"
+  className={({ isActive }) =>
+    `p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer ${
+      isActive ? 'text-white' : 'text-gray-500 hover:text-white'
+    }`
+  }
+>
+  Blog
+</NavLink>
 
-        <Link to="/dashboard" className="p-4 rounded-2xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins">Dashboard</Link>
+<NavLink
+  to="/dashboard"
+  className={({ isActive }) =>
+    `p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer ${
+      isActive ? 'text-white' : 'text-gray-500 hover:text-white'
+    }`
+  }
+>
+  Dashboard
+</NavLink>
 
-        <Link to="" className="p-4 rounded-2xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins">Contact</Link>
+<NavLink
+  to="/contact"
+  className={({ isActive }) =>
+    `p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer ${
+      isActive ? 'text-white' : 'text-gray-500 hover:text-white'
+    }`
+  }
+>
+  Contact
+</NavLink>
 
           <div className="flex items-center pr-5">
             <img
@@ -93,8 +129,8 @@ export default function NavBar() {
           </div>
         </div>
       </div>
-
-      {isLoginPopupVisible && <LoginPopup onClose={handleClosePopup} />} {/* Conditionally render the login popup */}
+      {isLoginPopupVisible && <LoginPopup onClose={handleClosePopup} />}{" "}
+      {/* Conditionally render the login popup */}
     </>
   );
 }

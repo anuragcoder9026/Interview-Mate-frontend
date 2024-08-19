@@ -15,6 +15,7 @@ module.exports = {
         black: "#1F1F1F",
         lightblue: "#5C40EC",
         pastelBlue: "#90A8ED",
+        custom: '#D9D9D9',
       },
       fontFamily: {
         "Space-Grotesk": ["Space Grotesk", "sans-serif"],
