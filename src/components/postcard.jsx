@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { BiSolidLike } from "react-icons/bi";
-import { FaRegComment, FaShareAlt } from "react-icons/fa";
+import { FaRegComment } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
-import toast, { Toaster } from 'react-hot-toast';
 
+import toast, { Toaster } from 'react-hot-toast';
 function CustomCard() {
   const [showCommentBox, setShowCommentBox] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [showShareOptions, setShowShareOptions] = useState(false);
 
   const handleCommentBox = () => {
     setShowCommentBox(!showCommentBox);
@@ -22,14 +21,10 @@ function CustomCard() {
     }, 2000);
   };
 
-  const toggleShareOptions = () => {
-    setShowShareOptions(!showShareOptions);
-  };
-
   return (
     <div className="relative w-96">
       <div
-        className={`relative flex flex-col text-black bg-custom shadow-md border border-none bg-clip-border rounded-xl p-2 sm:p-4 sm:pt-5 transition-all duration-300 ${
+        className={`relative flex flex-col text-white bg-gray-800 shadow-md border border-gray-400 bg-clip-border rounded-xl p-2 sm:p-4 sm:pt-5 transition-all duration-300 ${
           showCommentBox ? "z-10 opacity-80" : "z-20 opacity-100"
         }`}
       >
@@ -40,36 +35,31 @@ function CustomCard() {
             className="object-cover w-full h-full"
           />
         </div>
-        <div className="p-3 sm:p-6">
+        <div className=" p-3 sm:p-6">
           <h5 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
             UI/UX Review Check
           </h5>
           <p className="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
             The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main nightlife in Barcelona
-            <span className="pl-2 text-blue">Read more..</span>
           </p>
         </div>
-        <div className="flex pr-0 p-4 sm:p-6 pt-0 justify-between items-center">
-          <div className="flex items-center">
+        <div className="flex pr-0 p-4 sm:p-6 pt-0 justify-between">
+          <div className="flex items-center justify-center">
+            <button className="bg-blue p-2 py-1 sm:p-2 sm:px-3 " type="button">
+              Read More
+            </button>
             <BiSolidLike className="text-2xl sm:text-3xl mx-3" />
             <p className="mt-1">238</p>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center float-left mr-3">
             <FaRegComment
               className="text-1xl sm:text-2xl mt-1 cursor-pointer"
               onClick={handleCommentBox}
             />
           </div>
-          <div
-            className="p-4 cursor-pointer text-gray-700 hover:text-gray-900"
-            onClick={toggleShareOptions}
-          >
-            <FaShareAlt className="text-xl" />
-          </div>
         </div>
       </div>
 
-      {/* Comment Box */}
       {showCommentBox && (
         <div
           className={`absolute bottom-0 left-0 z-30 flex flex-col p-4 bg-gray-700 bg-opacity-95 rounded-b-lg w-full transform transition-transform duration-300 ease-in-out ${
@@ -89,43 +79,22 @@ function CustomCard() {
             placeholder="Write a comment..."
           />
           <button
-            className="self-end bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700"
+            className="self-end bg-blue-600 text-white p-2 rounded-md hover:bg-blue"
             type="button"
             onClick={handleSubmit}
           >
             {loading ? (
-              <div>Submitting....</div> 
+              <div > submitting....</div> 
             ) : (
               "Submit"
             )}
           </button>
         </div>
       )}
-
-      {/* Share Options Slider */}
-      {showShareOptions && (
-        <div
-          className="absolute right-0 top-full mt-2 p-4 bg-white border rounded-lg shadow-lg flex flex-col items-start space-y-2 z-40"
-        >
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800">
-            <FaShareAlt className="text-xl mr-2" /> Facebook
-          </a>
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-600">
-            <FaShareAlt className="text-xl mr-2" /> Twitter
-          </a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-pink-500 hover:text-pink-700">
-            <FaShareAlt className="text-xl mr-2" /> Instagram
-          </a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:text-blue-900">
-            <FaShareAlt className="text-xl mr-2" /> LinkedIn
-          </a>
-        </div>
-      )}
-
       <Toaster
-        position="top-center"
-        reverseOrder={false}
-      />
+  position="top-center"
+  reverseOrder={false}
+/>
     </div>
   );
 }
