@@ -43,14 +43,14 @@ export default function NavBar() {
         </div>
       </div>
       <div
-        className={`flex md:hidden flex-col bg-black text-white pl-3.5 transition-all duration-300 ease-out ${
-          !isNavBarToggled ? "h-0 opacity-0 " : "h-52 opacity-100"
+        className={`flex md:hidden flex-col bg-black text-white  pl-4 transition-all duration-300 ease-out ${
+          !isNavBarToggled ? "h-0 opacity-0 " : "pt-3  h-32 opacity-100"
         }`}
       >
         <NavLink
           to="/"
           className={({ isActive }) =>
-            `font-bold text-2xl font-Poppins hover:cursor-pointer ${
+            `font-bold text-1xl font-Poppins hover:cursor-pointer ${
               isActive ? "text-white" : "text-gray-500 hover:text-white"
             }`
           }
@@ -61,7 +61,7 @@ export default function NavBar() {
         <NavLink
           to="/blog"
           className={({ isActive }) =>
-            `font-bold text-2xl font-Poppins hover:cursor-pointer ${
+            `font-bold text-1xl font-Poppins hover:cursor-pointer ${
               isActive ? "text-white" : "text-gray-500 hover:text-white"
             }`
           }
@@ -72,7 +72,7 @@ export default function NavBar() {
         <NavLink
           to="/dashboard"
           className={({ isActive }) =>
-            ` font-bold text-2xl font-Poppins hover:cursor-pointer ${
+            ` font-bold text-1xl font-Poppins hover:cursor-pointer ${
               isActive ? "text-white" : "text-gray-500 hover:text-white"
             }`
           }
@@ -83,7 +83,7 @@ export default function NavBar() {
         <NavLink
           to="/contact"
           className={({ isActive }) =>
-            `font-bold text-2xl font-Poppins hover:cursor-pointer ${
+            `font-bold text-1xl font-Poppins hover:cursor-pointer ${
               isActive ? "text-white" : "text-gray-500 hover:text-white"
             }`
           }
