@@ -36,7 +36,7 @@ function CustomCard() {
   };
 
   return (
-    <div className="relative w-96 border border-gray-300 rounded-lg shadow-lg p-4 bg-white">
+    <div className="relative w-96 border border-gray-300 rounded-lg shadow-lg p-4 bg-custom">
       {/* Profile Header */}
       <div className="flex items-center w-full">
         <img className="w-12 h-12 rounded-full bg-gray-400 mr-3" src={user} alt="User" />
