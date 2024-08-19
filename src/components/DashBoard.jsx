@@ -167,9 +167,9 @@ const ResponsiveDashboard = () => {
             <div className="bg-gray-800 p-4 lg:p-6 rounded-lg shadow-lg">
               <h3 className="text-lg lg:text-xl font-bold text-indigo-400 mb-4">Recent Interviews</h3>
               <ul>
-              <li className="flex mb-2"><span className="font-bold text-green-400 mr-3">Interview 1</span><ScrollChart value={9*10} color={'red'}/> 9/10</li>
-                <li className="flex mb-2"><span className="font-bold text-green-400 mr-3">Interview 2</span><ScrollChart value={7*10} color={'yellow'}/> 7/10</li>
-                <li className="flex"><span className="font-bold text-green-400 mr-3">Interview 3</span><ScrollChart value={8*10} color={'violet'}/> 8/10</li>
+              <li className="flex mb-2 w-full"><span className="font-bold text-sm text-green-400 mr-3">Interview 1</span><ScrollChart value={9*10} color={'red'}/> 9/10</li>
+                <li className="flex mb-2 w-full"><span className="font-bold text-sm text-green-400 mr-3">Interview 2</span><ScrollChart value={7*10} color={'yellow'}/> 7/10</li>
+                <li className="flex w-full"><span className="font-bold text-sm text-green-400 mr-3">Interview 3</span><ScrollChart value={8*10} color={'violet'}/> 8/10</li>
               </ul>
             </div>
           </div>
