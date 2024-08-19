@@ -4,6 +4,7 @@ import logo from "../assets/images/logo.png";
 import user from "../assets/images/user.png";
 import SearchBar from "./searbar";
 import LoginPopup from "./sigin";
+import { Link } from "react-router-dom";
 export default function NavBar() {
   const [isNavBarToggled, setIsNavBarToggled] = useState(false);
   const [isLoginPopupVisible, setIsLoginPopupVisible] = useState(false);
@@ -43,7 +44,7 @@ export default function NavBar() {
 
       <div
         className={`flex md:hidden flex-col bg-black text-white pl-3.5 transition-all duration-300 ease-out ${
-          !isNavBarToggled ? "h-0" : "h-52"
+          !isNavBarToggled ? "h-0 opacity-0 " : "h-52 opacity-100"
         }`}
       >
         <a href="#about" className="font-bold text-lg font-Poppins">
@@ -73,30 +74,13 @@ export default function NavBar() {
         <img className="px-4" src={logo} height={20} width={170} alt="Logo" />
 
         <div className="flex align-items-center justify-content-center">
-          <a
-            href="#rules"
-            className="p-4 rounded-2xl place-items-center hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins"
-          >
-            Home
-          </a>
-          <a
-            href="#tracks"
-            className="p-4 rounded-2xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins"
-          >
-            Blog
-          </a>
-          <a
-            href="#judges"
-            className="p-4 rounded-2xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins"
-          >
-            About
-          </a>
-          <a
-            href="#faq"
-            className="p-4 rounded-2xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins"
-          >
-            Contact
-          </a>
+        <Link to="/" className="p-4 rounded-2xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins">Home</Link>
+
+        <Link to="" className="p-4 rounded-2xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins">Blog</Link>
+
+        <Link to="/dashboard" className="p-4 rounded-2xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins">Dashboard</Link>
+
+        <Link to="" className="p-4 rounded-2xl hover:bg-white hover:text-black hover:cursor-pointer font-bold text-2xl font-Poppins">Contact</Link>
 
           <div className="flex items-center pr-5">
             <img

@@ -2,13 +2,21 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
-
+import {createBrowserRouter,RouterProvider} from "react-router-dom";
+import DashBoard from './components/DashBoard.jsx';
+import CardGrid from './components/homearrangecard.jsx';
+const router=createBrowserRouter([
+  {
+  path:"/",
+  element:<App />,
+  children:[
+  {path:"/",element:<CardGrid/> },  
+  {path:"/dashboard",element:<DashBoard/> },
+  ]
+  }
+  ]);
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-  <Router>
-    <App />
-  </Router>
+  <RouterProvider router={router}/>
 </StrictMode>,
 )
