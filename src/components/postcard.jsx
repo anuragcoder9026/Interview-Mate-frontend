@@ -24,7 +24,7 @@ function CustomCard() {
   return (
     <div className="relative w-96">
       <div
-        className={`relative flex flex-col text-white bg-gray-800 shadow-md border border-gray-400 bg-clip-border rounded-xl p-2 sm:p-4 sm:pt-5 transition-all duration-300 ${
+        className={`relative flex flex-col text-black bg-custom shadow-md border border-none bg-clip-border rounded-xl p-2 sm:p-4 sm:pt-5 transition-all duration-300 ${
           showCommentBox ? "z-10 opacity-80" : "z-20 opacity-100"
         }`}
       >
