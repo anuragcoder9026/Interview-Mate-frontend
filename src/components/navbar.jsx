@@ -98,7 +98,7 @@ export default function NavBar() {
           <NavLink
             to="/"
             className={({ isActive }) =>
-              ` font-bold text-2xl font-Poppins hover:cursor-pointer ${
+              `p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer ${
                 isActive ? "text-white" : "text-gray-500 hover:text-white"
               }`
             }
@@ -109,7 +109,7 @@ export default function NavBar() {
           <NavLink
             to="/blog"
             className={({ isActive }) =>
-              `font-bold text-2xl font-Poppins hover:cursor-pointer ${
+              ` p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer ${
                 isActive ? "text-white" : "text-gray-500 hover:text-white"
               }`
             }
