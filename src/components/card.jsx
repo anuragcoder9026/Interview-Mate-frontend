@@ -2,12 +2,12 @@ import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
 
-function Card({url}) {
+function Card() {
   return (
-    <div className="flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96 p-1">
+    <div className="relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96 ">
       <div className="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white shadow-lg bg-clip-border rounded-xl h-80">
         <img
-          src={url}
+          src="https://docs.material-tailwind.com/img/team-3.jpg"
           alt="profile-picture"
           className="object-cover w-full h-full"
         />
