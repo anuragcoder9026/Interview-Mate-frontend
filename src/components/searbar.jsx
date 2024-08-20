@@ -14,7 +14,6 @@ const SearchBar = () => {
         if (searchTerm.trim()) {
             const url = `https://www.google.com/search?q=${encodeURIComponent(searchTerm)}`;
             window.location.href = url;
-            setIsExpanded(false); // Shrink after taking input
         }
     };
 
