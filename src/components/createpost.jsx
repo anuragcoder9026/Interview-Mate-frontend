@@ -74,7 +74,7 @@ const CreatePost = () => {
               <div className="p-5">
                 <div className="text-center">
                   <p className="mb-3 text-2xl font-semibold text-slate-900">
-                    Create a Post
+                    Create a Post 
                   </p>
                   <p className="mt-2 text-sm text-slate-600">
                     Share your thoughts with others.
