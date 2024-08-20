@@ -8,6 +8,7 @@ const ProfileSection = () => {
   const [isAboutExpanded, setAboutExpanded] = useState(false);
   const [isExperienceExpanded, setExperienceExpanded] = useState(false);
   const [isSkillsExpanded, setSkillsExpanded] = useState(false);
+  const [isFollow,setFollow]=useState(true);
   const followers = [
     { id: 1, src: "path/to/follower1.png" },
     { id: 2, src: "path/to/follower2.png" },
@@ -79,9 +80,10 @@ const ProfileSection = () => {
           <div className="mt-4 flex flex-wrap space-x-2 sm:space-x-4">
             <p
               className="px-4 py-1.5 text-white  bg-blue mb-2 hover:cursor-pointer"
-              style={{ borderRadius: "18px" }}
+              style={{ borderRadius: "18px" }} onClick={()=>setFollow(!isFollow)}
             >
-              Follow +{" "}
+                {isFollow?"Follow+ ":"✓ Following"}
+              
             </p>
             <p
               className="hidden sm:block px-4 py-1.5 bg-gray-200 text-blue border border-blue font-semibold  hover:bg-gray-300 mb-2 hover:cursor-pointer"

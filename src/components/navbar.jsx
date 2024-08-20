@@ -20,20 +20,20 @@ export default function NavBar() {
 
   return (
     <>
-      <div className="flex justify-between p-4 pl-2 pr-2 md:hidden bg-black text-white">
+      <div className="flex justify-between p-1 sm:p-4 pl-1 pr-2 md:hidden bg-black text-white">
         <FaBars
-          className="pl-2 mt-2 size-8"
+          className="pl-1 mt-3.5 size-8"
           onClick={() => setIsNavBarToggled(!isNavBarToggled)}
         />
 
-        <div className="flex justify-center px-2 sm:px-5 py-2">
+        <div className="flex justify-center px-2 sm:px-5 py-2 ">
           <SearchBar />
         </div>
 
-        <div className="flex items-center pr-5">
+        <div className="flex items-center pr-2">
           <a id="brand" className="flex items-center">
             <img
-              className="flex mr-1 w-10 h-10 p-0 rounded-full ring-2 ring-white"
+              className="flex mr-0 w-10 h-10 p-0 rounded-full ring-2 ring-white"
               src={user}
               alt="Profile"
               onClick={handleProfileClick} // Trigger the popup on click

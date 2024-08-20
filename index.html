@@ -12,11 +12,7 @@
             .slice(1)
             .split("&")
             .map(function (s) {
-<<<<<<< HEAD
               return s.replace(/~and~/g, "&");
-=======
-              return s.replace(/and/g, "&");
->>>>>>> 17d66f63c4e049b86704eed16e8a22453c05a662
             })
             .join("?");
           window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
