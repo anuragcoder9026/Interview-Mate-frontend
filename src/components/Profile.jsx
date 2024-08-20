@@ -33,7 +33,7 @@ const ProfileSection = () => {
                 <div className="absolute bottom-[-50px] left-6  w-32 h-32 rounded-full bg-white p-2 shadow-md">
                     <img
                         className="w-full h-full rounded-full object-cover"
-                        src={user}
+                        src="https://c4.wallpaperflare.com/wallpaper/383/633/300/sybil-kailena-davina-e-sybille-y-sybil-a-hd-wallpaper-preview.jpg"
                         alt="User Profile"
                     />
                 </div>
