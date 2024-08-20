@@ -20,24 +20,24 @@ const ProfileSection = () => {
     setActiveTab(tab);
   };
 
-  return (
-    <div className="flex flex-col items-center w-full bg-slate-200 p-2">
-      {/* Profile Header Section */}
-      <div className=" w-full max-w-4xl bg-white pb-5 rounded-lg">
-        <div className="relative w-full bg-blue-700 h-48 rounded-lg mb-12 bg-white">
-          <img
-            className="w-full h-full object-cover"
-            src="https://images.unsplash.com/photo-1568605114967-8130f3a36994"
-            alt="Background"
-          />
-          <div className="absolute bottom-[-50px] left-6  w-32 h-32 rounded-full bg-white p-2 shadow-md">
-            <img
-              className="w-full h-full rounded-full object-cover"
-              src="https://c4.wallpaperflare.com/wallpaper/383/633/300/sybil-kailena-davina-e-sybille-y-sybil-a-hd-wallpaper-preview.jpg"
-              alt="User Profile"
-            />
-          </div>
-        </div>
+    return (
+        <div className="flex flex-col items-center w-full bg-slate-200 p-2">
+            {/* Profile Header Section */}
+            <div className=' w-full max-w-4xl bg-white pb-5 rounded-lg'>
+            <div className="relative w-full bg-blue-700 h-48 rounded-lg mb-12 bg-white">
+                <img
+                    className="w-full h-full object-cover"
+                    src="https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+                    alt="Background"
+                />
+                <div className="absolute bottom-[-50px] left-6  w-32 h-32 rounded-full bg-white p-2 shadow-md">
+                    <img
+                        className="w-full h-full rounded-full object-cover"
+                        src={user}
+                        alt="User Profile"
+                    />
+                </div>
+            </div>
 
         {/* User Details */}
         <div className="flex flex-col justify-center  mt-16 ml-6 mr-2">
