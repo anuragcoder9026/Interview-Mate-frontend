@@ -21,7 +21,7 @@ const ProfileSection = () => {
   };
 
     return (
-        <div className="flex flex-col items-center w-full bg-slate-200 p-2">
+        <div className="animate-slideUp flex flex-col items-center w-full bg-slate-200 p-2">
             {/* Profile Header Section */}
             <div className=' w-full max-w-4xl bg-white pb-5 rounded-lg'>
             <div className="relative w-full bg-blue-700 h-48 rounded-lg mb-12 bg-white">
