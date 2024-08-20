@@ -5,6 +5,7 @@ import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import DashBoard from './components/DashBoard.jsx';
 import CardGrid from './components/homearrangecard.jsx';
+import ProfileSection from './components/Profile.jsx';
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <CardGrid /> },
       { path: '/dashboard', element: <DashBoard /> },
+      { path: '/profile', element: <ProfileSection/> },
     ],
   },
 ], {
