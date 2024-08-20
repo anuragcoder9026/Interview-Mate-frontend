@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const SearchBar = () => {
     const [isExpanded, setIsExpanded] = useState(false);
+    const inputRef = useRef(null);
 
     const handleResize = () => {
         if (window.innerWidth >= 768) {
@@ -26,6 +27,11 @@ const SearchBar = () => {
     const handleClick = () => {
         if (window.innerWidth < 768) { // Only toggle on small screens
             setIsExpanded(!isExpanded);
+            if (!isExpanded) {
+                setTimeout(() => inputRef.current.focus(), 300); // Focus input after expanding
+            } else {
+                inputRef.current.blur(); // Blur input when collapsing
+            }
         }
     };
 
@@ -56,6 +62,7 @@ const SearchBar = () => {
             >
                 <input
                     type="text"
+                    ref={inputRef}
                     placeholder="Search..."
                     value={searchTerm}
                     onChange={handleInputChange}
