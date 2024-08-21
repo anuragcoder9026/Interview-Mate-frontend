@@ -25,11 +25,11 @@ const SearchBar = () => {
     };
 
     return (
-        <div className="relative">
+        <div className="relative w-full">
             <div
                 className={`flex items-center transition-all duration-300 ease-in-out ${
-                    isExpanded ? 'w-48 bg-slate-800' : 'w-12 bg-gray-700'
-                } rounded-full`}
+                    isExpanded ? 'w-48' : 'w-12'
+                } ${isExpanded ? 'bg-black' : 'bg-gray-700 '} rounded-full`}
             >
                 <input
                     type="text"
