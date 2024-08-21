@@ -8,6 +8,7 @@ import CardGrid from './components/homearrangecard.jsx';
 import ProfileSection from './components/Profile.jsx';
 import SignUpForm from './components/singup.jsx';
 import Home from './components/home.jsx';
+import QuizApp from './components/QuizApp.jsx';
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,8 @@ const router = createBrowserRouter([
       { path: '/', element: <Home/> },
       { path: '/dashboard', element: <DashBoard /> },
       { path: '/profile', element: <ProfileSection/> },
-      {path : '/signup', element :<SignUpForm/>}
+      {path : '/signup', element :<SignUpForm/>},
+      {path : '/quiz', element :<QuizApp/>  }
     ],
   },
 ], {
