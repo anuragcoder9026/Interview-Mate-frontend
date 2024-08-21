@@ -125,8 +125,9 @@ const LoginPopup = ({ onClose }) => {
 
             <div className="mt-6 text-center text-sm text-slate-600">
               Don't have an account?
-              <Link to="/signup" className="font-medium text-[#4285f4]">
+              <Link to="/signup" className="font-medium text-[#4285f4] " onClick={onClose}  >
           Sign up
+          
         </Link>
             </div>
           </div>
