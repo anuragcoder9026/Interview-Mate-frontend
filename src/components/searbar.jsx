@@ -29,7 +29,7 @@ const SearchBar = () => {
             <div
                 className={`flex items-center transition-all duration-300 ease-in-out ${
                     isExpanded ? 'w-48' : 'w-12'
-                } ${isExpanded ? 'bg-black' : 'bg-gray-700 '} rounded-full`}
+                } ${isExpanded ? 'bg-gray-800' : 'bg-gray-700 '} rounded-full`}
             >
                 <input
                     type="text"
