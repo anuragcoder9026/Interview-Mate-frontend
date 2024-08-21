@@ -63,7 +63,7 @@ const CreatePost = () => {
 
         {isPopupOpen && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-            <div className="relative w-full max-w-md sm:max-w-lg md:max-w-3xl p-4 bg-white rounded-lg shadow-lg">
+            <div className="relative w-full m-2 max-w-md sm:max-w-lg md:max-w-3xl p-1 sm:p-4 bg-white rounded-lg shadow-lg">
               <button
                 className="absolute top-3 right-3 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-full p-2"
                 onClick={handleClosePopup}
@@ -71,7 +71,7 @@ const CreatePost = () => {
                 <MdClose className="w-6 h-6" />
                 <span className="sr-only">Close popup</span>
               </button>
-              <div className="p-5">
+              <div className="p-1 sm:p-5">
                 <div className="text-center">
                   <p className="mb-3 text-2xl font-semibold text-slate-900">
                     Create a Post 
@@ -80,13 +80,15 @@ const CreatePost = () => {
                     Share your thoughts with others.
                   </p>
                 </div>
-                <ReactQuill
+               <div className="flex p-0.5  mb-20 sm:mb-12">
+               <ReactQuill
                   value={postContent}
                   onChange={setPostContent}
                   className="w-full h-64 mt-4"
                   placeholder="What's on your mind?"
                 />
-                <div className="flex justify-end mt-12 space-x-4 ">
+               </div>
+                <div className="flex mb-2 justify-end space-x-4 ">
                   <button
                     className="px-4 py-2 text-white bg-blue rounded-full text-sm md:text-base flex items-center"
                     onClick={handlePost}
