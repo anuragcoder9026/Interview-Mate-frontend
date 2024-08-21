@@ -9,6 +9,7 @@ import ProfileSection from './components/Profile.jsx';
 import SignUpForm from './components/singup.jsx';
 import Home from './components/home.jsx';
 import QuizApp from './components/QuizApp.jsx';
+import PostDetail from './components/postdetails.jsx';
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,8 @@ const router = createBrowserRouter([
       { path: '/dashboard', element: <DashBoard /> },
       { path: '/profile', element: <ProfileSection/> },
       {path : '/signup', element :<SignUpForm/>},
-      {path : '/quiz', element :<QuizApp/>  }
+      {path : '/quiz', element :<QuizApp/>  },
+      {path :'/post' ,element :<PostDetail />}
     ],
   },
 ], {

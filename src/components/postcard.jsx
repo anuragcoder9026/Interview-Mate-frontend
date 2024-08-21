@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { BiSolidLike } from "react-icons/bi";
-import { FaRegComment } from "react-icons/fa6";
+import { FaRegComment } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import toast, { Toaster } from 'react-hot-toast';
 import Sparkle from 'react-sparkle';
 import user from "../assets/images/user.png";
+import { Link } from "react-router-dom";
 
-function CustomCard({url}) {
+function CustomCard({ url }) {
   const [showCommentBox, setShowCommentBox] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
   const [showSparkle, setShowSparkle] = useState(false);
-  const [liked,setLiked]=useState(false);
+  const [liked, setLiked] = useState(false);
+
   const handleCommentBox = () => {
     setShowCommentBox(!showCommentBox);
   };
@@ -19,7 +21,7 @@ function CustomCard({url}) {
   const handleSubmit = () => {
     setLoading(true);
     setTimeout(() => {
-      toast.success('Successfully Commented');
+      toast.success('Comment submitted successfully!');
       setLoading(false);
       setShowCommentBox(false);
     }, 2000);
@@ -32,57 +34,57 @@ function CustomCard({url}) {
   const handleLikeClick = () => {
     setShowSparkle(true);
     setLiked(!liked);
-    setTimeout(() => setShowSparkle(false), 2000); // Sparkle effect disappears after 2 seconds
+    setTimeout(() => setShowSparkle(false), 2000);
   };
 
   return (
-    <div className="relative w-96 border border-gray-300 rounded-lg shadow-lg p-4 bg-custom">
+    <div className="relative w-full max-w-4xl mx-auto bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 mt-5">
       {/* Profile Header */}
-      <div className="flex items-center w-full">
-        <img className="w-12 h-12 rounded-full bg-gray-400 mr-3" src={user} alt="User" />
-        <div className="flex p-2 flex-col w-full">
-          <div className="flex justify-between">
-            <h4 className="text-lg font-semibold">Anurag Singh</h4>
-            <button
-              className={`text-sm font-semibold ${isFollowing ? "text-gray-500" : "text-blue-500"}`}
-              onClick={toggleFollow}
-            >
-              {isFollowing ? "Following" : "Follow +"}
-            </button>
-          </div>
+      <div className="flex items-center p-4 border-b border-gray-200">
+        <img className="w-14 h-14 rounded-full mr-4" src={user} alt="User" />
+        <div>
+          <h4 className="text-lg font-semibold">Anurag Singh</h4>
           <p className="text-sm text-gray-600">4th year student at NIT Jalandhar</p>
         </div>
+        <button
+          className={`ml-auto text-sm font-semibold ${isFollowing ? "text-gray-500" : "text-blue-500"}`}
+          onClick={toggleFollow}
+        >
+          {isFollowing ? "Following" : "Follow +"}
+        </button>
       </div>
 
       {/* Post Date */}
-      <p className="text-sm text-gray-500 mt-3">posted on 18 aug 2024</p>
+      <p className="text-sm text-gray-500 px-4 py-2">Posted on 18 Aug 2024</p>
 
       {/* Image Section */}
-      <div className="w-full h-48 bg-gray-400 mt-3 rounded-lg">
-        <img className="h-full w-full" src={url} alt="" />
+      <div className="w-full bg-gray-100">
+        <img className="w-full h-96 object-cover" src={url} alt="Post" />
       </div>
-
+      
       {/* Description Section */}
-      <div className="mt-3">
-        <p className="text-sm text-gray-800">
-          🌱 <span className="font-semibold">Learning Experience:</span> Working on this project was an incredible journey of discovery and growth. I delved deep into full-stack development, learning how to integrate various technologies to create a cohesive and best........
-          <span className="text-blue ml-1 cursor-pointer hover:underline">Read More</span>
+      <div className="px-4 py-3">
+        <p className="text-base text-gray-800">
+          🌱 <span className="font-semibold">Learning Experience:</span> Working on this project was an incredible journey of discovery and growth. I delved deep into full-stack development, learning how to integrate various technologies to create a cohesive and best...
+          <Link to={`/post`} className="text-blue ml-1 cursor-pointer hover:underline">
+            Read More
+          </Link>
         </p>
       </div>
 
       {/* Like and Comment Section */}
-      <div className="flex justify-between items-center mt-3">
+      <div className="flex justify-between items-center px-4 py-2 border-t border-gray-200">
         <p className="text-sm text-gray-600">Liked by alok and 18 others</p>
         <p className="text-sm text-gray-600">18 comments</p>
       </div>
       
       {/* Action Buttons */}
-      <div className="flex justify-between items-center mt-3 pt-2 border-t border-gray-300">
+      <div className="flex justify-between items-center px-4 py-2 border-t border-gray-200 bg-gray-50">
         <button 
-          className="relative flex items-center space-x-1 text-gray-600"
+          className="flex items-center text-gray-600 hover:text-blue"
           onClick={handleLikeClick}
         >
-          {showSparkle && liked &&  (
+          {showSparkle && liked && (
             <Sparkle 
               color="blue" 
               count={30} 
@@ -92,53 +94,45 @@ function CustomCard({url}) {
               fadeOutSpeed={15} 
             />
           )}
-          <BiSolidLike className="text-2xl"  style={{color:`${liked?'blue':'grey'}`}}/>
-          <span>Like</span>
+          <BiSolidLike className="text-2xl" style={{ color: `${liked ? 'blue' : 'grey'}` }} />
+          <span className="ml-2">Like</span>
         </button>
         <button 
-          className="flex items-center space-x-1 text-gray-600 cursor-pointer"
+          className="flex items-center text-gray-600 hover:text-blue"
           onClick={handleCommentBox}
         >
-          <FaRegComment className="text-2xl"/>
-          <span>Comment</span>
+          <FaRegComment className="text-xl" />
+          <span className="ml-2">Comment</span>
         </button>
       </div>
 
+      {/* Comment Box */}
       {showCommentBox && (
         <div
-          className={`absolute bottom-0 left-0 z-30 flex flex-col p-4 bg-gray-700 bg-opacity-95 rounded-b-lg w-full transform transition-transform duration-300 ease-in-out ${
-            showCommentBox ? "translate-y-0" : "translate-y-full"
-          }`}
+          className="absolute bottom-0 left-0 z-30 w-full bg-white border-t border-gray-200 shadow-lg p-4"
         >
           <div className="flex justify-between items-center">
-            <p className="text-lg font-semibold text-white">Add a comment</p>
+            <p className="text-lg font-semibold">Add a comment</p>
             <IoClose
-              style={{ color: "white" }}
               className="text-2xl cursor-pointer"
               onClick={handleCommentBox}
             />
           </div>
           <textarea
-            className="w-full p-2 my-2 text-gray-800 rounded-md resize-none focus:outline-none border-none"
+            className="w-full p-2 my-2 border rounded-md resize-none focus:outline-none"
             placeholder="Write a comment..."
           />
           <button
-            className="self-end bg-blue-600 text-white p-2 rounded-md hover:bg-blue"
+            className="self-end bg-blue text-white p-2 rounded-md hover:bg-blue-700"
             type="button"
             onClick={handleSubmit}
           >
-            {loading ? (
-              <div> submitting....</div> 
-            ) : (
-              "Submit"
-            )}
+            {loading ? "Submitting..." : "Submit"}
           </button>
         </div>
       )}
-      <Toaster
-        position="top-center"
-        reverseOrder={false}
-      />
+
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 }
