@@ -61,7 +61,7 @@ export default function NavBar() {
 </NavLink>
 
 <NavLink
-  to="/blog"
+  to="/quiz"
   className={({ isActive }) =>
     `font-bold text-xl font-Poppins hover:cursor-pointer ${
       isActive ? "text-white" : "text-gray-500 hover:text-white"
@@ -69,7 +69,7 @@ export default function NavBar() {
   }
   onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
 >
-  Blog
+  Quiz
 </NavLink>
 
 <NavLink
@@ -113,14 +113,14 @@ export default function NavBar() {
           </NavLink>
 
           <NavLink
-            to="/blog"
+            to="/quiz"
             className={({ isActive }) =>
               ` p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer ${
                 isActive ? "text-white" : "text-zinc-400 hover:text-white"
               }`
             }
           >
-            Blog
+            Quiz
           </NavLink>
 
           <NavLink
