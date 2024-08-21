@@ -1,4 +1,7 @@
 import React from 'react';
+import SignUpForm from './singup';
+import { Link } from "react-router-dom";
+
 
 const LoginPopup = ({ onClose }) => {
   return (
@@ -122,9 +125,9 @@ const LoginPopup = ({ onClose }) => {
 
             <div className="mt-6 text-center text-sm text-slate-600">
               Don't have an account?
-              <a href="/signup" className="font-medium text-[#4285f4]">
-                Sign up
-              </a>
+              <Link to="/signup" className="font-medium text-[#4285f4]">
+          Sign up
+        </Link>
             </div>
           </div>
         </div>

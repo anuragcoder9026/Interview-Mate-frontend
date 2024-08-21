@@ -14,7 +14,6 @@ function App() {
     <>
      <Header/>
      <NavBar/>
-     <CreatePost/>
      <Outlet/>
      <FooterWithSocialLinks/>
     </>
