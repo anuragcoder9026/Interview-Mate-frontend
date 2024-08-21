@@ -6,7 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import Sparkle from 'react-sparkle';
 import user from "../assets/images/user.png";
 
-function CustomCard() {
+function CustomCard({url}) {
   const [showCommentBox, setShowCommentBox] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
@@ -59,7 +59,7 @@ function CustomCard() {
 
       {/* Image Section */}
       <div className="w-full h-48 bg-gray-400 mt-3 rounded-lg">
-        <img className="h-full w-full" src="https://images.unsplash.com/photo-1540553016722-983e48a2cd10" alt="" />
+        <img className="h-full w-full" src={url} alt="" />
       </div>
 
       {/* Description Section */}
