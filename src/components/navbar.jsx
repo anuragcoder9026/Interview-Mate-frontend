@@ -20,85 +20,85 @@ export default function NavBar() {
 
   return (
     <>
-     <div className="flex justify-between p-4 pl-2 pr-2 md:hidden bg-black text-white">
-  <FaBars
-    className="pl-2 mt-2 size-8"
-    onClick={() => setIsNavBarToggled(!isNavBarToggled)}
-  />
+      <div className="flex justify-between p-4 pl-2 pr-2 md:hidden bg-black text-white">
+        <FaBars
+          className="pl-2 mt-2 size-8"
+          onClick={() => setIsNavBarToggled(!isNavBarToggled)}
+        />
 
-  <div className="flex justify-center px-2 sm:px-5 py-2">
-    <SearchBar />
-  </div>
+        <div className="flex justify-center px-2 sm:px-5 py-2">
+          <SearchBar />
+        </div>
 
-  <div className="flex items-center pr-5">
-    <a id="brand" className="flex items-center">
-      <img
-        className="flex mr-1 w-10 h-10 p-0 rounded-full ring-2 ring-white"
-        src={user}
-        alt="Profile"
-        onClick={handleProfileClick} // Trigger the popup on click
-        style={{ cursor: "pointer" }} // Add a pointer cursor to indicate it's clickable
-      />
-    </a>
-  </div>
-</div>
+        <div className="flex items-center pr-5">
+          <a id="brand" className="flex items-center">
+            <img
+              className="flex mr-1 w-10 h-10 p-0 rounded-full ring-2 ring-white"
+              src={user}
+              alt="Profile"
+              onClick={handleProfileClick} // Trigger the popup on click
+              style={{ cursor: "pointer" }} // Add a pointer cursor to indicate it's clickable
+            />
+          </a>
+        </div>
+      </div>
+      <div
+        className={`flex md:hidden flex-col bg-black text-white pl-4 transition-all duration-300 ease-out ${
+          !isNavBarToggled ? "h-0 opacity-0 " : "pt-2 h-32 opacity-100"
+        }`}
+      >
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            `font-bold text-xl font-Poppins hover:cursor-pointer ${
+              isActive ? "text-white" : "text-gray-500 hover:text-white"
+            }`
+          }
+          onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
+        >
+          Home
+        </NavLink>
 
-<div
-  className={`flex md:hidden flex-col bg-black text-white pl-4 transition-all duration-300 ease-out ${
-    !isNavBarToggled ? "h-0 opacity-0 " : "pt-2 h-32 opacity-100"
-  }`}
->
- <NavLink
-  to="/"
-  className={({ isActive }) =>
-    `font-bold text-xl font-Poppins hover:cursor-pointer ${
-      isActive ? "text-white" : "text-gray-500 hover:text-white"
-    }`
-  }
-  onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
->
-  Home
-</NavLink>
+        <NavLink
+          to="/quiz"
+          className={({ isActive }) =>
+            `font-bold text-xl font-Poppins hover:cursor-pointer ${
+              isActive ? "text-white" : "text-gray-500 hover:text-white"
+            }`
+          }
+          onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
+        >
+          Quiz
+        </NavLink>
 
-<NavLink
-  to="/quiz"
-  className={({ isActive }) =>
-    `font-bold text-xl font-Poppins hover:cursor-pointer ${
-      isActive ? "text-white" : "text-gray-500 hover:text-white"
-    }`
-  }
-  onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
->
-  Quiz
-</NavLink>
+        <NavLink
+          to="/dashboard"
+          className={({ isActive }) =>
+            `font-bold text-xl font-Poppins hover:cursor-pointer ${
+              isActive ? "text-white" : "text-gray-500 hover:text-white"
+            }`
+          }
+          onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
+        >
+          Dashboard
+        </NavLink>
 
-<NavLink
-  to="/dashboard"
-  className={({ isActive }) =>
-    `font-bold text-xl font-Poppins hover:cursor-pointer ${
-      isActive ? "text-white" : "text-gray-500 hover:text-white"
-    }`
-  }
-  onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
->
-  Dashboard
-</NavLink>
-
-<NavLink
-  to="/profile"
-  className={({ isActive }) =>
-    `font-bold text-xl font-Poppins hover:cursor-pointer ${
-      isActive ? "text-white" : "text-gray-500 hover:text-white"
-    }`
-  }
-  onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
->
-  Contact
-</NavLink>
-</div>
-
+        <NavLink
+          to="/profile"
+          className={({ isActive }) =>
+            `font-bold text-xl font-Poppins hover:cursor-pointer ${
+              isActive ? "text-white" : "text-gray-500 hover:text-white"
+            }`
+          }
+          onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
+        >
+          Contact
+        </NavLink>
+      </div>
       <div className="justify-between bg-black justify-items-center text-white py-2 hidden md:flex">
-        <img className="px-4" src={logo} height={20} width={170} alt="Logo" />
+        <Link to="/">
+          <img className="px-4" src={logo} height={20} width={170} alt="Logo" />
+        </Link>
 
         <div className="flex align-items-center justify-content-center">
           <NavLink
