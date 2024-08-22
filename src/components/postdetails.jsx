@@ -49,22 +49,21 @@ const PostDetail = () => {
   };
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto p-4 bg-white rounded-lg shadow-lg mt-3 mb-5">
-      <div className="flex items-center justify-between border-b border-gray-300 pb-3 mb-4">
-        <div className="flex items-center">
-          <img className="w-12 h-12 rounded-full bg-gray-400 mr-3" src={user} alt="User" />
-          <div>
-            <h4 className="text-lg font-semibold">Anurag Singh</h4>
-            <p className="text-sm text-gray-600">4th year student at NIT Jalandhar</p>
-            <p className="text-sm text-gray-500">{post.date}</p>
-          </div>
-        </div>
+    <div className="relative w-full max-w-4xl mx-auto p-4 bg-white rounded-lg shadow-lg mt-3 mb-5 pt-0 border-gray">
+       <div className="flex p-4 border-b border-gray-200">
+        <img className="w-14 h-14 rounded-full mr-4" src={user} alt="User" />
+      <div className="flex flex-col w-full">
+        <div className="flex  justify-between">
+          <h4 className="flex items-center text-lg font-semibold">Anurag Singh</h4>
         <button
-          className={`text-sm font-semibold ${isFollowing ? 'text-gray-500' : 'text-blue-500'}`}
+          className={`ml-auto text-sm font-semibold mr-1 sm:mr-2 ${isFollowing ? "text-gray-500" : "text-blue-500"}`}
           onClick={toggleFollow}
         >
-          {isFollowing ? 'Following' : 'Follow +'}
+          {isFollowing ? "Following" : "Follow +"}
         </button>
+        </div>
+          <p className="text-sm text-gray-600">4th year student at NIT Jalandhar</p>
+        </div>
       </div>
       {/* Post Content */}
       <div className="mb-4">

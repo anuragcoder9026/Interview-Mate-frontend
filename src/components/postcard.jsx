@@ -38,20 +38,22 @@ function CustomCard({ url }) {
   };
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 mt-5">
+    <div className="relative w-full max-w-4xl mx-auto bg-white shadow-md rounded-lg overflow-hidden border border-gray-200">
       {/* Profile Header */}
-      <div className="flex items-center p-4 border-b border-gray-200">
+      <div className="flex p-4 border-b border-gray-200">
         <img className="w-14 h-14 rounded-full mr-4" src={user} alt="User" />
-        <div>
-          <h4 className="text-lg font-semibold">Anurag Singh</h4>
-          <p className="text-sm text-gray-600">4th year student at NIT Jalandhar</p>
-        </div>
+      <div className="flex flex-col w-full">
+        <div className="flex  justify-between">
+          <h4 className="flex items-center text-lg font-semibold">Anurag Singh</h4>
         <button
-          className={`ml-auto text-sm font-semibold ${isFollowing ? "text-gray-500" : "text-blue-500"}`}
+          className={`ml-auto text-sm font-semibold mr-1 sm:mr-2 ${isFollowing ? "text-gray-500" : "text-blue-500"}`}
           onClick={toggleFollow}
         >
           {isFollowing ? "Following" : "Follow +"}
         </button>
+        </div>
+          <p className="text-sm text-gray-600">4th year student at NIT Jalandhar</p>
+        </div>
       </div>
 
       {/* Post Date */}
@@ -59,7 +61,7 @@ function CustomCard({ url }) {
 
       {/* Image Section */}
       <div className="w-full bg-gray-100">
-        <img className="w-full h-96 object-cover" src={url} alt="Post" />
+        <img className="w-full h-40 sm:h-96 object-cover" src={url} alt="Post" />
       </div>
       
       {/* Description Section */}
