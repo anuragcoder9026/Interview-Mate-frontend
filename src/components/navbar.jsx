@@ -43,7 +43,7 @@ export default function NavBar() {
         </div>
       </div>
       <div
-        className={` flex md:hidden flex-col bg-black text-white pl-4 transition-all duration-300 ease-out ${
+        className={`sticky top-20 z-30 flex md:hidden flex-col bg-black text-white pl-4 transition-all duration-300 ease-out ${
           !isNavBarToggled ? "h-0 opacity-0 " : "pt-2 h-32 opacity-100"
         }`}
       >

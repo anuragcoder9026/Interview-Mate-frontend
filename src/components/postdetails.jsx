@@ -194,7 +194,7 @@ const PostDetail = () => {
       </div>
       {/* Likes Modal */}
       {showLikesModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="p-2 fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white rounded-lg w-full max-w-md mx-auto p-6 shadow-lg">
             <div className="flex justify-between items-center mb-4">
               <h4 className="font-semibold text-lg">People who liked this post</h4>
