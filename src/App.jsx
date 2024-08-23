@@ -1,17 +1,17 @@
 import { useState } from 'react'
 import NavBar from './components/navbar'
 import Header from './components/header'
-import { FooterWithSocialLinks } from './components/footer'
-import About from './components/about'
-import Card from './components/card'
-import CardGrid from './components/homearrangecard'
+import { FooterWithSocialLinks } from './components/footer';
 import './App.css'
 import { Outlet } from "react-router-dom";
-import CreatePost from './components/createpost'
+import ScrollToTop from "./components/ScrollTop";
+import 'regenerator-runtime/runtime';
+
 function App() {
 
   return (
     <>
+     <ScrollToTop/>
      <Header/>
      <NavBar/>
      <Outlet/>

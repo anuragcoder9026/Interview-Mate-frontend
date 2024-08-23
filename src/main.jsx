@@ -10,6 +10,7 @@ import SignUpForm from './components/singup.jsx';
 import Home from './components/home.jsx';
 import QuizApp from './components/QuizApp.jsx';
 import PostDetail from './components/postdetails.jsx';
+import VoiceInterview from './components/Interview.jsx';
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,8 @@ const router = createBrowserRouter([
       { path: '/profile', element: <ProfileSection/> },
       {path : '/signup', element :<SignUpForm/>},
       {path : '/quiz', element :<QuizApp/>  },
-      {path :'/post' ,element :<PostDetail />}
+      {path :'/post' ,element :<PostDetail />},
+      {path :'/interview' ,element :<VoiceInterview/> }
     ],
   },
 ], {

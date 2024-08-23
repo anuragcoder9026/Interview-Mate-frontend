@@ -67,11 +67,7 @@ function CustomCard({ url }) {
 
       {/* Image Section */}
       <div className="w-full bg-gray-100">
-        <img
-          className="w-full h-40 sm:h-96 object-cover"
-          src={url}
-          alt="Post"
-        />
+        <img className="w-full h-40 sm:h-96 object-cover" src={url} alt="Post" />
       </div>
 
       {/* Description Section */}
@@ -136,7 +132,9 @@ function CustomCard({ url }) {
 
       {/* Comment Box */}
       {showCommentBox && (
-        <div className="absolute bottom-0 left-0 z-30 w-full bg-white border-t border-gray-200 shadow-lg p-4">
+        <div
+          className="absolute bottom-0 left-0 z-30 w-full bg-white border-t border-gray-200 shadow-lg p-4"
+        >
           <div className="flex justify-between items-center">
             <p className="text-lg font-semibold">Add a comment</p>
             <IoClose

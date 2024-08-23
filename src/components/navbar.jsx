@@ -20,7 +20,7 @@ export default function NavBar() {
 
   return (
     <>
-      <div className="flex justify-between p-4 pl-2 pr-2 md:hidden bg-black text-white">
+      <div className="sticky top-0 z-20 flex justify-between p-4 pl-2 pr-2 md:hidden bg-black text-white">
         <FaBars
           className="pl-2 mt-2 size-8"
           onClick={() => setIsNavBarToggled(!isNavBarToggled)}
@@ -43,7 +43,7 @@ export default function NavBar() {
         </div>
       </div>
       <div
-        className={`flex md:hidden flex-col bg-black text-white pl-4 transition-all duration-300 ease-out ${
+        className={`sticky top-20 z-30 flex md:hidden flex-col bg-black text-white pl-4 transition-all duration-300 ease-out ${
           !isNavBarToggled ? "h-0 opacity-0 " : "pt-2 h-32 opacity-100"
         }`}
       >
@@ -95,7 +95,7 @@ export default function NavBar() {
           Contact
         </NavLink>
       </div>
-      <div className="justify-between bg-black justify-items-center text-white py-2 hidden md:flex">
+      <div className="sticky top-12 z-20 justify-between bg-black justify-items-center text-white py-2 hidden md:flex">
         <Link to="/">
           <img className="px-4" src={logo} height={20} width={170} alt="Logo" />
         </Link>

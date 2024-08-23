@@ -4,6 +4,7 @@ import { FaChevronLeft } from "react-icons/fa"; // Importing icon for toggling
 import CircularChart from "../utils/CircularChart";
 import HorizontalBarChart from "../utils/HorizontalBarChart";
 import ScrollChart from "../utils/scrollChart";
+import { Link } from "react-router-dom";
 
 const ResponsiveDashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -95,9 +96,10 @@ const ResponsiveDashboard = () => {
             <a href="#" className="p-3 bg-blue-900 rounded-xl shadow-md text-lg hover:text-indigo-400 font-medium">
               Quizzes
             </a>
-            <a href="#" className="p-3 bg-blue-900 rounded-xl shadow-md text-lg hover:text-indigo-400 font-medium">
+          
+            <Link to="/interview" className="p-3 bg-blue-900 rounded-xl shadow-md text-lg hover:text-indigo-400 font-medium">
               Interviews
-            </a>
+            </Link>
           </div>
         </header>
 
