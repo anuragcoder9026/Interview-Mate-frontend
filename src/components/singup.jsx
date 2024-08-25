@@ -12,12 +12,37 @@ const SignUpForm = () => {
         <h2 className="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
           Create a new account
         </h2>
-       
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form method="POST" action="#">
+          {/* Sign up with Google button */}
+          <div>
+            <button
+              type="button"
+              className="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
+            >
+              <img
+                className="w-5 h-5 mr-2"
+                src="https://www.svgrepo.com/show/475656/google-color.svg"
+                alt="Google logo"
+              />
+              Sign up with Google
+            </button>
+          </div>
+
+          {/* Divider */}
+          <div className="relative mt-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300"></div>
+            </div>
+            <div className="relative flex justify-center text-sm leading-5">
+              <span className="px-2 bg-white text-gray-500">Or continue with</span>
+            </div>
+          </div>
+
+          {/* User input form */}
+          <form method="POST" action="#" className="mt-6">
             <div>
               <label
                 htmlFor="name"
@@ -36,9 +61,10 @@ const SignUpForm = () => {
                 />
               </div>
             </div>
-             <div className='mt-6'>
-            <label
-                htmlFor="name"
+
+            <div className="mt-6">
+              <label
+                htmlFor="username"
                 className="block text-sm font-medium leading-5 text-gray-700"
               >
                 Username
@@ -53,8 +79,7 @@ const SignUpForm = () => {
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                 />
               </div>
-              </div>
-            
+            </div>
 
             <div className="mt-6">
               <label

@@ -1,7 +1,8 @@
 import React from "react";
 import CustomCard from "./postcard"; // Adjust the path as necessary
-
+import { useState ,useEffect} from 'react'
 function CardGrid() {
+
   return (
     <div className="bg-slate-200 p-2 sm:p-8">
       <div className="relative flex items-center pt-4">
@@ -20,6 +21,7 @@ function CardGrid() {
         <CustomCard  url = "https://www.cio.com/wp-content/uploads/2024/04/shutterstock_editorial_2110981163.jpg?quality=50&strip=all"/>
         {/* Add more CustomCard components as needed */}
       </div>
+      
     </div>
   );
 }
