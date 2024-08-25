@@ -5,7 +5,7 @@ function Header() {
 
     return (
       <>
-    <div className="sticky top-0 z-20 hidden md:flex flex bg-black justify-between pt-2 px-6 ">
+    <div className="hidden md:flex flex bg-black justify-between pt-2 px-6 ">
    <div className="hidden md:flex w-full">< SearchIcon/></div> 
     <div className="flex flex-row place-items-center gap-10 hidden md:flex"> 
             {/* Youtube */}
