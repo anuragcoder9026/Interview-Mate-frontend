@@ -101,6 +101,7 @@ function CustomCard({ url }) {
 
       {/* Action Buttons */}
       <div className="flex justify-between items-center px-4 py-2 border-t border-gray-200 bg-gray-50">
+        <div className="flex">
         <button
           className="flex items-center text-gray-600 hover:text-blue"
           onClick={handleLikeClick}
@@ -119,8 +120,9 @@ function CustomCard({ url }) {
             className="text-2xl"
             style={{ color: `${liked ? "blue" : "grey"}` }}
           />
-          <span className="ml-2">Like</span>
         </button>
+          <span className="ml-2">Like</span>
+          </div> 
         <button
           className="flex items-center text-gray-600 hover:text-blue"
           onClick={handleCommentBox}
