@@ -44,10 +44,11 @@ export default function NavBar() {
       </div>
       <div
         className={`flex md:hidden flex-col bg-black text-white pl-4 transition-all duration-300 ease-out ${
-          !isNavBarToggled ? "h-0 opacity-0 " : "pt-2 h-32 opacity-100"
+          !isNavBarToggled ? "h-0" : "h-32"
         }`}
-      >
-        <NavLink
+      >{
+        isNavBarToggled && <>
+             <NavLink
           to="/"
           className={({ isActive }) =>
             `font-bold text-xl font-Poppins hover:cursor-pointer ${
@@ -94,6 +95,9 @@ export default function NavBar() {
         >
           Contact
         </NavLink>
+        </>
+      }
+      
       </div>
       <div className="justify-between bg-black justify-items-center text-white py-2 hidden md:flex">
         <Link to="/">

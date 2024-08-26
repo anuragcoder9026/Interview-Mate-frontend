@@ -2,15 +2,19 @@ import React, { useState } from 'react';
 import { FaRegCircle, FaRegDotCircle } from 'react-icons/fa';
 import { TbPlayerTrackNextFilled } from 'react-icons/tb';
 import congratsImg from "../assets/images/congrats.png";
+
 const QuizApp = () => {
   const [quizData] = useState([
-    { qid: 1, ques: "What is polymorphism?", ans: "A", options: ["OOP concept", "Machine learning is the algorithm which teaches computer think on its own without implicitly programmed.", "Web 3.0", "Other"] },
+    { qid: 1, ques: "What is polymorphism?", ans: "A", options: ["OOP concept", "Machine learning algorithm", "Web 3.0", "Other"] },
     { qid: 2, ques: "What is React?", ans: "B", options: ["CSS framework", "JavaScript library", "Database", "Web server"] },
     { qid: 3, ques: "What is a database?", ans: "C", options: ["Frontend tool", "Styling framework", "Data storage", "Compiler"] },
     { qid: 4, ques: "What is HTML?", ans: "A", options: ["Markup language", "Programming language", "Operating system", "Database"] },
     { qid: 5, ques: "What is CSS?", ans: "B", options: ["JavaScript library", "Styling language", "Markup language", "Database"] }
   ]);
 
+  const [step, setStep] = useState(1);
+  const [topic, setTopic] = useState('All topic');
+  const [numQuestions, setNumQuestions] = useState(5);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [userAnswers, setUserAnswers] = useState({});
@@ -63,25 +67,49 @@ const QuizApp = () => {
         <div className="absolute top-0 left-0 w-20 h-20 rounded-full bg-yellow-500 opacity-40 blur-3xl" />
         <div className="absolute top-0 right-0 w-20 h-20 rounded-full bg-red-500 opacity-40 blur-3xl" />
       </div>
+
       <div className="max-w-xl mx-auto p-2 sm:p-6 bg-gray-800 rounded-lg shadow-lg border border-gray-700 relative z-10">
-        {showResults ? (
+        {step === 1 && (
           <div className="text-center">
-            <h2 className="text-2xl font-bold mb-4">Quiz Results</h2>
-            <p className="text-lg mb-4">You scored {score} out of {quizData.length} ({Math.round(percentage)}%)</p>
-            {percentage >= 60 ? (
-              <div>
-                <p className="text-xl font-semibold text-green-400">🎉 Congratulations! 🎉</p>
-                <p className="text-lg mt-2">Great job! You did really well.</p>
-                <img src={congratsImg} alt="Congratulations" className="mx-auto mt-4 w-1/2 rounded-md shadow-lg" />
-              </div>
-            ) : (
-              <div>
-                <p className="text-xl font-semibold text-red-400">😓 Better luck next time!</p>
-                <p className="text-lg mt-2">Don't worry, keep practicing and you'll improve!</p>
-              </div>
-            )}
+            <h2 className="text-2xl font-bold mb-4">Enter Quiz Topic</h2>
+            <input
+              type="text"
+              value={topic}
+              onChange={(e) => setTopic(e.target.value)}
+              placeholder="Type your quiz topic..."
+              className="w-full p-2 mb-4 rounded-md bg-gray-700 border border-gray-600 text-white"
+            />
+            <button
+              
+              onClick={() => setStep(2)}
+              className="w-full py-2 px-4 rounded-md bg-blue text-white transition duration-300"
+            >
+              Next
+            </button>
           </div>
-        ) : (
+        )}
+
+        {step === 2 && (
+          <div className="text-center">
+            <h2 className="text-2xl font-bold mb-4">Enter Number of Questions</h2>
+            <input
+              type="number"
+              value={numQuestions}
+              onChange={(e) => setNumQuestions(e.target.value)}
+              placeholder="Number of questions"
+              className="w-full p-2 mb-4 rounded-md bg-gray-700 border border-gray-600 text-white"
+            />
+            <button
+              onClick={() => setStep(3)}
+              disabled={numQuestions <= 0}
+              className="w-full py-2 px-4 rounded-md bg-blue text-white transition duration-300"
+            >
+              Start Quiz
+            </button>
+          </div>
+        )}
+
+        {step === 3 && !showResults && (
           <>
             <div className="mb-4">
               <h2 className="text-2xl font-bold mb-4">Question {currentQuestion + 1}/{quizData.length}</h2>
@@ -100,7 +128,7 @@ const QuizApp = () => {
                     ) : (
                       <FaRegCircle className="mr-2 text-white" />
                     )}
-                  </div>  
+                  </div>
                   <div className="flex items-center justify-center">{option}</div>
                 </div>
               ))}
@@ -109,7 +137,7 @@ const QuizApp = () => {
               <button
                 onClick={handlePrevious}
                 disabled={currentQuestion === 0}
-                className={`py-2 px-4 rounded-md text-white ${currentQuestion === 0 ? 'bg-gray-600 cursor-not-allowed' : 'bg-gray-700 hover:bg-gray-600'} transition duration-300`}
+                className={`py-2 px-4 rounded-md text-white ${currentQuestion === 0 ? 'bg-gray-600 cursor-not-allowed' : 'bg-gray-700 hover:bg-blue'} transition duration-300`}
                 style={{ width: "100px" }}
               >
                 Previous
@@ -117,7 +145,7 @@ const QuizApp = () => {
               <button
                 onClick={handleNext}
                 disabled={!selectedOption}
-                className={`flex py-2 px-4 rounded-md text-white ${selectedOption ? 'bg-blue hover:bg-blue-700' : 'bg-gray-600 cursor-not-allowed'} transition duration-300`}
+                className={`flex py-2 px-4 rounded-md text-white ${selectedOption ? 'bg-blue' : 'bg-gray-600 cursor-not-allowed'} transition duration-300`}
                 style={{ width: "100px" }}
               >
                 {currentQuestion < quizData.length - 1 ? 'Next' : 'Submit'}
@@ -126,7 +154,36 @@ const QuizApp = () => {
             </div>
           </>
         )}
+
+        {showResults && (
+
+          <div className="text-center">
+            <h2 className="text-2xl font-bold mb-4">Quiz Results</h2>
+            <p className="text-lg mb-4">You scored {score} out of {quizData.length} ({Math.round(percentage)}%)</p>
+            {percentage >= 60 ? (
+              <div>
+                <p className="text-xl font-semibold text-green-400">🎉 Congratulations! 🎉</p>
+                <p className="text-lg mt-2">Great job! You did really well.</p>
+                <img src={congratsImg} alt="Congratulations" className="mx-auto mt-4 w-1/2 rounded-md shadow-lg" />
+              </div>
+            ) : (
+              <div>
+                <p className="text-xl font-semibold text-red-400">😓 Better luck next time!</p>
+                <p className="text-lg mt-2">Don't worry, you can always try again.</p>
+              </div>
+            )}
+             <button
+              onClick={() => window.location.reload()}
+              className="w-full py-2 px-4 rounded-md bg-blue text-white transition duration-300"
+            >
+              Restart Quiz
+            </button>
+          </div>
+          
+        )}
+        
       </div>
+      
     </div>
   );
 };
