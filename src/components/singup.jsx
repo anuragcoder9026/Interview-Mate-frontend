@@ -1,8 +1,8 @@
 import React from 'react';
-
+import onlyFnas from '../assets/images/onlyfans.png'
 const SignUpForm = () => {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 m-6 mt-0 mb-0">
+    <div className="min-h-screen bg-gray-50 flex z-50 flex-col justify-center py-12 sm:px-6 lg:px-8 m-6 mt-0 mb-0">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <img
           className="mx-auto h-10 w-auto"
@@ -17,7 +17,7 @@ const SignUpForm = () => {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           {/* Sign up with Google button */}
-          <div>
+          <div className='mb-3'>
             <button
               type="button"
               className="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
@@ -30,7 +30,19 @@ const SignUpForm = () => {
               Sign up with Google
             </button>
           </div>
-
+          <div>
+            <button
+              type="button"
+              className="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"
+            >
+              <img
+                className="ml-3 w-5 h-5 mr-2"
+                src={onlyFnas}
+                alt="OnlyFans logo"
+              />
+              Sign up with OnlyFans
+            </button>
+          </div>    
           {/* Divider */}
           <div className="relative mt-6">
             <div className="absolute inset-0 flex items-center">
