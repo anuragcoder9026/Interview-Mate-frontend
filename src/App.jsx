@@ -3,19 +3,20 @@ import NavBar from './components/navbar'
 import Header from './components/header'
 import { FooterWithSocialLinks } from './components/footer';
 import './App.css'
-import { Outlet } from "react-router-dom";
+import { Outlet,useLocation } from "react-router-dom";
 import ScrollToTop from "./components/ScrollTop";
 import 'regenerator-runtime/runtime';
 
 function App() {
- 
+  const location = useLocation();
+  const noFooterRoutes = ["/message",];
   return (
     <>
      <ScrollToTop/>
      <Header/>
      <NavBar/>
      <Outlet/>
-     <FooterWithSocialLinks/>
+     {!noFooterRoutes.includes(location.pathname) &&  <FooterWithSocialLinks/>}
      
     </>
   )

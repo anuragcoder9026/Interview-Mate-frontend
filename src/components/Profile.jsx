@@ -3,6 +3,7 @@ import { FaUserGraduate, FaBriefcase, FaTools } from "react-icons/fa";
 import user from "../assets/images/user.png";
 import { BiMessageRoundedDetail } from "react-icons/bi";
 import { CgMoreO } from "react-icons/cg";
+import { Link } from "react-router-dom";
 const ProfileSection = () => {
   // State management for "Read More" toggles
   const [isAboutExpanded, setAboutExpanded] = useState(false);
@@ -85,19 +86,21 @@ const ProfileSection = () => {
                 {isFollow?"Follow+ ":"✓ Following"}
               
             </p>
-            <p
+            
+            <Link
+              to='/message'
               className="hidden sm:block px-4 py-1.5 bg-gray-200 text-blue border border-blue font-semibold  hover:bg-gray-300 mb-2 hover:cursor-pointer"
               style={{ borderRadius: "18px" }}
             >
               Message
-            </p>
+            </Link>
             <p
               className="hidden sm:block px-6 py-1.5 bg-gray-200 text-gray-800 border border-black  hover:bg-gray-300 mb-2 hover:cursor-pointer"
               style={{ borderRadius: "18px" }}
             >
               More
             </p>
-            <BiMessageRoundedDetail className="block sm:hidden text-4xl text-blue mt-1 ml-3 mr-3 hover:cursor-pointer " />
+            <Link to="/message"><BiMessageRoundedDetail className="block sm:hidden text-4xl text-blue mt-1 ml-3 mr-3 hover:cursor-pointer " /></Link>
             <CgMoreO className="block sm:hidden text-3xl text-gray-500 mt-1 ml-6 hover:cursor-pointer" />
           </div>
         </div>
