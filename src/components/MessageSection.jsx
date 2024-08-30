@@ -31,9 +31,9 @@ const MessageSection = ({ selectedUser, messages, onSendMessage,onBack }) => {
       <div className="flex px-1 lg:px-3 py-3 w-full pt-4 bg-gray-800 border-b border-gray-700 sticky top-0">
         <div className="flex lg:hidden items-center mr-2"><IoMdArrowBack className='text-white text-xl ' onClick={handleBack}/> </div>
         <img src={user} alt="profile" className="rounded-full w-8 h-8 mr-2 mt-2"/>  
-        <div className="flex flex-col">
+        <div className="flex flex-col justify-center ">
         <h2 className="text-lg font-semibold text-white">{selectedUser.name}</h2>
-        <p className="text-green text-sm">online</p>
+        {selectedUser.isOnline && <p className="text-green text-sm">online</p>}
         </div> 
         
       </div>

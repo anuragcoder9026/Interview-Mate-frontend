@@ -5,9 +5,9 @@ import { LuMessageSquarePlus } from "react-icons/lu";
 import MessageSection from './MessageSection';
 import { Sidebar } from './MessageSearch';
 const usersData = [
-  { id: 1, name: 'John Doe', lastMessage: 'See you tomorrow!', time: '10:00 AM', profileImg: user },
-  { id: 2, name: 'Jane Smith', lastMessage: 'Meeting at 3 PM.', time: '9:45 AM', profileImg: user },
-  { id: 3, name: 'Michael Lee', lastMessage: 'I’ll send the report.', time: '9:30 AM', profileImg: user},
+  { id: 1, name: 'Anurag Singh', lastMessage: 'See you tomorrow!', time: '10:00 AM', profileImg: user,isOnline:true },
+  { id: 2, name: 'Alok Kumar', lastMessage: 'Meeting at 3 PM.', time: '9:45 AM', profileImg: user,isOnline:false },
+  { id: 3, name: 'Shubham Patel', lastMessage: 'I’ll send the report.', time: '9:30 AM', profileImg: user,isOnline:true},
   // More users...
 ];
 
