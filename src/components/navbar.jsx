@@ -70,7 +70,7 @@ export default function NavBar() {
       </div>
       <div
         className={`flex md:hidden flex-col bg-black text-white pl-4 transition-all duration-300 ease-out ${
-          !isNavBarToggled ? "h-0" : "h-32"
+          !isNavBarToggled ? "h-0" : "h-40"
         }`}
       >
         {isNavBarToggled && (
@@ -97,6 +97,18 @@ export default function NavBar() {
               onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
             >
               Quiz
+            </NavLink>
+
+            <NavLink
+              to="/chatbot"
+              className={({ isActive }) =>
+                `font-bold text-xl font-Poppins hover:cursor-pointer ${
+                  isActive ? "text-white" : "text-gray-500 hover:text-white"
+                }`
+              }
+              onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
+            >
+              Chatbot
             </NavLink>
 
             <NavLink
@@ -140,6 +152,17 @@ export default function NavBar() {
             }
           >
             Home
+          </NavLink>
+
+          <NavLink
+            to="/chatbot"
+            className={({ isActive }) =>
+              ` p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer ${
+                isActive ? "text-white" : "text-zinc-400 hover:text-white"
+              }`
+            }
+          >
+            Chatbot
           </NavLink>
 
           <NavLink
