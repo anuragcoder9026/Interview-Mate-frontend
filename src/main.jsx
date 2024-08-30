@@ -13,7 +13,7 @@ import QuizApp from './components/QuizApp.jsx';
 import PostDetail from './components/postdetails.jsx';
 import VoiceInterview from './components/Interview.jsx';
 import Message from './components/Message.jsx';
-import { UserProvider } from './context/UserContext'; // Import the UserProvider
+import { UserProvider } from './context/usercontext'; // Import the UserProvider
 
 const router = createBrowserRouter(
   [
