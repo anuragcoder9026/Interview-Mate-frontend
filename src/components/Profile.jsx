@@ -4,6 +4,7 @@ import user from "../assets/images/user.png";
 import { BiMessageRoundedDetail } from "react-icons/bi";
 import { CgMoreO } from "react-icons/cg";
 import { Link } from "react-router-dom";
+import { useUserContext } from "../context/usercontext"; // Import the context
 const ProfileSection = () => {
   // State management for "Read More" toggles
   const [isAboutExpanded, setAboutExpanded] = useState(false);
@@ -22,6 +23,8 @@ const ProfileSection = () => {
     setActiveTab(tab);
   };
 
+  const { userdata } = useUserContext(); // Access the userdata here
+
     return (
         <div className="flex flex-col items-center w-full bg-slate-200 p-2">
             {/* Profile Header Section */}
@@ -30,12 +33,14 @@ const ProfileSection = () => {
                 <img
                     className="w-full h-full object-cover"
                     src="https://images.unsplash.com/photo-1568605114967-8130f3a36994"
+             
                     alt="Background"
                 />
                 <div className="absolute bottom-[-50px] left-6  w-32 h-32 rounded-full bg-white p-2 shadow-md">
                     <img
                         className="w-full h-full rounded-full object-cover"
-                        src="https://c4.wallpaperflare.com/wallpaper/383/633/300/sybil-kailena-davina-e-sybille-y-sybil-a-hd-wallpaper-preview.jpg"
+                        //src="https://c4.wallpaperflare.com/wallpaper/383/633/300/sybil-kailena-davina-e-sybille-y-sybil-a-hd-wallpaper-preview.jpg"
+                        src={userdata && userdata.profileimg ? userdata.profileimg :'https://c4.wallpaperflare.com/wallpaper/383/633/300/sybil-kailena-davina-e-sybille-y-sybil-a-hd-wallpaper-preview.jpg'}
                         alt="User Profile"
                     />
                 </div>
@@ -43,7 +48,11 @@ const ProfileSection = () => {
 
         {/* User Details */}
         <div className="flex flex-col justify-center  mt-16 ml-6 mr-2">
-          <h2 className="text-2xl font-semibold">Bibhuti Ranjan</h2>
+          <h2 className="text-2xl font-semibold">
+          {userdata && userdata.Name
+                ? ` ${userdata.Name}`
+                : "Bibhuti Ranjan"}
+          </h2>
           {/* Bio Section */}
           <div className="mt-4 w-1/1 sm:w-1/2">
             <p className="text-gray-700 italic">

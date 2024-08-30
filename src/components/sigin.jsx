@@ -1,9 +1,11 @@
-import React from 'react';
-import SignUpForm from './singup';
+import React from "react";
+import SignUpForm from "./singup";
 import { Link } from "react-router-dom";
 
-
 const LoginPopup = ({ onClose }) => {
+  const loginwitgoogle = () => {
+    window.open("http://localhost:3200/auth/google", "_self");
+  };
   return (
     <div
       id="login-popup"
@@ -15,7 +17,7 @@ const LoginPopup = ({ onClose }) => {
           <button
             type="button"
             className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center popup-close"
-            onClick={onClose}  // Close popup when close button is clicked
+            onClick={onClose} // Close popup when close button is clicked
           >
             <svg
               aria-hidden="true"
@@ -46,7 +48,7 @@ const LoginPopup = ({ onClose }) => {
             <div className="mt-7 flex flex-col gap-2">
               <button
                 className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
-                onClick={onClose}  // Close popup when this button is clicked
+                onClick={onClose} // Close popup when this button is clicked
               >
                 <img
                   src="https://www.svgrepo.com/show/512317/github-142.svg"
@@ -58,7 +60,7 @@ const LoginPopup = ({ onClose }) => {
 
               <button
                 className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
-                onClick={onClose}  // Close popup when this button is clicked
+                onClick={loginwitgoogle} // Close popup when this button is clicked
               >
                 <img
                   src="https://www.svgrepo.com/show/475656/google-color.svg"
@@ -70,7 +72,7 @@ const LoginPopup = ({ onClose }) => {
 
               <button
                 className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
-                onClick={onClose}  // Close popup when this button is clicked
+                onClick={onClose} // Close popup when this button is clicked
               >
                 <img
                   src="https://www.svgrepo.com/show/448234/linkedin.svg"
@@ -87,7 +89,9 @@ const LoginPopup = ({ onClose }) => {
               <div className="h-px w-full bg-slate-200"></div>
             </div>
 
-            <form className="w-full" onSubmit={onClose}> {/* Close popup when the form is submitted */}
+            <form className="w-full" onSubmit={onClose}>
+              {" "}
+              {/* Close popup when the form is submitted */}
               <label htmlFor="email" className="sr-only">
                 Email address
               </label>
@@ -111,7 +115,10 @@ const LoginPopup = ({ onClose }) => {
                 placeholder="Password"
               />
               <p className="mb-3 mt-2 text-sm text-gray-500">
-                <a href="/forgot-password" className="text-blue-800 hover:text-blue-600">
+                <a
+                  href="/forgot-password"
+                  className="text-blue-800 hover:text-blue-600"
+                >
                   Reset your password?
                 </a>
               </p>
@@ -125,10 +132,13 @@ const LoginPopup = ({ onClose }) => {
 
             <div className="mt-6 text-center text-sm text-slate-600">
               Don't have an account?
-              <Link to="/signup" className="font-medium text-[#4285f4] " onClick={onClose}  >
-          Sign up
-          
-        </Link>
+              <Link
+                to="/signup"
+                className="font-medium text-[#4285f4] "
+                onClick={onClose}
+              >
+                Sign up
+              </Link>
             </div>
           </div>
         </div>

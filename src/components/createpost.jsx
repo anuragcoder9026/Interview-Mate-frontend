@@ -5,6 +5,7 @@ import { MdClose, MdPostAdd } from 'react-icons/md'; // Modern icons
 import { FaImage, FaCalendarAlt, FaPen } from 'react-icons/fa';
 import toast, { Toaster } from 'react-hot-toast';
 import user from "../assets/images/user.png";
+import { useUserContext } from "../context/usercontext"; // Import the context
 
 const CreatePost = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -15,6 +16,8 @@ const CreatePost = () => {
   const handleOpenPopup = () => {
     setIsPopupOpen(true);
   };
+
+  const { userdata } = useUserContext(); // Access the userdata here
 
   const handleClosePopup = () => {
     setIsPopupOpen(false);
@@ -50,7 +53,7 @@ const CreatePost = () => {
         >
           <img
             className="w-10 h-10 rounded-full"
-            src={user} // Replace with your profile image URL
+            src={userdata && userdata.profileimg ? userdata.profileimg :user}
             alt="Profile"
           />
           <input

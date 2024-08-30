@@ -1,22 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa";
 import logo from "../assets/images/logo.png";
 import user from "../assets/images/user.png";
 import SearchBar from "./searbar";
+import { useUserContext } from "../context/usercontext"; // Import the context
 import LoginPopup from "./sigin";
-import { Link } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import axios from "axios";
+
 export default function NavBar() {
   const [isNavBarToggled, setIsNavBarToggled] = useState(false);
   const [isLoginPopupVisible, setIsLoginPopupVisible] = useState(false);
+  const [isProfileDropdownVisible, setIsProfileDropdownVisible] =
+    useState(false);
+  const { userdata } = useUserContext(); // Access the userdata here
 
   const handleProfileClick = () => {
-    setIsLoginPopupVisible(true); // Show the login popup when the profile image is clicked
+    if (userdata && userdata.profileimg) {
+      // Toggle profile dropdown if user is logged in
+      setIsProfileDropdownVisible(!isProfileDropdownVisible);
+    } else {
+      // Show login popup if user is not logged in
+      setIsLoginPopupVisible(true);
+    }
   };
 
   const handleClosePopup = () => {
     setIsLoginPopupVisible(false); // Close the login popup
   };
+
+  // Logout function
+  const logout = () => {
+    window.open("http://localhost:3200/logout", "_self");
+  };
+
+
 
   return (
     <>
@@ -25,79 +43,87 @@ export default function NavBar() {
           className="pl-2 mt-2 size-8"
           onClick={() => setIsNavBarToggled(!isNavBarToggled)}
         />
-
         <div className="flex justify-center px-2 sm:px-5 py-2">
           <SearchBar />
         </div>
-
         <div className="flex items-center pr-5">
           <a id="brand" className="flex items-center">
             <img
               className="flex mr-1 w-10 h-10 p-0 rounded-full ring-2 ring-white"
-              src={user}
+              src={userdata && userdata.profileimg ? userdata.profileimg : user}
               alt="Profile"
-              onClick={handleProfileClick} // Trigger the popup on click
+              onClick={handleProfileClick} // Trigger the dropdown or popup on click
               style={{ cursor: "pointer" }} // Add a pointer cursor to indicate it's clickable
             />
           </a>
+          {isProfileDropdownVisible && (
+            <div className="absolute top-12 right-5 bg-white text-black p-2 rounded shadow-lg z-50">
+              <button
+                className="block px-4 py-2 text-sm hover:bg-gray-200 w-full text-left"
+                onClick={logout}
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </div>
       </div>
       <div
         className={`flex md:hidden flex-col bg-black text-white pl-4 transition-all duration-300 ease-out ${
           !isNavBarToggled ? "h-0" : "h-32"
         }`}
-      >{
-        isNavBarToggled && <>
-             <NavLink
-          to="/"
-          className={({ isActive }) =>
-            `font-bold text-xl font-Poppins hover:cursor-pointer ${
-              isActive ? "text-white" : "text-gray-500 hover:text-white"
-            }`
-          }
-          onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
-        >
-          Home
-        </NavLink>
+      >
+        {isNavBarToggled && (
+          <>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `font-bold text-xl font-Poppins hover:cursor-pointer ${
+                  isActive ? "text-white" : "text-gray-500 hover:text-white"
+                }`
+              }
+              onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
+            >
+              Home
+            </NavLink>
 
-        <NavLink
-          to="/quiz"
-          className={({ isActive }) =>
-            `font-bold text-xl font-Poppins hover:cursor-pointer ${
-              isActive ? "text-white" : "text-gray-500 hover:text-white"
-            }`
-          }
-          onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
-        >
-          Quiz
-        </NavLink>
+            <NavLink
+              to="/quiz"
+              className={({ isActive }) =>
+                `font-bold text-xl font-Poppins hover:cursor-pointer ${
+                  isActive ? "text-white" : "text-gray-500 hover:text-white"
+                }`
+              }
+              onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
+            >
+              Quiz
+            </NavLink>
 
-        <NavLink
-          to="/dashboard"
-          className={({ isActive }) =>
-            `font-bold text-xl font-Poppins hover:cursor-pointer ${
-              isActive ? "text-white" : "text-gray-500 hover:text-white"
-            }`
-          }
-          onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
-        >
-          Dashboard
-        </NavLink>
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) =>
+                `font-bold text-xl font-Poppins hover:cursor-pointer ${
+                  isActive ? "text-white" : "text-gray-500 hover:text-white"
+                }`
+              }
+              onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
+            >
+              Dashboard
+            </NavLink>
 
-        <NavLink
-          to="/profile"
-          className={({ isActive }) =>
-            `font-bold text-xl font-Poppins hover:cursor-pointer ${
-              isActive ? "text-white" : "text-gray-500 hover:text-white"
-            }`
-          }
-          onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
-        >
-          Contact
-        </NavLink>
-        </>
-      }
-      
+            <NavLink
+              to="/profile"
+              className={({ isActive }) =>
+                `font-bold text-xl font-Poppins hover:cursor-pointer ${
+                  isActive ? "text-white" : "text-gray-500 hover:text-white"
+                }`
+              }
+              onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
+            >
+              Contact
+            </NavLink>
+          </>
+        )}
       </div>
       <div className="justify-between bg-black justify-items-center text-white py-2 hidden md:flex">
         <Link to="/">
@@ -149,14 +175,24 @@ export default function NavBar() {
             Contact
           </NavLink>
 
-          <div className="flex items-center pr-5">
+          <div className="flex items-center pr-5 relative">
             <img
               className="hidden md:flex ml-3 mr-4 w-11 h-11 rounded-full ring-2 ring-white"
-              src={user}
+              src={userdata && userdata.profileimg ? userdata.profileimg : user}
               alt="Profile"
-              onClick={handleProfileClick} // Trigger the popup on click
+              onClick={handleProfileClick} // Trigger the dropdown or popup on click
               style={{ cursor: "pointer" }} // Add a pointer cursor to indicate it's clickable
             />
+            {isProfileDropdownVisible && (
+              <div className="absolute top-10 mr-1 right-0 bg-white text-blue p-2 rounded shadow-lg z-50 ">
+                <button
+                  className="block px-4 py-2 text-sm hover:bg-gray-200 w-full text-left"
+                  onClick={logout}
+                >
+                  Logout
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
