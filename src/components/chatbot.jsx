@@ -10,9 +10,14 @@ const Chatbot = () => {
   const [chatHistory, setChatHistory] = useState([]);
   const [userMessage, setUserMessage] = useState('');
   const chatBoxRef = useRef(null);
+  const initialMessageSent = useRef(false);
 
   useEffect(() => {
-    sendInitialMessage();
+    // Send initial message only if it hasn't been sent before
+    if (!initialMessageSent.current) {
+      sendInitialMessage();
+      initialMessageSent.current = true;
+    }
   }, []);
 
   useEffect(() => {
@@ -58,7 +63,7 @@ const Chatbot = () => {
   };
 
   const sendInitialMessage = async () => {
-    const initialMessage = `*Hello!* Please start the conversation directly by asking interview questions and also rate the answer typed by the user and then ask the next question. Also, first of all, ask for the role the user wants to give an interview for.`;
+    const initialMessage = "Hello! Please start the conversation directly by greeting and saying thanks for choosing InterviewMate and here you can ask me any question of interview  and give different option like u want to ask techincal question or behavioral etc ..I will try my best to give the best possble answer. Just give the best possible answer nothing more for interview purpose only. ";
     try {
       const result = await model.generateContent(initialMessage);
       const response = await result.response;
@@ -72,8 +77,7 @@ const Chatbot = () => {
 
   const handleSend = () => {
     if (userMessage.trim()) {
-      const additionalText =
-        '. Rate my answer, tell me how can I improve the answer and ask the next question.';
+      const additionalText = ". Give me best answer for this question if it is asked in interview.";
       const messageToSend = userMessage + additionalText;
       appendMessage('user', userMessage);
       setUserMessage('');
@@ -89,16 +93,16 @@ const Chatbot = () => {
 
   return (
     <div className="flex items-start justify-center min-h-screen bg-gray-900 pt-5">
-      <div className="chatbot-container flex flex-col w-full max-w-3xl min-h-[85vh] max-h-[85vh] md:min-h-[78vh] md:max-h-[78vh] bg-gray-800 rounded-lg shadow-lg border border-gray-700 mx-1 sm:mx-4 md:mx-8 lg:mx-16" style={{borderBottomLeftRadius:"0px",borderBottomRightRadius:"0px"}}>
-        <header className="chatbox-header bg-gray-700 p-4 rounded-t-lg border-b border-gray-600 ">
+      <div className="chatbot-container flex flex-col w-full max-w-3xl min-h-[90vh] max-h-[85vh] md:min-h-[78vh] md:max-h-[78vh] bg-gray-800 rounded-lg shadow-lg border border-gray-700 mx-1 sm:mx-4 md:mx-8 lg:mx-16" style={{borderBottomLeftRadius:"0px",borderBottomRightRadius:"0px"}}>
+        <header className="chatbox-header bg-gray-700 p-4 rounded-t-lg border-b border-gray-600">
           <h1 className="text-2xl font-bold text-white">Ask Me!</h1>
         </header>
         <div className="chatbox flex-1 p-4 bg-gray-900" ref={chatBoxRef}
-        style={{
-          overflowY: 'auto',
-          scrollbarWidth: 'thin',
-          scrollbarColor: '#4a5568 #2d3748',
-        }}
+          style={{
+            overflowY: 'auto',
+            scrollbarWidth: 'thin',
+            scrollbarColor: '#4a5568 #2d3748',
+          }}
         >
           {chatHistory.map((msg, index) => (
             <div key={index} className={`flex ${msg.sender === 'bot' ? 'justify-start' : 'justify-end'} my-2`}>
