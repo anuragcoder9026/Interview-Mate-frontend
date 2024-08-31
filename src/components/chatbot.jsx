@@ -12,7 +12,7 @@ const Chatbot = () => {
   const chatBoxRef = useRef(null);
 
   useEffect(() => {
-    window.scrollTo(0, 300);
+    
     sendInitialMessage();
   }, []);
   
@@ -52,6 +52,7 @@ const Chatbot = () => {
       const response = await result.response;
       const text = await response.text();
       appendMessage('bot', formatText(text));
+      
     } catch (error) {
       console.error('Error:', error);
       appendMessage('bot', 'Sorry, something went wrong.');
@@ -65,6 +66,7 @@ const Chatbot = () => {
       const response = await result.response;
       const text = await response.text();
       appendMessage('bot', formatText(text));
+      window.scrollTo(0, document.body.scrollHeight);
     } catch (error) {
       console.error('Error:', error);
       appendMessage('bot', 'Sorry, something went wrong.');
@@ -72,7 +74,6 @@ const Chatbot = () => {
   };
 
   const handleSend = () => {
-    window.scrollTo(0, document.body.scrollHeight);
     if (userMessage.trim()) {
       const additionalText =
         '. Rate my answer, tell me how can I improve the answer and ask the next question.';
@@ -80,6 +81,7 @@ const Chatbot = () => {
       appendMessage('user', userMessage);
       setUserMessage('');
       getBotResponse(messageToSend);
+      window.scrollTo(0, document.body.scrollHeight);
     }
   };
 
@@ -91,8 +93,8 @@ const Chatbot = () => {
 
   return (
     <div className="flex items-start justify-center h-screen bg-gray-900 pt-5 pb-1">
-      <div className="chatbot-container flex flex-col w-full max-w-3xl min-h-[100%] max-h-[100%]  bg-gray-800 rounded-lg shadow-lg border border-gray-700 mx-1 sm:mx-4 md:mx-8 lg:mx-16" style={{borderBottomLeftRadius:"0px",borderBottomRightRadius:"0px"}}>
-        <header className="chatbox-header bg-gray-700 p-4 rounded-t-lg border-b border-gray-600 ">
+      <div className="chatbot-container flex flex-col w-full max-w-3xl min-h-[100%] max-h-[100%]  bg-gray-800 rounded-none sm:rounded-lg shadow-lg border border-gray-700 mx-1 sm:mx-4 md:mx-8 lg:mx-16" style={{borderBottomLeftRadius:"0px",borderBottomRightRadius:"0px"}}>
+        <header className="chatbox-header bg-gray-700 p-4 rounded-none sm:rounded-t-lg border-b border-gray-600 sticky top-0 ">
           <h1 className="text-2xl font-bold text-white">Ask Me!</h1>
         </header>
         <div className="chatbox flex-1 p-4 bg-gray-900" ref={chatBoxRef}

@@ -12,16 +12,17 @@
             .slice(1)
             .split("&")
             .map(function (s) {
-              return s.replace(/and/g, "&");
+              return s.replace(/~and~/g, "&");
             })
             .join("?");
           window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
         }
       })(window.location);
     </script>
+    <script type="module" crossorigin src="/Interview-Mate-frontend/assets/index-B-IotRQy.js"></script>
+    <link rel="stylesheet" crossorigin href="/Interview-Mate-frontend/assets/index-vWiWFqRW.css">
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <div id="root"></div>
   </body>
 </html>
