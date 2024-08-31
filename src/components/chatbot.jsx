@@ -6,13 +6,15 @@ const API_KEY = 'AIzaSyDcw5qJwF3KkDNZI2cG_9vVvCDjLLMXGik';
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
+
 const Chatbot = () => {
   const [chatHistory, setChatHistory] = useState([]);
   const [userMessage, setUserMessage] = useState('');
   const chatBoxRef = useRef(null);
+  const initialMessageSent = useRef(false);
 
   useEffect(() => {
-    
+    window.scrollTo(0, 300);
     sendInitialMessage();
   }, []);
   
@@ -60,7 +62,7 @@ const Chatbot = () => {
   };
 
   const sendInitialMessage = async () => {
-    const initialMessage = "Hello! Please start the conversation directly by greeting and saying thanks for choosing InterviewMate and here you can ask me any question of interview  and give different option like u want to ask techincal question or behavioral etc ..I will try my best to give the best possble answer. Just give the best possible answer nothing more for interview purpose only.";
+    const initialMessage = "Hello! Please start the conversation directly by greeting and saying thanks for choosing InterviewMate and here you can ask me any question of interview  and give different option like u want to ask techincal question or behavioral etc ..I will try my best to give the best possble answer. Just give the best possible answer nothing more for interview purpose only. ";
     try {
       const result = await model.generateContent(initialMessage);
       const response = await result.response;
@@ -75,8 +77,7 @@ const Chatbot = () => {
 
   const handleSend = () => {
     if (userMessage.trim()) {
-      const additionalText =
-        '. Rate my answer, tell me how can I improve the answer and ask the next question.';
+      const additionalText = ". Give me best answer for this question if it is asked in interview.";
       const messageToSend = userMessage + additionalText;
       appendMessage('user', userMessage);
       setUserMessage('');
