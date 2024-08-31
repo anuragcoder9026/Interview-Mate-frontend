@@ -6,6 +6,9 @@ import SearchBar from "./searbar";
 import { useUserContext } from "../context/usercontext"; // Import the context
 import LoginPopup from "./sigin";
 import { Link, NavLink } from "react-router-dom";
+import { FaUserCircle } from 'react-icons/fa';
+import { MdExitToApp } from 'react-icons/md';
+import { AiOutlineClose } from 'react-icons/ai';
 import axios from "axios";
 
 export default function NavBar() {
@@ -34,14 +37,17 @@ export default function NavBar() {
     window.open("http://localhost:3200/logout", "_self");
   };
 
-
+ const handleBars=()=>{
+  setIsProfileDropdownVisible(false);
+  setIsNavBarToggled(!isNavBarToggled);
+ }
 
   return (
     <>
       <div className="flex justify-between p-4 pl-2 pr-2 md:hidden bg-black text-white">
         <FaBars
           className="pl-2 mt-2 size-8"
-          onClick={() => setIsNavBarToggled(!isNavBarToggled)}
+          onClick={handleBars}
         />
         <div className="flex justify-center px-2 sm:px-5 py-2">
           <SearchBar />
@@ -57,15 +63,34 @@ export default function NavBar() {
             />
           </a>
           {isProfileDropdownVisible && (
-            <div className="absolute top-12 right-5 bg-white text-black p-2 rounded shadow-lg z-50">
-              <button
-                className="block px-4 py-2 text-sm hover:bg-gray-200 w-full text-left"
-                onClick={logout}
-              >
-                Logout
-              </button>
-            </div>
-          )}
+              <div className="absolute top-10 mr-1 right-0  p-2 rounded z-50 mt-14">
+             <div className="bg-black text-white w-64 p-6 rounded-lg relative">
+             {/* Close Button */}
+             <button className="absolute top-4 right-4 text-gray-400 rounded-full p-2 hover:bg-gray-700 transition"  
+             onClick={handleProfileClick} >
+               <AiOutlineClose size={24} />
+             </button>
+             
+             {/* Profile Icon and Greeting */}
+             <div className="flex flex-col items-center">
+               {userdata && userdata.profileimg ? <img src={userdata.profileimg}  className=" ml-3 mr-4 w-14 h-14 rounded-full ring-4 ring-white"/> : <FaUserCircle size={64} className="text-gray-400" />}
+               <h2 className="mt-4 text-xl font-semibold">Hi, {userdata.Name}</h2>
+             </div>
+       
+             {/* Profile and Sign Out Options */}
+             <div className="mt-4">
+               <Link to="/profile" className="flex items-center w-full text-left p-2 rounded-lg hover:bg-gray-700 transition" onClick={handleProfileClick}>
+                 <FaUserCircle size={20} className="mr-3" />
+                 <span>Profile</span>
+               </Link>
+               <button className="flex items-center w-full text-left p-2 rounded-lg mt-4 hover:bg-gray-700 transition" onClick={logout}>
+                 <MdExitToApp size={20} className="mr-3" />
+                 <span>Sign Out</span>
+               </button>
+             </div>
+           </div>
+           </div>
+            )}
         </div>
       </div>
       <div
@@ -207,14 +232,33 @@ export default function NavBar() {
               style={{ cursor: "pointer" }} // Add a pointer cursor to indicate it's clickable
             />
             {isProfileDropdownVisible && (
-              <div className="absolute top-10 mr-1 right-0 bg-white text-blue p-2 rounded shadow-lg z-50 ">
-                <button
-                  className="block px-4 py-2 text-sm hover:bg-gray-200 w-full text-left"
-                  onClick={logout}
-                >
-                  Logout
-                </button>
-              </div>
+              <div className="absolute top-10 mr-1 right-0  p-2 rounded z-50 mt-14">
+             <div className="bg-black text-white w-64 p-6 rounded-lg relative">
+             {/* Close Button */}
+             <button className="absolute top-4 right-4 text-gray-400 rounded-full p-2 hover:bg-gray-700 transition"  
+             onClick={handleProfileClick} >
+               <AiOutlineClose size={24} />
+             </button>
+             
+             {/* Profile Icon and Greeting */}
+             <div className="flex flex-col items-center">
+               {userdata && userdata.profileimg ? <img src={userdata.profileimg}  className=" ml-3 mr-4 w-14 h-14 rounded-full ring-4 ring-white"/> : <FaUserCircle size={64} className="text-gray-400" />}
+               <h2 className="mt-4 text-xl font-semibold">Hi, {userdata.Name}</h2>
+             </div>
+       
+             {/* Profile and Sign Out Options */}
+             <div className="mt-4">
+               <Link to="/profile" className="flex items-center w-full text-left p-2 rounded-lg hover:bg-gray-700 transition">
+                 <FaUserCircle size={20} className="mr-3" />
+                 <span>Profile</span>
+               </Link>
+               <button className="flex items-center w-full text-left p-2 rounded-lg mt-4 hover:bg-gray-700 transition" onClick={logout}>
+                 <MdExitToApp size={20} className="mr-3" />
+                 <span>Sign Out</span>
+               </button>
+             </div>
+           </div>
+           </div>
             )}
           </div>
         </div>
