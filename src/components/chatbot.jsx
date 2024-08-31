@@ -86,7 +86,7 @@ const Chatbot = () => {
 
   return (
     <div className="flex items-start justify-center min-h-screen bg-gray-900 pt-5 pb-5">
-      <div className=" chatbot-container flex flex-col w-full max-w-3xl bg-gray-800 rounded-lg shadow-lg border border-gray-700 mx-4 md:mx-8 lg:mx-16">
+      <div className=" chatbot-container flex flex-col w-full max-w-3xl bg-gray-800 rounded-lg shadow-lg border border-gray-700 mx-1 sm:mx-4 md:mx-8 lg:mx-16">
         <header className="chatbox-header bg-gray-700 p-4 rounded-t-lg border-b border-gray-600">
           <h1 className="text-2xl font-bold text-white">Ask Me!</h1>
         </header>
@@ -95,15 +95,19 @@ const Chatbot = () => {
           ref={chatBoxRef}
         >
           {chatHistory.map((msg, index) => (
-            <div
-              key={index}
-              className={`chat-message ${msg.sender} my-2 p-3 rounded-lg max-w-[80%] break-words ${msg.sender === 'bot'
-                ? 'bg-gray-700 text-white self-start'
-                : 'bg-indigo-600 text-white self-end'
-                }`}
-              dangerouslySetInnerHTML={{ __html: msg.text }}
-            />
-          ))}
+  <div
+    key={index}
+    className={`flex ${msg.sender === 'bot' ? 'justify-start' : 'justify-end'} my-2`}
+  >
+    <div
+      className={`chat-message ${msg.sender} p-3 rounded-lg max-w-[90%] sm:max-w-[80%] break-words ${
+        msg.sender === 'bot' ? 'bg-gray-700 text-white' : 'bg-indigo-600 text-white'
+      }`}
+      dangerouslySetInnerHTML={{ __html: msg.text }}
+    />
+  </div>
+))}
+
         </div>
         <div className="chat-input-container bg-gray-700 p-4 flex items-center border-t border-gray-600 rounded-b-lg">
           <input
