@@ -1,16 +1,21 @@
-import React, { useState,useRef,useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { FiSend } from 'react-icons/fi';
 import user from "../assets/images/user.png";
-import {FaPaperclip, FaSmile, FaImage } from 'react-icons/fa';
+import { FaPaperclip, FaSmile, FaImage } from 'react-icons/fa';
 import ChatMessage from "./ChatMessage";
+import EmojiPicker from 'emoji-picker-react';
 
-const MessageSection = ({ selectedUser, messages, onSendMessage,onBack }) => {
+const MessageSection = ({ selectedUser, messages, onSendMessage, onBack }) => {
   const [newMessage, setNewMessage] = useState('');
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const messagesEndRef = useRef(null);
+  const emojiPickerRef = useRef(null);
+
   const handleBack = () => {
-      onBack('search');
-    };
+    onBack('search');
+  };
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -26,16 +31,32 @@ const MessageSection = ({ selectedUser, messages, onSendMessage,onBack }) => {
     }
   };
 
+  const onEmojiClick = (emojiData) => {
+    setNewMessage((prevMessage) => prevMessage + emojiData.emoji);
+  };
+
+  const handleOutsideClick = (e) => {
+    if (showEmojiPicker && emojiPickerRef.current && !emojiPickerRef.current.contains(e.target)) {
+      setShowEmojiPicker(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [showEmojiPicker]);
+
   return (
     <div className="flex flex-col w-full min-h-screen bg-gray-900">
       <div className="flex px-1 lg:px-3 py-3 w-full pt-4 bg-gray-800 border-b border-gray-700 sticky top-0">
-        <div className="flex lg:hidden items-center mr-2"><IoMdArrowBack className='text-white text-xl ' onClick={handleBack}/> </div>
-        <img src={user} alt="profile" className="rounded-full w-8 h-8 mr-2 mt-2"/>  
-        <div className="flex flex-col justify-center ">
-        <h2 className="text-lg font-semibold text-white">{selectedUser.name}</h2>
-        {selectedUser.isOnline && <p className="text-green text-sm">online</p>}
-        </div> 
-        
+        <div className="flex lg:hidden items-center mr-2">
+          <IoMdArrowBack className='text-white text-xl' onClick={handleBack} />
+        </div>
+        <img src={user} alt="profile" className="rounded-full w-8 h-8 mr-2 mt-2" />
+        <div className="flex flex-col justify-center">
+          <h2 className="text-lg font-semibold text-white">{selectedUser.name}</h2>
+          {selectedUser.isOnline && <p className="text-green text-sm">online</p>}
+        </div>
       </div>
 
       {/* Container for messages with scroll functionality */}
@@ -46,7 +67,7 @@ const MessageSection = ({ selectedUser, messages, onSendMessage,onBack }) => {
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="border-t border-gray-700 px-2 py-2 bg-gray-800 w-full sticky bottom-0 ">
+      <div className="relative border-t border-gray-700 px-2 py-2 bg-gray-800 w-full sticky bottom-0">
         <div className="flex items-center mb-2">
           <input
             type="text"
@@ -62,14 +83,30 @@ const MessageSection = ({ selectedUser, messages, onSendMessage,onBack }) => {
           >
             <FiSend />
           </button>
+          {showEmojiPicker && (
+              <div
+                ref={emojiPickerRef}
+                className="absolute bottom-28 left-0 pl-1 md:pl-4 rounded-lg z-50 "
+              >
+                <EmojiPicker onEmojiClick={onEmojiClick} style={{width:"300px",height:"400px"}}/>
+              </div>
+            )}
         </div>
+
         <div className="flex justify-start gap-5 p-2">
           <FaImage className="text-gray-400 text-xl cursor-pointer" />
-          <FaSmile className="text-gray-400 text-xl cursor-pointer" />
+          <div className="relative">
+            <FaSmile
+              className="text-gray-400 text-xl cursor-pointer"
+              onClick={() => setShowEmojiPicker((prev) => !prev)}
+            />
+           
+          </div>
           <FaPaperclip className="text-gray-400 text-xl cursor-pointer" />
         </div>
       </div>
     </div>
   );
 };
+
 export default MessageSection;
