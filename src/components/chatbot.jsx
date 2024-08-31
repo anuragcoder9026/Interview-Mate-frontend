@@ -92,7 +92,7 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="flex items-start justify-center  bg-gray-900 pt-5 pb-2 ">
+    <div className="flex items-start justify-center  bg-gray-900 pt-5 pb-1">
       <div className="chatbot-container flex flex-col w-full max-w-3xl min-h-[90vh] max-h-[85vh] md:min-h-[78vh] md:max-h-[78vh] bg-gray-800 rounded-lg shadow-lg border border-gray-700 mx-1 sm:mx-4 md:mx-8 lg:mx-16" style={{borderBottomLeftRadius:"0px",borderBottomRightRadius:"0px"}}>
         <header className="chatbox-header bg-gray-700 p-4 rounded-t-lg border-b border-gray-600">
           <h1 className="text-2xl font-bold text-white">Ask Me!</h1>
