@@ -2,19 +2,13 @@ import React, { useState } from 'react';
 import { FaRegCircle, FaRegDotCircle } from 'react-icons/fa';
 import { TbPlayerTrackNextFilled } from 'react-icons/tb';
 import congratsImg from "../assets/images/congrats.png";
-
+import axios from 'axios'; // Assuming you use Axios for API requests
+import { generateQuizData } from './GenerateQuizData';
 const QuizApp = () => {
-  const [quizData] = useState([
-    { qid: 1, ques: "What is polymorphism?", ans: "A", options: ["OOP concept", "Machine learning algorithm", "Web 3.0", "Other"] },
-    { qid: 2, ques: "What is React?", ans: "B", options: ["CSS framework", "JavaScript library", "Database", "Web server"] },
-    { qid: 3, ques: "What is a database?", ans: "C", options: ["Frontend tool", "Styling framework", "Data storage", "Compiler"] },
-    { qid: 4, ques: "What is HTML?", ans: "A", options: ["Markup language", "Programming language", "Operating system", "Database"] },
-    { qid: 5, ques: "What is CSS?", ans: "B", options: ["JavaScript library", "Styling language", "Markup language", "Database"] }
-  ]);
-
   const [step, setStep] = useState(1);
   const [topic, setTopic] = useState('All topic');
   const [numQuestions, setNumQuestions] = useState(5);
+  const [quizData, setQuizData] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [userAnswers, setUserAnswers] = useState({});
@@ -52,22 +46,25 @@ const QuizApp = () => {
     }, 0);
   };
 
+  const fetchQuizData = async () => {
+    setStep(3); 
+    try {
+      let data;
+      if(topic==='All topic'){
+        data=await generateQuizData('All question related to computer science',numQuestions);
+      }
+      else data=await generateQuizData(topic,numQuestions);
+      setQuizData(data); 
+    } catch (error) {
+      console.error('Failed to fetch quiz data:', error);
+    }
+  };
+
   const score = calculateScore();
   const percentage = (score / quizData.length) * 100;
 
   return (
     <div className="relative pt-10 pl-3 pr-3 min-h-screen bg-gray-900 text-gray-100 overflow-hidden">
-      {/* Glowing spots */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-5 left-5 w-24 h-24 rounded-full bg-teal-400 opacity-40 blur-3xl" />
-        <div className="absolute top-5 right-5 w-24 h-24 rounded-full bg-teal-400 opacity-40 blur-3xl" />
-        <div className="absolute bottom-10 left-10 w-24 h-24 rounded-full bg-teal-400 opacity-30 blur-3xl" />
-        <div className="absolute bottom-10 right-10 w-24 h-24 rounded-full bg-teal-400 opacity-30 blur-3xl" />
-        {/* Additional glowing spots */}
-        <div className="absolute top-0 left-0 w-20 h-20 rounded-full bg-yellow-500 opacity-40 blur-3xl" />
-        <div className="absolute top-0 right-0 w-20 h-20 rounded-full bg-red-500 opacity-40 blur-3xl" />
-      </div>
-
       <div className="max-w-xl mx-auto p-2 sm:p-6 bg-gray-800 rounded-lg shadow-lg border border-gray-700 relative z-10">
         {step === 1 && (
           <div className="text-center">
@@ -80,7 +77,6 @@ const QuizApp = () => {
               className="w-full p-2 mb-4 rounded-md bg-gray-700 border border-gray-600 text-white"
             />
             <button
-              
               onClick={() => setStep(2)}
               className="w-full py-2 px-4 rounded-md bg-blue text-white transition duration-300"
             >
@@ -100,7 +96,7 @@ const QuizApp = () => {
               className="w-full p-2 mb-4 rounded-md bg-gray-700 border border-gray-600 text-white"
             />
             <button
-              onClick={() => setStep(3)}
+              onClick={fetchQuizData}
               disabled={numQuestions <= 0}
               className="w-full py-2 px-4 rounded-md bg-blue text-white transition duration-300"
             >
@@ -108,8 +104,10 @@ const QuizApp = () => {
             </button>
           </div>
         )}
-
-        {step === 3 && !showResults && (
+        {
+          step==3 && quizData.length === 0 && <h1 className="text-2xl flex justify-center">Preparing Your Quiz....</h1>
+        }
+        {step === 3 && !showResults && quizData.length > 0 && (
           <>
             <div className="mb-4">
               <h2 className="text-2xl font-bold mb-4">Question {currentQuestion + 1}/{quizData.length}</h2>
@@ -156,7 +154,6 @@ const QuizApp = () => {
         )}
 
         {showResults && (
-
           <div className="text-center">
             <h2 className="text-2xl font-bold mb-4">Quiz Results</h2>
             <p className="text-lg mb-4">You scored {score} out of {quizData.length} ({Math.round(percentage)}%)</p>
@@ -164,26 +161,23 @@ const QuizApp = () => {
               <div>
                 <p className="text-xl font-semibold text-green-400">🎉 Congratulations! 🎉</p>
                 <p className="text-lg mt-2">Great job! You did really well.</p>
-                <img src={congratsImg} alt="Congratulations" className="mx-auto mt-4 w-1/2 rounded-md shadow-lg" />
               </div>
             ) : (
-              <div>
-                <p className="text-xl font-semibold text-red-400">😓 Better luck next time!</p>
-                <p className="text-lg mt-2">Don't worry, you can always try again.</p>
-              </div>
+              <p className="text-lg font-semibold text-red-400">😟 Better luck next time!</p>
             )}
-             <button
-              onClick={() => window.location.reload()}
-              className="w-full py-2 px-4 rounded-md bg-blue text-white transition duration-300"
+            <button
+              onClick={() => {
+                setStep(1);
+                setCurrentQuestion(0);
+                setShowResults(false);
+              }}
+              className="w-full py-2 px-4 mt-6 rounded-md bg-gray-700 text-white transition duration-300"
             >
-              Restart Quiz
+              Retake Quiz
             </button>
           </div>
-          
         )}
-        
       </div>
-      
     </div>
   );
 };
