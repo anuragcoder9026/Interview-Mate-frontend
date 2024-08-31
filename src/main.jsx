@@ -17,6 +17,7 @@ import { UserProvider } from './context/usercontext'; // Import the UserProvider
 import Chatbot from './components/chatbot.jsx';
 
 
+
 const router = createBrowserRouter(
   [
     {
@@ -31,7 +32,9 @@ const router = createBrowserRouter(
         { path: '/post', element: <PostDetail /> },
         { path: '/interview', element: <VoiceInterview /> },
         { path: '/message', element: <Message /> },
-        {path: '/chatbot',element: <Chatbot/>}
+        {path: '/chatbot',element: <Chatbot/>},
+        
+        
       ],
     },
   ],
