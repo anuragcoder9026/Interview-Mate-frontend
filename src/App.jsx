@@ -9,7 +9,7 @@ import 'regenerator-runtime/runtime';
 
 function App() {
   const location = useLocation();
-  const noFooterRoutes = ["/message","/chatbot"];
+  const noFooterRoutes = ["/message","/chatbot","/quizapp"];
   return (
     <>
      <ScrollToTop/>
