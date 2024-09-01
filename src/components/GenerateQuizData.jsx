@@ -1,12 +1,13 @@
 // geminiQuizApi.js
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { SYSTEM_INSTRUCTION } from "./config"; // Adjust the path as needed
 
 const apiKey = "AIzaSyCxd0z042alMBmwX97IdfnsiKBvILBOfA8";
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
   model: "gemini-1.5-flash",
-  systemInstruction: "from now Generate [NUMBER_OF_QUESTIONS] multiple-choice questions related to [TOPIC_NAME]. Each question should have a unique qid, a question (ques), an answer (ans), and four options (options). The answer should be indicated by the corresponding option letter (A, B, C, or D). Format the response as a JSON array of objects.",
+  systemInstruction: SYSTEM_INSTRUCTION,
 });
 
 const generationConfig = {
