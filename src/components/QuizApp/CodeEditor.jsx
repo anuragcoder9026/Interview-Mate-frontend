@@ -8,7 +8,7 @@ const CodeEditor = ({ codeString }) => {
   return (
     <div className="code-editor-container">
       <Editor
-        height="100%"
+        height="92%"
         language="cpp"
         value={formattedCode}
         theme="vs-dark"
