@@ -1,14 +1,49 @@
-
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import useClipboard from 'react-use-clipboard';
 import { useEffect, useState } from 'react';
 
 const VoiceInterview = () => {
-    const { transcript, browserSupportsSpeechRecognition } = useSpeechRecognition();
+    const { transcript, browserSupportsSpeechRecognition, resetTranscript } = useSpeechRecognition();
     const [textToCopy, setTextToCopy] = useState(transcript);
     const [isCopied, setCopied] = useClipboard(textToCopy, { successDuration: 1000 });
+    const [response, setResponse] = useState('');
 
     const startListening = () => SpeechRecognition.startListening({ continuous: true, language: 'en-IN' });
+
+    const sendTranscriptToApi = async () => {
+        try {
+            const response = await fetch('http://localhost:3200/api/gemini', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: transcript }),
+            });
+
+            const data = await response.json();
+            if (data.redirect) {
+                window.location.href = data.redirect; // Redirect if the response contains a redirect URL
+            } else {
+                setResponse(data.response);
+                speakText(data.response); // Convert the response to speech
+            }
+        } catch (error) {
+            console.error('Error sending transcript:', error);
+            setResponse('An error occurred while sending the transcript.');
+        }
+    };
+
+    const handleStopListening = () => {
+        SpeechRecognition.stopListening();
+        sendTranscriptToApi(); // Send transcript after stopping the speech recognition
+        resetTranscript(); // Optionally reset the transcript after sending it
+    };
+
+    const speakText = (text) => {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US'; // Set the language
+        speechSynthesis.speak(utterance);
+    };
 
     useEffect(() => {
         if (browserSupportsSpeechRecognition) {
@@ -39,11 +74,23 @@ const VoiceInterview = () => {
                     <button className='bg-blue text-white p-2 px-4 rounded hover:bg-green-700' onClick={setCopied}>
                         {isCopied ? 'Copied!' : 'Copy'}
                     </button>
-                   <div className="flex gap-2">
-                   <button className='text-white p-2 px-4 rounded hover:bg-green-700' onClick={startListening}style={{backgroundColor:"green"}}>Start</button>
-                   <button className='bg-red-600 text-white p-2 px-4 rounded hover:bg-red-700' onClick={SpeechRecognition.stopListening}>Stop</button>
-                   </div>
+                    <div className="flex gap-2">
+                        <button className='text-white p-2 px-4 rounded hover:bg-green-700' onClick={startListening} style={{ backgroundColor: "green" }}>Start</button>
+                        <button className='bg-red-600 text-white p-2 px-4 rounded hover:bg-red-700' onClick={handleStopListening}>Stop</button>
+                    </div>
                 </div>
+
+                {response && (
+                    <div className="mt-4 p-4 border border-gray-700 bg-gray-800 rounded-lg">
+                        <h3 className="text-lg font-bold mb-2">AI Response:</h3>
+                        <p>{response}</p>
+                        <button 
+                            className='mt-2 bg-blue text-white p-2 px-4 rounded hover:bg-orange' 
+                            onClick={() => speakText(response)}>
+                            Play Response
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     );
