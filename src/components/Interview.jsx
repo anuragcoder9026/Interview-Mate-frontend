@@ -7,20 +7,25 @@ const VoiceInterview = () => {
     const [textToCopy, setTextToCopy] = useState(transcript);
     const [isCopied, setCopied] = useClipboard(textToCopy, { successDuration: 1000 });
     const [response, setResponse] = useState('');
+    const [hasStarted, setHasStarted] = useState(false);  // Track if the interview has started
 
-    const startListening = () => SpeechRecognition.startListening({ continuous: true, language: 'en-IN' });
+    // Function to start listening
+    const startListening = () => {
+        SpeechRecognition.startListening({ continuous: true, language: 'en-IN' });
+    };
 
-    const sendTranscriptToApi = async () => {
+    // Function to send transcript to API and handle AI response
+    const sendTranscriptToApi = async (message) => {
         try {
-            const response = await fetch('http://localhost:3200/api/gemini', {
+            const res = await fetch('http://localhost:3200/api/gemini', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ message: transcript }),
+                body: JSON.stringify({ message }),
             });
 
-            const data = await response.json();
+            const data = await res.json();
             if (data.redirect) {
                 window.location.href = data.redirect; // Redirect if the response contains a redirect URL
             } else {
@@ -33,30 +38,36 @@ const VoiceInterview = () => {
         }
     };
 
+    // Function to handle stopping the listening and sending the transcript
     const handleStopListening = () => {
         SpeechRecognition.stopListening();
-        sendTranscriptToApi(); // Send transcript after stopping the speech recognition
-        resetTranscript(); // Optionally reset the transcript after sending it
+        sendTranscriptToApi(transcript);  // Send transcript after stopping the speech recognition
+        resetTranscript();  // Optionally reset the transcript after sending it
     };
 
+    // Function to speak the text using speech synthesis
     const speakText = (text) => {
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'en-US'; // Set the language
+        utterance.lang = 'en-US';  // Set the language
         speechSynthesis.speak(utterance);
     };
 
+    // useEffect to start the interview by triggering the first AI response
     useEffect(() => {
-        if (browserSupportsSpeechRecognition) {
-            startListening();
+        if (browserSupportsSpeechRecognition && !hasStarted) {
+            setHasStarted(true);
+            sendTranscriptToApi('');  // Trigger the first AI response with an empty message
         }
-        // Cleanup: Stop listening when component unmounts
-        return () => SpeechRecognition.stopListening();
-    }, [browserSupportsSpeechRecognition]);
 
+        return () => SpeechRecognition.stopListening();
+    }, [browserSupportsSpeechRecognition, hasStarted]);
+
+    // Update textToCopy whenever transcript changes
     useEffect(() => {
         setTextToCopy(transcript);
     }, [transcript]);
 
+    // If the browser does not support speech recognition, display a message
     if (!browserSupportsSpeechRecognition) {
         return <div className="text-white bg-gray-800 p-4">Browser does not support speech recognition.</div>;
     }
@@ -75,8 +86,24 @@ const VoiceInterview = () => {
                         {isCopied ? 'Copied!' : 'Copy'}
                     </button>
                     <div className="flex gap-2">
-                        <button className='text-white p-2 px-4 rounded hover:bg-green-700' onClick={startListening} style={{ backgroundColor: "green" }}>Start</button>
-                        <button className='bg-red-600 text-white p-2 px-4 rounded hover:bg-red-700' onClick={handleStopListening}>Stop</button>
+                        <button
+                            className='text-white p-2 px-4 rounded hover:bg-green-700'
+                            onClick={() => {
+                                if (!hasStarted) {
+                                    setHasStarted(true);
+                                    sendTranscriptToApi('');  // Trigger the first AI response
+                                } else {
+                                    startListening();
+                                }
+                            }}
+                            style={{ backgroundColor: "green" }}>
+                            {hasStarted ? "Start Listening" : "Start"}
+                        </button>
+                        <button
+                            className='bg-red-600 text-white p-2 px-4 rounded hover:bg-red-700'
+                            onClick={handleStopListening}>
+                            Stop
+                        </button>
                     </div>
                 </div>
 
