@@ -1,4 +1,5 @@
 // src/index.js or src/main.js
+import 'prismjs/themes/prism-dark.css';
 
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
