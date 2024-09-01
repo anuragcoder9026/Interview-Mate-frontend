@@ -15,7 +15,7 @@ import VoiceInterview from './components/Interview.jsx';
 import Message from './components/Message.jsx';
 import { UserProvider } from './context/usercontext'; // Import the UserProvider
 import Chatbot from './components/chatbot.jsx';
-
+import NewQuizApp from './components/NewQuizApp.jsx';
 
 
 const router = createBrowserRouter(
@@ -29,6 +29,7 @@ const router = createBrowserRouter(
         { path: '/profile', element: <ProfileSection /> },
         { path: '/signup', element: <SignUpForm /> },
         { path: '/quiz', element: <QuizApp /> },
+        { path: '/quizapp', element:<NewQuizApp/>},
         { path: '/post', element: <PostDetail /> },
         { path: '/interview', element: <VoiceInterview /> },
         { path: '/message', element: <Message /> },

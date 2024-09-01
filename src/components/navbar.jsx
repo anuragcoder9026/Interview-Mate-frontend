@@ -113,7 +113,7 @@ export default function NavBar() {
             </NavLink>
 
             <NavLink
-              to="/quiz"
+              to="/quizapp"
               className={({ isActive }) =>
                 `font-bold text-xl font-Poppins hover:cursor-pointer ${
                   isActive ? "text-white" : "text-gray-500 hover:text-white"
@@ -178,7 +178,6 @@ export default function NavBar() {
           >
             Home
           </NavLink>
-
           <NavLink
             to="/chatbot"
             className={({ isActive }) =>
@@ -191,7 +190,7 @@ export default function NavBar() {
           </NavLink>
 
           <NavLink
-            to="/quiz"
+            to="/quizapp"
             className={({ isActive }) =>
               ` p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer ${
                 isActive ? "text-white" : "text-zinc-400 hover:text-white"
