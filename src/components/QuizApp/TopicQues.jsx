@@ -44,7 +44,6 @@ const TopicQues = ({dispatch}) => {
             value={numOfQuestions}
             onChange={(e) => setNumOfQuestions(e.target.value)}
             min="5"
-            max="25"
             step="5"
             className="w-full text-black p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue"
             placeholder="Enter number of questions"

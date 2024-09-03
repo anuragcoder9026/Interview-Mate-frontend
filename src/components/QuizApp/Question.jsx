@@ -1,5 +1,5 @@
 import Options from "./Options";
-import CodeEditor from "./CodeEditor";
+
 function Question({ question, dispatch, answer }) {
   return (
     <div className="question_container">
@@ -8,9 +8,6 @@ function Question({ question, dispatch, answer }) {
       fontWeight: 600,
       marginBottom: '1.0rem',
     }}>{question.question}</h4>
-      {question.codeSnippet&&
-      <CodeEditor codeString={question.codeSnippet}/>
-      }
       <Options question={question} dispatch={dispatch} answer={answer} />
     </div>
   );
