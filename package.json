@@ -36,7 +36,6 @@
     "react-router-dom": "^6.26.1",
     "react-sparkle": "^2.0.0",
     "react-speech-recognition": "^3.10.0",
-    " ": "^15.5.0",
     "react-toastify": "^10.0.5",
     "react-use-clipboard": "^1.0.9",
     "regenerator-runtime": "^0.14.1"
