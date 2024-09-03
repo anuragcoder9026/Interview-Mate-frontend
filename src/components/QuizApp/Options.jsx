@@ -16,7 +16,11 @@ function Options({ question, dispatch, answer }) {
           disabled={hasAnswered}
           onClick={() => dispatch({ type: "newAnswer", payload: index })}
         >
-          {option}
+    {option.code ? (
+  <code>{option.code}</code>
+) : (
+  typeof option === 'object' ? JSON.stringify(option) : option
+)}
         </button>
       ))}
     </div>
