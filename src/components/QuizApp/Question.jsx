@@ -1,5 +1,5 @@
-import Options from "./Options";
-import CodeEditor from "./CodeEditor";
+import Options from "./Options.jsx";
+import CodeEditor from "./CodeEditor.jsx";
 function Question({ question, dispatch, answer }) {
   return (
     <div className="question_container">
