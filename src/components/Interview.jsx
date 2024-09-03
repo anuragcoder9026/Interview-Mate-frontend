@@ -1,13 +1,25 @@
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import useClipboard from 'react-use-clipboard';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const VoiceInterview = () => {
+    const [showResult, setShowResult] = useState(false); // Track if the result should be displayed
     const { transcript, browserSupportsSpeechRecognition, resetTranscript } = useSpeechRecognition();
     const [textToCopy, setTextToCopy] = useState(transcript);
     const [isCopied, setCopied] = useClipboard(textToCopy, { successDuration: 1000 });
     const [response, setResponse] = useState('');
     const [hasStarted, setHasStarted] = useState(false);  // Track if the interview has started
+    const navigate = useNavigate();
+
+    const getresult = () => {
+        
+         navigate(`/result/`);
+        
+    };
+      
 
     // Function to start listening
     const startListening = () => {
@@ -21,7 +33,9 @@ const VoiceInterview = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    
                 },
+                credentials: 'include', // This ensures the session cookie is sent
                 body: JSON.stringify({ message }),
             });
 
@@ -46,6 +60,8 @@ const VoiceInterview = () => {
         sendTranscriptToApi(transcript);  // Send transcript after stopping the speech recognition
         resetTranscript();  // Optionally reset the transcript after sending it
     };
+
+   
 
     // Function to speak the text using speech synthesis
     const speakText = (text) => {
@@ -104,6 +120,12 @@ const VoiceInterview = () => {
                             onClick={handleStopListening}>
                             Stop
                         </button>
+
+                        <button
+                            className='bg-blue text-white p-2 px-4 rounded hover:bg-orange'
+                            onClick={() => setShowResult(true)}>
+                            Result
+                        </button>
                     </div>
                 </div>
 
@@ -118,6 +140,7 @@ const VoiceInterview = () => {
                         </button>
                     </div>
                 )}
+                {showResult && getresult()}
             </div>
         </div>
     );
