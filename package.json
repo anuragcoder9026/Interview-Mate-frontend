@@ -19,6 +19,7 @@
     "@google/generative-ai": "^0.17.1",
     "@heroicons/react": "^2.1.5",
     "@material-tailwind/react": "^2.1.9",
+    "@monaco-editor/react": "^4.6.0",
     "axios": "^1.7.4",
     "chart.js": "^4.4.3",
     "dotenv": "^16.4.5",
