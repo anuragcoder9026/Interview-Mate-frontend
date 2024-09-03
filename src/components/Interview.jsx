@@ -26,11 +26,13 @@ const VoiceInterview = () => {
             });
 
             const data = await res.json();
+            const { response, session_id } = data;
             if (data.redirect) {
                 window.location.href = data.redirect; // Redirect if the response contains a redirect URL
             } else {
-                setResponse(data.response);
-                speakText(data.response); // Convert the response to speech
+                setResponse(response);
+                speakText(response); // Convert the response to speech
+                console.log(session_id);
             }
         } catch (error) {
             console.error('Error sending transcript:', error);
@@ -48,21 +50,22 @@ const VoiceInterview = () => {
     // Function to speak the text using speech synthesis
     const speakText = (text) => {
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'en-US';  // Set the language
+        utterance.lang = 'en-IN';  // Set the language
         speechSynthesis.speak(utterance);
     };
 
-    // useEffect to start the interview by triggering the first AI response
-    useEffect(() => {
-        if (browserSupportsSpeechRecognition && !hasStarted) {
-            setHasStarted(true);
-            sendTranscriptToApi('');  // Trigger the first AI response with an empty message
-        }
+    // // useEffect to start the interview by triggering the first AI response
+    // useEffect(() => {
+    //     if (browserSupportsSpeechRecognition && !hasStarted) {
+    //         setHasStarted(true);
+    //         sendTranscriptToApi('');  // Trigger the first AI response with an empty message
+    //     }
 
-        return () => SpeechRecognition.stopListening();
-    }, [browserSupportsSpeechRecognition, hasStarted]);
+    //     return () => SpeechRecognition.stopListening();
+    // }, [browserSupportsSpeechRecognition, hasStarted]);
 
     // Update textToCopy whenever transcript changes
+
     useEffect(() => {
         setTextToCopy(transcript);
     }, [transcript]);
@@ -89,12 +92,9 @@ const VoiceInterview = () => {
                         <button
                             className='text-white p-2 px-4 rounded hover:bg-green-700'
                             onClick={() => {
-                                if (!hasStarted) {
-                                    setHasStarted(true);
-                                    sendTranscriptToApi('');  // Trigger the first AI response
-                                } else {
+                               
                                     startListening();
-                                }
+                                
                             }}
                             style={{ backgroundColor: "green" }}>
                             {hasStarted ? "Start Listening" : "Start"}
