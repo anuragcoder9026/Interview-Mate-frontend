@@ -1,5 +1,5 @@
-import Options from "./Options.jsx";
-import CodeEditor from "./CodeEditor.jsx";
+import Options from "./Options";
+import CodeEditor from "./edit";
 
 function Question({ question, dispatch, answer }) {
   return (
