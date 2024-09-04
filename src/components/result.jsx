@@ -3,8 +3,9 @@ import { useParams } from 'react-router-dom';
 
 const Result = () => {
     const { sessionId } = useParams();
-    const [responses, setResponses] = useState([]);
+    const [results, setResponses] = useState([]);
     const [error, setError] = useState(null);
+    console.log(sessionId);
 
     useEffect(() => {
         const fetchResult = async () => {
@@ -17,7 +18,7 @@ const Result = () => {
                     throw new Error('Session not found');
                 }
                 const data = await res.json();
-                setResponses(data.responses);
+                setResponses(data.results);
             } catch (error) {
                 setError(error.message);
             }
@@ -33,15 +34,15 @@ const Result = () => {
                 <p>{error}</p>
             ) : (
                 <div>
-                    {responses.map((response, index) => (
+                    {results.map((results, index) => (
                         <div key={index} className="border border-gray-700 p-4 mb-4 rounded-lg bg-gray-800">
                             <h3 className="text-lg font-bold mb-2">Question {index + 1}:</h3>
-                            <p className="mb-2"><strong>Question:</strong> {response.question}</p>
-                            <p className="mb-2"><strong>Answer:</strong> {response.answer}</p>
-                            <p className="mb-2"><strong>Rating:</strong> {response.rating}</p>
+                            <p className="mb-2"><strong>Question:</strong> {results.question}</p>
+                            <p className="mb-2"><strong>Answer:</strong> {results.answer}</p>
+                            <p className="mb-2"><strong>Rating:</strong> {results.rating}</p>
                             <p className="mb-2"><strong>Evaluation:</strong></p>
                             <div className="bg-gray-900 p-2 rounded">
-                                <p>{response.evaluation}</p>
+                                <p>{results.evaluation}</p>
                             </div>
                         </div>
                     ))}
