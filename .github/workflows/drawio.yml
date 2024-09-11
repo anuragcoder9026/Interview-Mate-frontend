@@ -1,0 +1,29 @@
+name: Generate Diagram PNGs
+
+on:
+  push:
+    paths:
+      - '**/*.drawio'
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Convert .drawio to PNG
+      run: |
+        sudo apt-get update
+        sudo apt-get install drawio
+        for file in $(find . -name '*.drawio'); do
+          drawio --export "$file" --output "${file%.drawio}.png"
+        done
+        
+    - name: Commit changes
+      run: |
+        git config --local user.email "actions@github.com"
+        git config --local user.name "GitHub Actions"
+        git add .
+        git commit -m "Update PNGs from .drawio"
+        git push
