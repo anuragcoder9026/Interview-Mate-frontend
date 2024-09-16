@@ -17,6 +17,7 @@ import { UserProvider } from './context/usercontext'; // Import the UserProvider
 import Chatbot from './components/chatbot.jsx';
 import NewQuizApp from './components/NewQuizApp.jsx';
  import Result from './components/result.jsx';
+import Add from './components/add.jsx';
 
 
 const router = createBrowserRouter(
@@ -36,6 +37,8 @@ const router = createBrowserRouter(
         { path: '/message', element: <Message /> },
         {path: '/chatbot',element: <Chatbot/>},
          {path: '/result',element: <Result/>},
+         {path: '/add',element: <Add/>},
+
         
         
       ],
