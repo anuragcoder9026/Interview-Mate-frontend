@@ -24,7 +24,6 @@ const ProfileSection = () => {
   };
 
   const { userdata } = useUserContext(); // Access the userdata here
-
     return (
         <div className="flex flex-col items-center w-full bg-slate-200 p-2">
             {/* Profile Header Section */}
@@ -39,8 +38,7 @@ const ProfileSection = () => {
                 <div className="absolute bottom-[-50px] left-6  w-32 h-32 rounded-full bg-white p-2 shadow-md">
                     <img
                         className="w-full h-full rounded-full object-cover"
-                        //src="https://c4.wallpaperflare.com/wallpaper/383/633/300/sybil-kailena-davina-e-sybille-y-sybil-a-hd-wallpaper-preview.jpg"
-                        src={userdata && userdata.profileimg ? userdata.profileimg :'https://c4.wallpaperflare.com/wallpaper/383/633/300/sybil-kailena-davina-e-sybille-y-sybil-a-hd-wallpaper-preview.jpg'}
+                        src={userdata? userdata?.profileimg : user}
                         alt="User Profile"
                     />
                 </div>
