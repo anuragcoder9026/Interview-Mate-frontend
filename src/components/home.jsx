@@ -8,7 +8,7 @@ function Home() {
     <div className="flex justify-center px-0 mt-4">
       <div className="flex flex-col lg:flex-row w-full max-w-6xl lg:space-x-1 space-y-4 lg:space-y-0">
         {/* Profile Card */}
-        <div className="lg:flex-shrink-0 px-4" >
+        <div className="lg:flex-shrink-0 px-2" >
           <ProfileCard />
         </div>
         {/* CreatePost and CardGrid */}

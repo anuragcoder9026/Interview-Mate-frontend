@@ -18,6 +18,7 @@ import Chatbot from './components/chatbot.jsx';
 import NewQuizApp from './components/NewQuizApp.jsx';
  import Result from './components/result.jsx';
 import Add from './components/add.jsx';
+import MyNetwork from './components/MyNetwork.jsx';
 
 
 const router = createBrowserRouter(
@@ -36,8 +37,9 @@ const router = createBrowserRouter(
         { path: '/interview', element: <VoiceInterview /> },
         { path: '/message', element: <Message /> },
         {path: '/chatbot',element: <Chatbot/>},
-         {path: '/result',element: <Result/>},
-         {path: '/add',element: <Add/>},
+        {path: '/result',element: <Result/>},
+        {path: '/add',element: <Add/>},
+        {path: '/mynetwork',element:<MyNetwork/> },
 
         
         
