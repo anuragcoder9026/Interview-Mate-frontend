@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        cream: '#f3f2ef', // Light beige/cream color similar to LinkedIn
+      },
       keyframes: {
         slideUp: {
           '0%': { transform: 'translateY(100%)', opacity: '0' },
