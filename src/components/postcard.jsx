@@ -79,7 +79,7 @@ function CustomCard({ url }) {
         <div className="flex flex-col w-full">
           <div className="flex justify-between">
             <h4 className="flex items-center text-lg font-semibold">
-              Anurag Singh
+              Alok Thakur
             </h4>
             <button
               className={`ml-auto text-sm font-bold mr-1 sm:mr-2 ${
@@ -92,7 +92,7 @@ function CustomCard({ url }) {
 
           </div>
           <p className="text-sm text-gray-600">
-            4th year student at NIT Jalandhar
+            3th year student at NIT Jalandhar
           </p>
         </div>
       </div>
