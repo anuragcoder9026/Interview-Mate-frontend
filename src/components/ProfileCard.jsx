@@ -37,12 +37,21 @@ const ProfileCard = () => {
         {/* Profile Name */}
         <h2 className="text-xl font-semibold"><Link to={"/profile"}> ANURAG SINGH </Link></h2>
         {/* Profile Description */}
-        <p className="text-gray-600 text-sm mt-1 px-5">
+        {/* <p className="text-gray-600 text-sm mt-1 px-5">
           Student at NIT Jalandhar | NITJ CSE 26 |
           Full stack Web Development | DSA
           Leetcode | Python | C | C++ | Java |
           Rajbhasa Club | #web #dsa #mern #sde
-        </p>
+        </p> */}
+        <Link
+      to="./profile"
+      className="text-gray-600 text-sm mt-1 px-5 block"
+    >
+      Student at NIT Jalandhar | NITJ CSE 26 |
+      Full stack Web Development | DSA
+      Leetcode | Python | C | C++ | Java |
+      Rajbhasa Club | #web #dsa #mern #sde
+    </Link>
       </div>
 
       {/* Content visible on small devices only */}
