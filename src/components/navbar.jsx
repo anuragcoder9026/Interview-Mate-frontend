@@ -15,7 +15,7 @@ import { MdQuiz, MdDashboard } from "react-icons/md"; // Quiz and Dashboard icon
 import { IoMdMail } from "react-icons/io"; // Message icon
 import { FaUsers } from "react-icons/fa"; // My Network icon
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 export default function NavBar() {
   const [isNavBarToggled, setIsNavBarToggled] = useState(false);
   const [isLoginPopupVisible, setIsLoginPopupVisible] = useState(false);
@@ -38,9 +38,23 @@ export default function NavBar() {
   };
 
   // Logout function
-  const logout = () => {
-    window.open("http://localhost:3200/logout", "_self");
-  };
+  
+  const navigate = useNavigate(); 
+      const logout = async (e) => {
+        e.preventDefault();
+        try { 
+            const res = await axios.get('http://localhost:3200/api/users/logout',{
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true // Include this line to allow cookies
+            });
+            console.log(res);
+            window.location.href="http://localhost:5173/Interview-Mate-frontend/";
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
   const handleBars = () => {
     setIsProfileDropdownVisible(false);
@@ -86,7 +100,7 @@ export default function NavBar() {
                     <FaUserCircle size={64} className="text-gray-400" />
                   )}
                   <h2 className="mt-4 text-xl font-semibold">
-                    Hi, {userdata.Name}
+                    Hi, {userdata.name}
                   </h2>
                 </div>
 
@@ -370,7 +384,7 @@ export default function NavBar() {
                       <FaUserCircle size={64} className="text-gray-400" />
                     )}
                     <h2 className="mt-4 text-xl font-semibold">
-                      Hi, {userdata.Name}
+                      Hi, {userdata.name}
                     </h2>
                   </div>
 

@@ -16,7 +16,7 @@ export const UserProvider = ({ children }) => {
         withCredentials: true,
       });
       console.log("response", response);
-      setUserdata(response.data.lebhaidata);
+      setUserdata(response.data.user);
     } catch (error) {
       console.error(error);
     }
