@@ -1,16 +1,49 @@
 import React from "react";
 import SignUpForm from "./singup";
 import { Link } from "react-router-dom";
-
+import { useState } from "react";
+import axios from "axios"
 const LoginPopup = ({ onClose }) => {
+  const [formData, setData] = useState({email: "", password: ""});
+  const [loginError,setLoginError]=useState(null);
+  const handleChange = evt => {
+    const value = evt.target.value;
+    setData({
+      ...formData,
+      [evt.target.name]: value
+    });
+  };
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoginError(null);
+    try {
+      const jsonFormData = JSON.stringify(formData); 
+      console.log("data:",jsonFormData);
+      const res = await axios.post('http://localhost:3200/api/users/login', jsonFormData, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
+      });
+      console.log("resp:",res);
+      if(res.status==200){
+         window.location.href="http://localhost:5173/Interview-Mate-frontend/profile"
+      }
+    } catch (error) {
+      console.log(error.response.data.message);
+      if(error.response?.data?.message) setLoginError(error.response?.data?.message);
+    }
+    
+  }
   const loginwitgoogle = () => {
-    window.open("http://localhost:3200/auth/google", "_self");
+    window.open("http://localhost:3200/auth/google/signin", "_self");
   };
   return (
     <div
       id="login-popup"
       tabIndex="-1"
-      className="bg-black/50 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 h-full flex items-center justify-center"
+      className="bg-black/50 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0  h-full flex items-center justify-center"
+      style={{zIndex:"150"}}
     >
       <div className="relative p-4 w-full max-w-md h-full md:h-auto">
         <div className="relative bg-white rounded-lg shadow">
@@ -89,8 +122,7 @@ const LoginPopup = ({ onClose }) => {
               <div className="h-px w-full bg-slate-200"></div>
             </div>
 
-            <form className="w-full" onSubmit={onClose}>
-              {" "}
+            <form className="w-full" onSubmit={handleLogin}>
               {/* Close popup when the form is submitted */}
               <label htmlFor="email" className="sr-only">
                 Email address
@@ -100,9 +132,14 @@ const LoginPopup = ({ onClose }) => {
                 type="email"
                 autoComplete="email"
                 required
+                value={formData.email}
+                onChange={handleChange}
                 className="block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
                 placeholder="Email Address"
               />
+              {loginError&& loginError=="Email does not match"&&
+                <p style={{ color: 'red', fontWeight: "500",display:"flex",fontSize:"12px", alignItems:"center" ,marginTop:"5px" }}>Email does not match</p>
+             }
               <label htmlFor="password" className="sr-only">
                 Password
               </label>
@@ -111,9 +148,14 @@ const LoginPopup = ({ onClose }) => {
                 type="password"
                 autoComplete="current-password"
                 required
+                value={formData.password}
+                onChange={handleChange}
                 className="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
                 placeholder="Password"
               />
+              {loginError&& loginError=="Password does not match"&&
+                <p style={{ color: 'red', fontWeight: "500",display:"flex",fontSize:"12px", alignItems:"center" ,marginTop:"5px" }}>Password does not match</p>
+             }
               <p className="mb-3 mt-2 text-sm text-gray-500">
                 <a
                   href="/forgot-password"

@@ -5,7 +5,7 @@ import { IoIosArrowUp,IoIosArrowDown } from "react-icons/io";
 const MenageNetworkCard = () => {
   const [show,setShow]=useState(false);
   return (
-    <div style={{ position: 'sticky', top: '10px' }}>
+    <div style={{ position: 'sticky', top: '10px' }} className="sm:mb-12">
       <div className="w-full lg:w-[300px] rounded-lg overflow-hidden  bg-white border border-gray-300">
         <aside className="w-full bg-white rounded-lg">
            <div className="flex justify-between border-b p-4 pb-1">

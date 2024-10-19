@@ -19,7 +19,8 @@ import NewQuizApp from './components/NewQuizApp.jsx';
  import Result from './components/result.jsx';
 import Add from './components/add.jsx';
 import MyNetwork from './components/MyNetwork.jsx';
-
+import {Provider} from "react-redux";
+import InterviewMateStore from './store/store.js';
 
 const router = createBrowserRouter(
   [
@@ -53,8 +54,10 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <Provider store={InterviewMateStore}>
     <UserProvider> {/* Wrap the entire app with UserProvider */}
       <RouterProvider router={router} />
     </UserProvider>
+    </Provider>
   </StrictMode>
 );
