@@ -7,24 +7,20 @@ import { Outlet,useLocation } from "react-router-dom";
 import ScrollToTop from "./components/ScrollTop";
 import 'regenerator-runtime/runtime';
 import SplashScreen from './components/SplashScreen';
+import { useUserContext } from './context/usercontext';
 function App() {
   const location = useLocation();
-  const noFooterRoutes = ["/message","/chatbot","/quizapp"];
-  const [splash,setSplash]=useState(true);
-  useEffect(()=>{
-     setTimeout(()=>{
-      setSplash(false);
-     },2000)
-  },[])
+  const noFooterRoutes = ["/chatbot","/quizapp"];
+  const isMessageRoute = location.pathname.startsWith("/message/");
+  const {userdata,logout}=useUserContext();
   return (
-    splash?<SplashScreen/>:
+    !logout && !userdata ?<SplashScreen/>:
     <>
      <ScrollToTop/>
      <Header/>
      <NavBar/>
      <Outlet/>
-     {!noFooterRoutes.includes(location.pathname) &&  <FooterWithSocialLinks/>}
-     
+     {!isMessageRoute && !noFooterRoutes.includes(location.pathname) &&  <FooterWithSocialLinks/>}
     </>
     
   )

@@ -2,23 +2,39 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { userAboutAction } from '../store/userAboutSlice';
 import { useSelector } from "react-redux";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; 
+import axios from "axios";
 const EditAboutForm = ({ closeAboutpopup }) => {
   const dispatch=useDispatch(); 
   const [formData, setFormData] = useState(useSelector(store=>store.userAbout));
 
   const [isLoading, setIsLoading] = useState(false);
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const handleInputChange = (content) => {
+    setFormData({ ...formData, ['about']: content });
   };
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true); // Show loader
-    setTimeout(() => {
+    try {
+      const jsonFormData = JSON.stringify(formData);  
+      const res = await axios.post('http://localhost:3200/api/users/about', jsonFormData, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
+      });
+      console.log(res);
+      
       setIsLoading(false);
-      dispatch(userAboutAction.handleUserAbout(formData)); 
-      closeAboutpopup(false); // Close the popup
-    }, 1000);
+      dispatch(userAboutAction.handleUserAbout(formData));
+      closeAboutpopup(false);
+    } catch (error) {
+      console.log(error);
+       setIsLoading(false);
+      closeAboutpopup(false);
+    }
   };
 
   return (
@@ -46,14 +62,11 @@ const EditAboutForm = ({ closeAboutpopup }) => {
             <label className="block text-sm font-medium mb-2" htmlFor="about">
               About
             </label>
-            <textarea
-              id="about"
-              name="about"
-              className="border p-1 w-full rounded"
-              value={formData.about}
-              onChange={handleInputChange}
-              rows="10"
-              placeholder="Enter About you self..."
+            <ReactQuill
+             className="border p-1 w-full rounded"
+             value={formData.about}
+             onChange={handleInputChange}
+             placeholder="Enter About you self..."
             />
           </div>
 
