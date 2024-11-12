@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { userIntroAction } from '../store/userIntroSilice';
 import { useSelector } from "react-redux";
-const EditIntroForm = ({ closeEditpopup }) => {
+import axios from "axios"
+const EditIntroForm = ({ closeIntroPopup }) => {
   const dispatch=useDispatch(); 
   
   // Form state
@@ -21,14 +22,24 @@ const EditIntroForm = ({ closeEditpopup }) => {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true); // Show loader
-    setTimeout(() => {
+    try {
+      const jsonFormData = JSON.stringify(formData);  
+      const res = await axios.post('http://localhost:3200/api/users/intro', jsonFormData, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
+      });
       setIsLoading(false);
       dispatch(userIntroAction.handleUserIntro(formData)); 
-      closeEditpopup(false); // Close the popup
-    }, 1000);
+      closeIntroPopup(false);
+    } catch (error) {
+      console.log(error);
+      closeIntroPopup(false);
+    }
   };
 
   return (
@@ -45,7 +56,7 @@ const EditIntroForm = ({ closeEditpopup }) => {
           <span
             className="hover:bg-gray-200 px-2.5 pb-1"
             style={{ borderRadius: "50%" }}
-            onClick={() => closeEditpopup(false)}
+            onClick={() => closeIntroPopup(false)}
           >
             <button className="text-gray-500 text-3xl">&times;</button>
           </span>
@@ -54,12 +65,12 @@ const EditIntroForm = ({ closeEditpopup }) => {
         <form onSubmit={handleSubmit} className="mt-4">
           {/* First Name */}
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-2" htmlFor="firstName">
+            <label className="block text-sm font-medium mb-2" htmlFor="name">
               Name
             </label>
             <input
               type="text"
-              id="firstName"
+              id="name"
               name="name"
               className="border p-1 w-full rounded"
               value={formData.name}
@@ -124,12 +135,14 @@ const EditIntroForm = ({ closeEditpopup }) => {
 
           {/* Current Position */}
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-2">
+            <label className="block text-sm font-medium mb-2" htmlFor='current_position'>
               Current Position
             </label>
             <div className="flex mb-2">
               <input
                 type="text"
+                id="current_position"
+                name="current_position"
                 className="border p-1 w-full rounded"
                 value={formData.current_position}
                 onChange={handleInputChange}
@@ -155,23 +168,18 @@ const EditIntroForm = ({ closeEditpopup }) => {
 
           {/* Education */}
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-2">Education</label>
+            <label className="block text-sm font-medium mb-2" htmlFor='education'>Education</label>
             <div className="flex mb-2">
               <input
                 type="text"
+                id="education"
+                name="education"
                 className="border p-1 w-full rounded"
                 value={formData.education}
                 onChange={handleInputChange}
               />
             </div>
-            <button
-              type="button"
-              className="text-blue mt-2"
-              style={{ fontSize: "17px", fontWeight: 500 }}
-              onClick={handleInputChange}
-            >
-              + Add new education
-            </button>
+          
           </div>
 
           {/* Location */}

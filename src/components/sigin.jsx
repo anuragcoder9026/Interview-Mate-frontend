@@ -1,9 +1,20 @@
 import React from "react";
-import SignUpForm from "./singup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios"
-const LoginPopup = ({ onClose }) => {
+import { useUserContext } from '../context/usercontext';
+import { useDispatch } from 'react-redux';
+import { userIntroAction } from "../store/userIntroSilice"; 
+import { userAboutAction } from '../store/userAboutSlice';
+import { userEducationAction } from '../store/userEducationSlice';
+import { userExperienceAction } from '../store/userExperienceSlice';
+import { userSkillAction } from '../store/userSkillSlice';
+import { userFollowingAction } from "../store/userFollowing";
+import socket from "../../socket";
+const LoginPopup = () => {
+  const { setUserdata ,setUnseenMessageCount,setUnseenNotificationCount} = useUserContext();
+  const dispatch=useDispatch(); 
+  const navigate =useNavigate();
   const [formData, setData] = useState({email: "", password: ""});
   const [loginError,setLoginError]=useState(null);
   const handleChange = evt => {
@@ -19,15 +30,22 @@ const LoginPopup = ({ onClose }) => {
     try {
       const jsonFormData = JSON.stringify(formData); 
       console.log("data:",jsonFormData);
-      const res = await axios.post('http://localhost:3200/api/users/login', jsonFormData, {
+      const response = await axios.post('http://localhost:3200/api/users/login', jsonFormData, {
         headers: {
           'Content-Type': 'application/json'
         },
         withCredentials: true
       });
-      console.log("resp:",res);
-      if(res.status==200){
-         window.location.href="http://localhost:5173/Interview-Mate-frontend/profile"
+      if(response.status==200){
+        setUserdata(response.data.user);
+        dispatch(userFollowingAction.handleInitFollowing(response.data.user.following));
+        dispatch(userIntroAction.handleUserIntro(response.data.user.intro)); 
+        dispatch(userAboutAction.handleUserAbout({about:response.data.user.about}));
+        dispatch(userEducationAction.handleInitEducation(response.data.user.educations));
+        dispatch(userExperienceAction.handleInitExperience(response.data.user.experiences));
+        dispatch(userSkillAction.handleInitSkill(response.data.user.skills));
+        socket.emit('join', response.data.user?._id);
+         navigate("/profile");
       }
     } catch (error) {
       console.log(error.response.data.message);
@@ -42,32 +60,10 @@ const LoginPopup = ({ onClose }) => {
     <div
       id="login-popup"
       tabIndex="-1"
-      className="bg-black/50 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0  h-full flex items-center justify-center"
-      style={{zIndex:"150"}}
+      className="overflow-y-auto overflow-x-hidden h-full flex items-center justify-center"
     >
-      <div className="relative p-4 w-full max-w-md h-full md:h-auto">
-        <div className="relative bg-white rounded-lg shadow">
-          <button
-            type="button"
-            className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center popup-close"
-            onClick={onClose} // Close popup when close button is clicked
-          >
-            <svg
-              aria-hidden="true"
-              className="w-5 h-5"
-              fill="#c6c7c7"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              ></path>
-            </svg>
-            <span className="sr-only">Close popup</span>
-          </button>
-
+      <div className="w-full max-w-md h-full md:h-auto">
+        <div className="relative bg-white shadow px-4">
           <div className="p-5">
             <div className="text-center">
               <p className="mb-3 text-2xl font-semibold leading-5 text-slate-900">
@@ -81,7 +77,6 @@ const LoginPopup = ({ onClose }) => {
             <div className="mt-7 flex flex-col gap-2">
               <button
                 className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
-                onClick={onClose} // Close popup when this button is clicked
               >
                 <img
                   src="https://www.svgrepo.com/show/512317/github-142.svg"
@@ -105,7 +100,6 @@ const LoginPopup = ({ onClose }) => {
 
               <button
                 className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
-                onClick={onClose} // Close popup when this button is clicked
               >
                 <img
                   src="https://www.svgrepo.com/show/448234/linkedin.svg"
@@ -177,7 +171,6 @@ const LoginPopup = ({ onClose }) => {
               <Link
                 to="/signup"
                 className="font-medium text-[#4285f4] "
-                onClick={onClose}
               >
                 Sign up
               </Link>

@@ -1,4 +1,5 @@
 // tailwind.config.js
+import plugin from "tailwindcss/plugin"
 module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx}",
@@ -24,16 +25,33 @@ module.exports = {
         loadingBar: 'loadingBar 2s linear infinite',
       },
       colors: {
-        blue: "#296CF2",
+        blue: {
+          DEFAULT:"#296CF2",
+          100:"#DBEAFE",
+        },
         yellow: "#FFEB01",
         purple: "#5C40EC",
         white: "#FFFFFF",
         orange: "#FF6F0F",
-        green: "#94E95D",
+        green: {
+          DEFAULT: '#10B981',
+          50: '#f0fdf4',
+          100: '#dcfce7',
+          200: '#bbf7d0',
+          300: '#86efac',
+          400: '#4ade80',
+          500: '#22c55e',
+          600: '#16a34a',
+          700: '#15803d',
+          800: '#166534',
+          900: '#052e16',
+        },
+        
         black: "#1F1F1F",
         lightblue: "#5C40EC",
         pastelBlue: "#90A8ED",
         custom: '#D9D9D9',
+        pink: '#ec4899',
       },
       fontFamily: {
         "Space-Grotesk": ["Space Grotesk", "sans-serif"],
@@ -58,6 +76,25 @@ module.exports = {
       // }
     },
   },
+
   variants: {},
-  plugins: [],
+  plugins: [
+    plugin(function({ addUtilities }) {
+      addUtilities({
+        '.scrollbar-thin': {
+          'scrollbar-width': 'thin', // Firefox
+        },
+        '.scrollbar-thin::-webkit-scrollbar': {
+          'width': '2px', // Webkit browsers
+        },
+        '.scrollbar-thin::-webkit-scrollbar-thumb': {
+          'background-color': '#6b7280', // Gray color for thumb
+          'border-radius': '10px',
+        },
+        '.scrollbar-thin::-webkit-scrollbar-track': {
+          'background-color': '#f3f4f6', // Light gray for track
+        },
+      });
+    }),
+  ],
 };

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { FaUserFriends, FaAddressBook, FaUsers, FaUsersCog, FaCalendarAlt, FaFileAlt, FaNewspaper, FaHashtag } from "react-icons/fa"; // Import icons from react-icons
 import { IoIosArrowUp,IoIosArrowDown } from "react-icons/io";
-
+import { useUserContext } from "../context/usercontext";
 const MenageNetworkCard = () => {
   const [show,setShow]=useState(false);
+  const {userdata}=useUserContext();
   return (
-    <div style={{ position: 'sticky', top: '10px' }} className="sm:mb-12">
+    <div  className="mb-3">
       <div className="w-full lg:w-[300px] rounded-lg overflow-hidden  bg-white border border-gray-300">
         <aside className="w-full bg-white rounded-lg">
            <div className="flex justify-between border-b p-4 pb-1">
@@ -17,23 +18,17 @@ const MenageNetworkCard = () => {
             {/* Connections */}
             <li className="flex justify-between items-center p-3 hover:bg-gray-300 hover:cursor-pointer">
               <button className="flex items-center text-gray-700 ">
-                <FaUserFriends className="mr-2" /> Connections
+                <FaUserFriends className="mr-2" />  Followers
               </button>
-              <span className="text-gray-500">1,070</span>
+              <span className="text-gray-500">{userdata?.followers?.length}</span>
             </li>
-            {/* Contacts */}
-            <li className="flex justify-between items-center p-3 hover:bg-gray-300 hover:cursor-pointer">
-              <button className="flex items-center text-gray-700 ">
-                <FaAddressBook className="mr-2" /> Contacts
-              </button>
-              <span className="text-gray-500">230</span>
-            </li>
+           
             {/* Following & Followers */}
             <li className="flex justify-between items-center p-3 hover:bg-gray-300 hover:cursor-pointer">
               <button className="flex items-center text-gray-700 ">
-                <FaUsers className="mr-2" /> Following & Followers
+                <FaUsers className="mr-2" /> Following 
               </button>
-              <span className="text-gray-500">15</span>
+              <span className="text-gray-500">{userdata?.following?.length}</span>
             </li>
             {/* Group */}
             <li className="flex justify-between items-center p-3 hover:bg-gray-300 hover:cursor-pointer">
@@ -49,20 +44,7 @@ const MenageNetworkCard = () => {
               </button>
               <span className="text-gray-500">5</span>
             </li>
-            {/* Pages */}
-            <li className="flex justify-between items-center p-3 hover:bg-gray-300 hover:cursor-pointer">
-              <button className="flex items-center text-gray-700 ">
-                <FaFileAlt className="mr-2" /> Pages
-              </button>
-              <span className="text-gray-500">15</span>
-            </li>
-            {/* Newsletters */}
-            <li className="flex justify-between items-center p-3 hover:bg-gray-300 hover:cursor-pointer">
-              <button className="flex items-center text-gray-700 ">
-                <FaNewspaper className="mr-2" /> Newsletters
-              </button>
-              <span className="text-gray-500">8</span>
-            </li>
+          
             {/* Hashtag */}
             <li className="flex justify-between items-center p-3 hover:bg-gray-300 hover:cursor-pointer">
               <button className="flex items-center text-gray-700 ">

@@ -16,30 +16,18 @@ import { IoMdMail } from "react-icons/io"; // Message icon
 import { FaUsers } from "react-icons/fa"; // My Network icon
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import socket from "../../socket";
 export default function NavBar() {
   const [isNavBarToggled, setIsNavBarToggled] = useState(false);
-  const [isLoginPopupVisible, setIsLoginPopupVisible] = useState(false);
   const [isProfileDropdownVisible, setIsProfileDropdownVisible] =
     useState(false);
-  const { userdata } = useUserContext(); // Access the userdata here
-
+  const { userdata,unseenMessageCount,unseenNotificationCount } = useUserContext();
   const handleProfileClick = () => {
-    if (userdata && userdata.profileimg) {
-      // Toggle profile dropdown if user is logged in
       setIsProfileDropdownVisible(!isProfileDropdownVisible);
-    } else {
-      // Show login popup if user is not logged in
-      setIsLoginPopupVisible(true);
-    }
   };
-
-  const handleClosePopup = () => {
-    setIsLoginPopupVisible(false); // Close the login popup
-  };
-
-  // Logout function
   
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+
       const logout = async (e) => {
         e.preventDefault();
         try { 
@@ -50,6 +38,7 @@ export default function NavBar() {
                 withCredentials: true // Include this line to allow cookies
             });
             console.log(res);
+            socket.off();
             window.location.href="http://localhost:5173/Interview-Mate-frontend/";
         } catch (err) {
             console.log(err);
@@ -60,7 +49,7 @@ export default function NavBar() {
     setIsProfileDropdownVisible(false);
     setIsNavBarToggled(!isNavBarToggled);
   };
-
+  
   return (
     <>
       <div className="flex justify-between p-4 pl-2 pr-2 md:hidden bg-black text-white">
@@ -68,11 +57,12 @@ export default function NavBar() {
         <div className="flex justify-center px-2 sm:px-5 py-2">
           <SearchBar />
         </div>
+        {userdata &&
         <div className="flex items-center pr-5">
           <a id="brand" className="flex items-center">
             <img
               className="flex mr-1 w-10 h-10 p-0 rounded-full ring-2 ring-white"
-              src={userdata && userdata.profileimg ? userdata.profileimg : user}
+              src={userdata?.profileimg ? userdata.profileimg : user}
               alt="Profile"
               onClick={handleProfileClick} // Trigger the dropdown or popup on click
               style={{ cursor: "pointer" }} // Add a pointer cursor to indicate it's clickable
@@ -126,11 +116,11 @@ export default function NavBar() {
             </div>
           )}
         </div>
+        }
       </div>
       <div
-        className={`flex md:hidden flex-col bg-black text-white pl-4 transition-all duration-300 ease-out ${
-          !isNavBarToggled ? "h-0" : "h-40"
-        }`}
+        className={`flex md:hidden flex-col bg-black text-white pl-4 transition-all duration-300 ease-out`}
+        style={{height:!isNavBarToggled ? '0px' :'180px'}}
       >
         {isNavBarToggled && (
           <>
@@ -183,7 +173,7 @@ export default function NavBar() {
             </NavLink>
 
             <NavLink
-              to="/profile"
+              to={`/message/all`}
               className={({ isActive }) =>
                 `font-bold text-xl font-Poppins hover:cursor-pointer ${
                   isActive ? "text-white" : "text-gray-500 hover:text-white"
@@ -191,7 +181,19 @@ export default function NavBar() {
               }
               onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
             >
-              Contact
+              Message
+            </NavLink>
+
+            <NavLink
+              to="/mynetwork"
+              className={({ isActive }) =>
+                `font-bold text-xl font-Poppins hover:cursor-pointer ${
+                  isActive ? "text-white" : "text-gray-500 hover:text-white"
+                }`
+              }
+              onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
+            >
+              My Network
             </NavLink>
           </>
         )}
@@ -201,60 +203,7 @@ export default function NavBar() {
           <img className="px-4" src={logo} height={20} width={170} alt="Logo" />
         </Link>
 
-        <div className="flex align-items-center justify-content-center">
-          {/* <NavLink
-            to="/"
-            className={({ isActive }) =>
-              `p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer ${
-                isActive ? "text-white" : "text-zinc-400  hover:text-white"
-              }`
-            }
-          >
-            Home
-          </NavLink>
-          <NavLink
-            to="/chatbot"
-            className={({ isActive }) =>
-              ` p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer ${
-                isActive ? "text-white" : "text-zinc-400 hover:text-white"
-              }`
-            }
-          >
-            Chatbot
-          </NavLink>
-
-          <NavLink
-            to="/quizapp"
-            className={({ isActive }) =>
-              ` p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer ${
-                isActive ? "text-white" : "text-zinc-400 hover:text-white"
-              }`
-            }
-          >
-            Quiz
-          </NavLink>
-
-          <NavLink
-            to="/dashboard"
-            className={({ isActive }) =>
-              `p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer ${
-                isActive ? "text-white" : "text-zinc-400 hover:text-white"
-              }`
-            }
-          >
-            Dashboard
-          </NavLink>
-
-          <NavLink
-            to="/profile"
-            className={({ isActive }) =>
-              `p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer ${
-                isActive ? "text-white" : "text-zinc-400  hover:text-white"
-              }`
-            }
-          >
-            Contact
-          </NavLink> */}
+        <div className="flex items-center justify-center">
           <NavLink
             to="/"
             className={({ isActive }) =>
@@ -296,23 +245,26 @@ export default function NavBar() {
             {/* Small gray text */}
           </NavLink>
 
-      
-
-          {/* Message NavLink */}
+      {userdata && <>
           <NavLink
-            to="/message"
+            to={`/message/all`}
             className={({ isActive }) =>
               `p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer flex flex-col items-center justify-center ${
                 isActive ? "text-white" : "text-zinc-400 hover:text-white"
               }`
             }
           >
-            <IoMdMail size={30} /> {/* Message Icon */}
+        <div className="relative inline-block">
+            <IoMdMail size={30} />
+            {unseenMessageCount> 0 &&
+            <span className="absolute top-0 right-0 text-xs text-white rounded-full" style={{ backgroundColor: 'red',padding: '2px 6px',transform: 'translate(50%, -30%)',}}> {unseenMessageCount}
+            </span>
+           }
+        </div>
             <span className="text-sm text-zinc-400">Message</span>{" "}
-            {/* Small gray text */}
           </NavLink>
 
-          {/* My Network NavLink */}
+        
           <NavLink
             to="/mynetwork"
             className={({ isActive }) =>
@@ -321,13 +273,17 @@ export default function NavBar() {
               }`
             }
           >
-            <FaUsers size={30} /> {/* My Network Icon */}
+        <div className="relative inline-block">
+            <FaUsers size={30} />
+            {unseenNotificationCount>0 &&
+            <span className="absolute top-0 right-0 text-xs text-white rounded-full" style={{ backgroundColor: 'red',padding: '2px 6px',transform: 'translate(50%, -30%)',}}> {unseenNotificationCount}
+            </span>
+            }
+        </div>
             <span className="text-sm text-zinc-400">My Network</span>{" "}
-            {/* Small gray text */}
           </NavLink>
 
-              {/* Dashboard NavLink */}
-              <NavLink
+            <NavLink
             to="/dashboard"
             className={({ isActive }) =>
               `p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer flex flex-col items-center justify-center ${
@@ -335,25 +291,12 @@ export default function NavBar() {
               }`
             }
           >
-            <MdDashboard size={30} /> {/* Dashboard Icon */}
+            <MdDashboard size={30} />
             <span className="text-sm text-zinc-400">Dashboard</span>{" "}
-            {/* Small gray text */}
           </NavLink>
-
-          {/* Contact NavLink */}
-          {/* <NavLink
-            to="/profile"
-            className={({ isActive }) =>
-              `p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer flex flex-col items-center justify-center ${
-                isActive ? "text-white" : "text-zinc-400 hover:text-white"
-              }`
-            }
-          >
-            <AiFillContacts size={30} /> 
-            <span className="text-sm text-zinc-400">Contact</span>{" "}
-           
-          </NavLink> */}
-
+          </>
+      }
+          {userdata &&
           <div className="flex items-center pr-5 relative">
             <img
               className="hidden md:flex ml-3 mr-4 w-11 h-11 rounded-full ring-2 ring-white"
@@ -409,10 +352,9 @@ export default function NavBar() {
               </div>
             )}
           </div>
+          }
         </div>
       </div>
-      {isLoginPopupVisible && <LoginPopup onClose={handleClosePopup} />}{" "}
-      {/* Conditionally render the login popup */}
     </>
   );
 }

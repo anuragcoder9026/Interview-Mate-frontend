@@ -21,7 +21,10 @@ import Add from './components/add.jsx';
 import MyNetwork from './components/MyNetwork.jsx';
 import {Provider} from "react-redux";
 import InterviewMateStore from './store/store.js';
-
+import UserProfile from './components/UserProfile.jsx';
+import SavedItems from './components/saveItems.jsx';
+import ProtectedRoute from './components/protectedRoute.jsx';
+import FollowList from './components/followList.jsx';
 const router = createBrowserRouter(
   [
     {
@@ -30,17 +33,20 @@ const router = createBrowserRouter(
       children: [
         { path: '/', element: <Home /> },
         { path: '/dashboard', element: <DashBoard /> },
-        { path: '/profile', element: <ProfileSection /> },
+        { path: '/profile', element: ( <ProtectedRoute><ProfileSection /></ProtectedRoute>),},
+        { path: '/:id', element: <UserProfile/>},
         { path: '/signup', element: <SignUpForm /> },
         { path: '/quiz', element: <QuizApp /> },
         { path: '/quizapp', element:<NewQuizApp/>},
-        { path: '/post', element: <PostDetail /> },
+        { path: '/post/:postId', element: <PostDetail /> },
         { path: '/interview', element: <VoiceInterview /> },
-        { path: '/message', element: <Message /> },
+        { path: '/message/:userId', element: (<ProtectedRoute><Message /></ProtectedRoute>) },
         {path: '/chatbot',element: <Chatbot/>},
         {path: '/result',element: <Result/>},
         {path: '/add',element: <Add/>},
-        {path: '/mynetwork',element:<MyNetwork/> },
+        {path: '/mynetwork',element:(<ProtectedRoute><MyNetwork /></ProtectedRoute>),},
+        {path: '/saved-items',element:<SavedItems/> },
+        { path: '/follow-list/:username', element:(<ProtectedRoute><FollowList/></ProtectedRoute>) },
 
         
         
@@ -53,11 +59,9 @@ const router = createBrowserRouter(
 );
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
     <Provider store={InterviewMateStore}>
-    <UserProvider> {/* Wrap the entire app with UserProvider */}
+    <UserProvider>
       <RouterProvider router={router} />
     </UserProvider>
     </Provider>
-  </StrictMode>
 );
