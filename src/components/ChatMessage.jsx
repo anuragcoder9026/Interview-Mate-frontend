@@ -21,7 +21,7 @@ const ChatMessage = ({ message, fromMe ,receiverImage ,messageStatus}) => {
           <span className="text-xs text-gray-400 mt-1">{message?.time}</span>
           {fromMe && messageStatus === 'sent' && <BiCheck className="text-gray mt-1"/>}
           {fromMe && messageStatus === 'received' && <BiCheckDouble className="text-white mt-1"/>}
-          {fromMe && messageStatus === 'seen' && <BiCheckDouble className="text-green mt-1"/>}
+          {fromMe && messageStatus === 'seen' && <BiCheckDouble className="mt-1" style={{color:"greenyellow"}}/>}
           </div>
         </div>
         {fromMe && (

@@ -25,6 +25,7 @@ import UserProfile from './components/UserProfile.jsx';
 import SavedItems from './components/saveItems.jsx';
 import ProtectedRoute from './components/protectedRoute.jsx';
 import FollowList from './components/followList.jsx';
+import EventChat from './components/eventChat.jsx';
 const router = createBrowserRouter(
   [
     {
@@ -47,7 +48,7 @@ const router = createBrowserRouter(
         {path: '/mynetwork',element:(<ProtectedRoute><MyNetwork /></ProtectedRoute>),},
         {path: '/saved-items',element:<SavedItems/> },
         { path: '/follow-list/:username', element:(<ProtectedRoute><FollowList/></ProtectedRoute>) },
-
+        { path: '/event-chat', element:(<ProtectedRoute><EventChat/></ProtectedRoute>) },
         
         
       ],

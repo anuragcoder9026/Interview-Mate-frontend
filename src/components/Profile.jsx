@@ -22,6 +22,7 @@ import ReactQuill from 'react-quill';
 import { FaImage, FaCalendarAlt, FaPen } from 'react-icons/fa';
 import toast, { Toaster } from 'react-hot-toast';
 import { IoCameraOutline } from "react-icons/io5";
+import EventCard from "./eventCard";
 const ProfileSection = () => {
   const { userdata } = useUserContext(); 
   const dispatch=useDispatch(); 
@@ -367,6 +368,38 @@ const ProfileSection = () => {
       {introPopup&& <EditIntroForm closeIntroPopup={closeIntroPopup}/>}
       <div className="w-full mt-2 max-w-4xl">
         
+         {/*upcoming events */}
+         <div className="bg-white p-6 pt-3 rounded-lg shadow-md mb-2">
+             <h3 className="text-2xl font-semibold">You Upconing Events</h3>
+
+        <div class="carousel relative overflow-hidden w-full h-64">
+    <div id="slides" class="carousel-inner flex transition-transform duration-500">
+       
+        <div class="carousel-item w-full flex-shrink-0 bg-blue-500 text-white flex items-center justify-center">
+            <h2 class="text-2xl">Slide 1</h2>
+        </div>
+    
+        <div class="carousel-item w-full flex-shrink-0 bg-green-500 text-white flex items-center justify-center">
+            <h2 class="text-2xl">Slide 2</h2>
+        </div>
+       
+        <div class="carousel-item w-full flex-shrink-0 bg-red-500 text-white flex items-center justify-center">
+            <h2 class="text-2xl">Slide 3</h2>
+        </div>
+    </div>
+
+    <button id="prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded">
+        Prev
+    </button>
+    <button id="next" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded">
+        Next
+    </button>
+</div>
+
+        {/* <EventCard/> */}
+         
+        </div>
+
         {/* About Section */}
         <div className="bg-white p-6 pt-3 rounded-lg shadow-md mb-2">
         <div className="flex justify-between items-center mb-4">

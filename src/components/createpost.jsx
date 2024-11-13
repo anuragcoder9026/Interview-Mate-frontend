@@ -1,4 +1,9 @@
 import React, { useState,useEffect } from 'react';
+import dayjs from 'dayjs';
+import { DemoItem } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import React-Quill styles
 import { MdClose, MdPostAdd } from 'react-icons/md'; // Modern icons
@@ -9,6 +14,7 @@ import { useUserContext } from "../context/usercontext"; // Import the context
 import axios from "axios"
 import { SiGooglegemini } from "react-icons/si";
 import { GenerateAiPost } from './getAiPost';
+import ClockTimePicker from './clockTime';
 const CreatePost = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const handleOpenPopup = () => {
@@ -59,14 +65,6 @@ const CreatePost = () => {
   };
 
 
-  const handleEventPopupOpen = () => {
-    setIsEventPopupOpen(true);
-  };
-
-  const handleEventPopupClose = () => {
-    setIsEventPopupOpen(false);
-  };
-
 
   const [postImage, setPostImage] = useState({ url: null, name: '' });
   const [defaultPost,setDefaultPost]=useState(null);
@@ -91,6 +89,33 @@ const CreatePost = () => {
     setIsLoading(false); 
     setIsPopupOpen(true)
   }
+  const [eventDate,setEventDate]=useState(new Date().toISOString().split('T')[0]);
+  const [eventTitle,setEventTitle]=useState('');
+  const [eventDetails,setEventDetails]=useState('');
+  const [time, setTime] = useState(dayjs(new Date().toISOString().split('T')[0])); 
+
+  const handleDate=(e)=>{
+    setEventDate(e.target.value);
+    setTime(dayjs(e.target.value))
+  }
+  const handleTimeChange = (newTime) => {
+    setTime(newTime);
+    console.log("Selected Time:", newTime.format('YYYY-MM-DDTHH:mm:ss.SSSZ')); 
+  };
+
+  const handleEventPopupOpen = () => {
+    setIsEventPopupOpen(true);
+  };
+
+  const handleEventPopupClose = () => {
+    setIsEventPopupOpen(false);
+  };
+  const handleEventSubmit = () => {
+    console.log(eventDate);
+    console.log(time);
+    console.log(eventTitle);
+    console.log(eventDetails);
+  };
   return (
     <>
       <Toaster />
@@ -236,21 +261,42 @@ const CreatePost = () => {
                     type="text"
                     placeholder="Event Title"
                     className="w-full p-2 mb-2 border border-gray-300 rounded-md"
+                    value={eventTitle}
+                    onChange={(e)=>setEventTitle(e.target.value)}
+                    required
                   />
                   <input
                     type="date"
                     className="w-full p-2 mb-2 border border-gray-300 rounded-md"
+                    value={eventDate}
+                    onChange={handleDate}
+                    required
                   />
+                  <div className="mb-2">
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DemoItem>
+          <MobileTimePicker 
+            value={time} 
+            onChange={handleTimeChange} 
+            required
+          />
+        </DemoItem>
+      </LocalizationProvider>
+    </div>
                   <textarea
                     placeholder="Event Details"
                     className="w-full p-2 mb-2 border border-gray-300 rounded-md"
                     rows="4"
+                    value={eventDetails}
+                    onChange={(e)=>setEventDetails(e.target.value)}
+                    required
                   />
                 </div>
                 <div className="flex items-center justify-end space-x-4">
                   <button
+                   type='submit'
                     className="px-4 py-2 text-white bg-blue rounded-full text-sm md:text-base flex items-center"
-                    onClick={handleEventPopupClose}
+                    onClick={handleEventSubmit}
                   >
                     Create Event
                   </button>

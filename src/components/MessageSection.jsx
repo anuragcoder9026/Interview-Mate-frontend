@@ -241,7 +241,7 @@ const handleEmojiPicker=()=>{setShowEmojiPicker((prev)=>!prev);}
         <img src={selectedUser?.profileimg} alt="profile" className="rounded-full w-8 h-8 mr-2 mt-2" />
         <div className="flex flex-col justify-center">
           <h2 className="text-lg font-semibold text-white">{selectedUser?.name}</h2>
-          {usersTyping[selectedUser?._id] ? <p className="text-green text-sm">Typing...</p>: contactOnline ? <p className="text-green text-sm">online</p> :<p></p>}
+          {usersTyping[selectedUser?._id] ? <p className=" text-sm" style={{color:"greenyellow"}}>Typing...</p>: contactOnline ? <p className="text-sm" style={{color:"greenyellow"}}>online</p> :<p></p>}
         </div>
       </div>
 

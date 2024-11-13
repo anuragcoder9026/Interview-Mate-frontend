@@ -36,11 +36,11 @@ export default function Dashboard() {
      setIsVisible(!isVisible);
   }
   return (
-    <div className="flex flex-col lg:flex-row bg-gray-100 dark:bg-gray-900">
+    <div className="flex flex-col lg:flex-row bg-gray-200">
       {/* Sidebar */}
-      <div className="min-h-full w-full lg:w-64 bg-white dark:bg-gray-800 shadow-lg">
-        <div className="lg:sticky lg:top-0 flex items-center justify-center h-20 border-b border-gray-200 dark:border-gray-700 ">
-          <h1 className="text-xl font-bold text-gray-800 dark:text-white">Interview Mate</h1>
+      <div className="min-h-full w-full lg:w-64 bg-white  shadow-lg">
+        <div className="lg:sticky lg:top-0 flex items-center justify-center h-20 border-b border-gray-200  ">
+          <h1 className="text-xl font-bold text-gray-800 ">Interview Mate</h1>
           {!isVisible ? <FaArrowDown className="absolute right-0 mr-6 text-2xl flex lg:hidden" onClick={toggleDiv}/>:
            <FaArrowUp className="absolute right-0 mr-6 text-2xl flex lg:hidden" onClick={toggleDiv}/>}
         </div>
@@ -54,8 +54,8 @@ export default function Dashboard() {
             <a
               key={item.name}
               href="#"
-              className={`flex items-center px-6 py-3 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 ${
-                activeTab === item.id ? 'bg-gray-100 dark:bg-gray-700 border-r-4 border-blue-500' : ''
+              className={`flex items-center px-6 py-3 text-gray-600  hover:bg-gray-100  transition-colors duration-200 ${
+                activeTab === item.id ? 'bg-gray-100  border-r-4 border-blue-500' : ''
               }`}
               onClick={() => handleActiveTab(item.id)}
             >
@@ -117,7 +117,7 @@ function DashboardContent() {
  
   return (
     <div className="space-y-6">
-      <h2 className="text-3xl font-bold text-gray-800 dark:text-white">Welcome Anurag Singh</h2>
+      <h2 className="text-3xl font-bold text-gray-800 ">Welcome Anurag Singh</h2>
       
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -132,8 +132,8 @@ function DashboardContent() {
                 <stat.icon className="h-8 w-8 text-white" />
               </div>
               <div className="ml-4">
-                <p className="text-sm text-center font-medium text-gray-500 dark:text-gray-400">{stat.title}</p>
-                <p className="text-2xl text-center font-bold text-gray-900 dark:text-white">{stat.value}</p>
+                <p className="text-sm text-center font-medium text-gray-500 ">{stat.title}</p>
+                <p className="text-2xl text-center font-bold text-gray-900 ">{stat.value}</p>
               </div>
             </CardContent>
           </Card>
@@ -158,11 +158,11 @@ function DashboardContent() {
                         <DialogTrigger asChild>
                           <div
                             className={`w-4 h-4 lg:w-6 lg:h-6 rounded-sm cursor-pointer ${
-                              day.count === 0 ? 'bg-gray-100 dark:bg-gray-700' :
-                              day.count === 1 ? 'bg-green-200 dark:bg-green-900' :
-                              day.count === 2 ? 'bg-green-300 dark:bg-green-800' :
-                              day.count === 3 ? 'bg-green-400 dark:bg-green-700' :
-                              'bg-green-500 dark:bg-green-600'
+                              day.count === 0 ? 'bg-gray-100 ' :
+                              day.count === 1 ? 'bg-green-200 ' :
+                              day.count === 2 ? 'bg-green-300 ' :
+                              day.count === 3 ? 'bg-green-400 ' :
+                              'bg-green-500 '
                             }`}
                             title={`${day.date}: ${day.count} activities`}
                           />
@@ -248,7 +248,7 @@ function QuizzesContent() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-3xl font-bold text-gray-800 dark:text-white">Quizzes</h2>
+      <h2 className="text-3xl font-bold text-gray-800 ">Quizzes</h2>
       <Tabs defaultValue="past">
         <TabsList className='mb-3'>
           <TabsTrigger value="past" className="py-2">Past Quizzes</TabsTrigger>
@@ -319,7 +319,7 @@ function QuizzesContent() {
                               </div>
                               <div>
                                 <h4 className="font-semibold">Feedback:</h4>
-                                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{quiz.feedback}</p>
+                                <p className="text-sm text-gray-600  mt-1">{quiz.feedback}</p>
                               </div>
                             </div>
                           </DialogContent>
@@ -388,7 +388,7 @@ function InterviewsContent() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-3xl font-bold text-gray-800 dark:text-white">AI Interview Simulations</h2>
+      <h2 className="text-3xl font-bold text-gray-800 ">AI Interview Simulations</h2>
       <Tabs defaultValue="past">
         <TabsList className='mb-1'>
           <TabsTrigger value="past" className='py-1'>Past Interviews</TabsTrigger>
@@ -443,11 +443,11 @@ function InterviewsContent() {
                               </div>
                               <div>
                                 <h4 className="font-semibold">Feedback</h4>
-                                <p className="text-sm text-gray-700 dark:text-gray-300 mt-1">{interview.feedback}</p>
+                                <p className="text-sm text-gray-700  mt-1">{interview.feedback}</p>
                               </div>
                               <div>
                                 <h4 className="font-semibold">Areas for Improvement</h4>
-                                <ul className="list-disc list-inside text-sm text-gray-700 dark:text-gray-300 mt-1">
+                                <ul className="list-disc list-inside text-sm text-gray-700  mt-1">
                                   <li>Practice more coding problems</li>
                                   <li>Improve communication skills</li>
                                   <li>Learn more about system design</li>
@@ -475,11 +475,11 @@ function InterviewsContent() {
                 <CardContent>
                   <div className="flex items-center mb-2">
                     <Clock className="h-4 w-4 mr-2 text-gray-500" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400">{interview.duration}</span>
+                    <span className="text-sm text-gray-600 ">{interview.duration}</span>
                   </div>
                   <div className="flex items-center mb-4">
                     <Brain className="h-4 w-4 mr-2 text-gray-500" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400">{interview.difficulty}</span>
+                    <span className="text-sm text-gray-600 ">{interview.difficulty}</span>
                   </div>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {interview.topics.map((topic) => (
