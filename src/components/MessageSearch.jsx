@@ -41,7 +41,7 @@ const UserListItem = ({ user, onClick,isOnline, active,typing }) =>{
           <span className={`text-xs mt-1 ${unseenCount>0 ? 'text-green': 'text-gray-500'}`} >{lastMessage?.time}</span>
         </div>
           <div className="flex justify-between pr-1">
-          {typing ? <p className="text-green text-sm">Typing...</p>:<p className="text-sm text-gray-400">{lastMessage?.content?.image ? <span className="flex"><FaRegImages className="mr-2 mt-1"/> Image </span>: <span className={`truncate block w-[215px] sm:w-[245px] overflow-hidden text-ellipsis whitespace-nowrap`}>{lastMessage?.content?.text}</span>}</p>}
+          {typing ? <p className=" text-sm" style={{color:"greenyellow"}}>Typing...</p>:<p className="text-sm text-gray-400">{lastMessage?.content?.image ? <span className="flex"><FaRegImages className="mr-2 mt-1"/> Image </span>: <span className={`truncate block w-[215px] sm:w-[245px] overflow-hidden text-ellipsis whitespace-nowrap`}>{lastMessage?.content?.text}</span>}</p>}
       
           {unseenCount>0 && <span className="text-xs text-white rounded-full" style={{
             backgroundColor:"green",

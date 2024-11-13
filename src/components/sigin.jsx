@@ -24,6 +24,21 @@ const LoginPopup = () => {
       [evt.target.name]: value
     });
   };
+
+  const handleUnseenMessagesCount=async()=>{
+    try { 
+      const res = await axios.get('http://localhost:3200/api/users/unseen-messages-count', {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true
+      });
+      setUnseenMessageCount(res.data.unseenCount);
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoginError(null);
@@ -38,6 +53,9 @@ const LoginPopup = () => {
       });
       if(response.status==200){
         setUserdata(response.data.user);
+        const notifications=response.data.user?.notifications.length;
+        const readNotifications= response.data.user?.readNotifications.length;
+        setUnseenNotificationCount(notifications-readNotifications);
         dispatch(userFollowingAction.handleInitFollowing(response.data.user.following));
         dispatch(userIntroAction.handleUserIntro(response.data.user.intro)); 
         dispatch(userAboutAction.handleUserAbout({about:response.data.user.about}));
@@ -45,6 +63,7 @@ const LoginPopup = () => {
         dispatch(userExperienceAction.handleInitExperience(response.data.user.experiences));
         dispatch(userSkillAction.handleInitSkill(response.data.user.skills));
         socket.emit('join', response.data.user?._id);
+        handleUnseenMessagesCount();
          navigate("/profile");
       }
     } catch (error) {

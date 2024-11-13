@@ -71,8 +71,8 @@ const SavedItems = () => {
              { state==='event' && 
                <div className="mt-4 p-3 py-3 bg-white border rounded-lg border-gray-300">
              <div className="flex flex-col gap-4">
-              <EventCard/>
-              <EventCard/>
+              <EventCard saveStae="Unsave"/>
+              <EventCard saveStae="Unsave"/>
               </div>
               </div>
              }
