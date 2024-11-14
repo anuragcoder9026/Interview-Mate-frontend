@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import Button from "../ui/button"
+import axios from 'axios'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../ui/card';
 import { Progress } from '../ui/progress';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '../ui/table';
@@ -11,9 +12,13 @@ import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, Dialog
 import { BookOpen, Brain, ChevronRight, Clock, Cpu, GraduationCap, LayoutDashboard, LogOut, User, BarChart, TrendingUp, TrendingDown } from "lucide-react"
 import { FaArrowDown,FaArrowUp } from "react-icons/fa";
 
+
+
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('dashboard')
+ 
 
+ 
   const renderContent = () => {
     switch (activeTab) {
       case 'dashboard':
@@ -114,7 +119,36 @@ function DashboardContent() {
   }, [])
 
   const months = ['Current Month', 'Last Month', '2 Months Ago']
- 
+
+  const [interviewCount, setInterviewCount] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch interview count from the server
+  const fetchInterviewCount = async () => {
+      setLoading(true);
+      setError(null);
+      
+      try {
+          const response = await axios.get('http://localhost:3200/api/interview-count', {
+              withCredentials: true, // Include if session-based auth is used
+          });
+
+          console.log(response.data); // Log to check the structure of response data
+          setInterviewCount(response.data.interviewCount);
+      } catch (err) {
+          console.error("Error fetching interview count:", err);
+          setError('Failed to fetch interview count');
+      } finally {
+          setLoading(false);
+      }
+  };
+
+  // Fetch interview count on component mount
+  useEffect(() => {
+      fetchInterviewCount();
+  }, []);
+  let val = {interviewCount};
   return (
     <div className="space-y-6">
       <h2 className="text-3xl font-bold text-gray-800 ">Welcome Anurag Singh</h2>
@@ -123,7 +157,7 @@ function DashboardContent() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         {[
           { title: 'Quizzes Completed', value: 24, icon: BookOpen, color: 'bg-blue' },
-          { title: 'AI Interviews Done', value: 8, icon: Cpu, color: 'bg-green' },
+          { title: 'AI Interviews Done', value: interviewCount, icon: Cpu, color: 'bg-green' },
           { title: 'Overall Score', value: '85%', icon: GraduationCap, color: 'bg-purple' },
         ].map((stat) => (
           <Card key={stat.title}>
@@ -386,6 +420,30 @@ function InterviewsContent() {
     { id: 3, role: 'Mobile App Developer', company: 'App Innovators', duration: '30 mins', difficulty: 'Intermediate', topics: ['React Native', 'iOS', 'Android'] },
   ]
 
+  const [allResults, setAllResults] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+      const fetchAllResults = async () => {
+          try {
+              const res = await fetch(`http://localhost:3200/api/all-results`, {
+                  method: 'GET',
+                  credentials: 'include', // Ensures cookies are sent with the request
+              });
+              if (!res.ok) {
+                  throw new Error('Failed to fetch results');
+              }
+              const data = await res.json();
+              setAllResults(data.users);
+          } catch (error) {
+              setError(error.message);
+          }
+      };
+
+      fetchAllResults();
+  }, []);
+console.log(allResults);
+
   return (
     <div className="space-y-6">
       <h2 className="text-3xl font-bold text-gray-800 ">AI Interview Simulations</h2>
@@ -412,53 +470,65 @@ function InterviewsContent() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {pastInterviews.map((interview) => (
-                    <TableRow key={interview.id}>
-                      <TableCell className="font-medium">{interview.role}</TableCell>
-                      <TableCell>{interview.company}</TableCell>
-                      <TableCell>
-                      <div className="flex flex-col lg:flex-row items-center">
-                          <Progress value={interview.score} className="w-full max-w-xs mr-4" />
-                          <span>{interview.score}%</span>
-                        </div>
-                      </TableCell>
-                      <TableCell>{new Date(interview.date).toLocaleDateString()}</TableCell>
-                      <TableCell>
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button className="py-2"  variant="outline" size="sm">Review</Button>
-                          </DialogTrigger>
-                          <DialogContent className='min-w-[90%] md:min-w-[60%]  px-6 pt-4 pb-7'>
-                            <DialogHeader>
-                              <DialogTitle>{interview.role} Interview Review</DialogTitle>
-                              <DialogDescription>
-                                Interview with {interview.company} on {new Date(interview.date).toLocaleDateString()}
-                              </DialogDescription>
-                            </DialogHeader>
-                            <div className="mt-4 space-y-4">
-                              <div>
-                                <h4 className="font-semibold">Score</h4>
-                                <Progress value={interview.score} className="w-full mt-2" />
-                                <p className="text-sm text-gray-500 mt-1">{interview.score}%</p>
-                              </div>
-                              <div>
-                                <h4 className="font-semibold">Feedback</h4>
-                                <p className="text-sm text-gray-700  mt-1">{interview.feedback}</p>
-                              </div>
-                              <div>
-                                <h4 className="font-semibold">Areas for Improvement</h4>
-                                <ul className="list-disc list-inside text-sm text-gray-700  mt-1">
-                                  <li>Practice more coding problems</li>
-                                  <li>Improve communication skills</li>
-                                  <li>Learn more about system design</li>
-                                </ul>
-                              </div>
-                            </div>
-                          </DialogContent>
-                        </Dialog>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                {allResults.map((user, userIndex) => (
+  user.sessions.map((session, sessionIndex) => (
+    <TableRow key={session.id}>
+      <TableCell className="font-medium">{session.role}</TableCell>
+      <TableCell>{session.comapany}</TableCell>
+      <TableCell>
+        <div className="flex flex-col lg:flex-row items-center">
+          <Progress value={session.score} className="w-full max-w-xs mr-4" />
+          <span>{session.score}%</span>
+        </div>
+      </TableCell>
+      <TableCell>{new Date(session.start_time).toLocaleDateString()}</TableCell>
+      <TableCell>
+      <Dialog>
+  <DialogTrigger asChild>
+    <Button className="py-2" variant="outline" size="sm">Review</Button>
+  </DialogTrigger>
+  <DialogContent className="min-w-[90%] md:min-w-[60%] px-6 pt-4 pb-7 max-h-[80vh] overflow-y-auto">
+    <DialogHeader>
+      <DialogTitle>{session.role} Interview Review</DialogTitle>
+      <DialogDescription>
+        Interview with {session.company} on {new Date(session.start_time).toLocaleDateString()}
+      </DialogDescription>
+    </DialogHeader>
+    <div className="mt-4 space-y-4">
+      <div>
+        <h4 className="font-semibold">Score</h4>
+        <Progress value={session.score} className="w-full mt-2" />
+        <p className="text-sm text-gray-500 mt-1">{session.score}%</p>
+      </div>
+      
+      <div>
+        <h4 className="font-semibold">Responses</h4>
+        <div className="max-h-96 overflow-y-auto"> {/* Scrollable container for responses */}
+          {session.responses && session.responses.length > 0 ? (
+            session.responses.map((response, index) => (
+              <div key={index} className="mt-4 bg-white p-4 rounded-lg">
+                <h5 className="font-semibold">Question {index + 1}:</h5>
+                <p><strong>Question:</strong> {response.question}</p>
+                <p><strong>Answer:</strong> {response.answer}</p>
+                <p><strong>Rating:</strong> {response.rating}</p>
+                <p><strong>Evaluation:</strong> {response.evaluation}</p>
+              </div>
+            ))
+          ) : (
+            <p>No responses available</p>
+          )}
+        </div>
+      </div>
+    </div>
+  </DialogContent>
+</Dialog>
+
+
+      </TableCell>
+    </TableRow>
+  ))
+))}
+
                 </TableBody>
               </Table>
             </CardContent>

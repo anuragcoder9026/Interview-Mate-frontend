@@ -40,7 +40,7 @@ const router = createBrowserRouter(
         { path: '/quiz', element: <QuizApp /> },
         { path: '/quizapp', element:<NewQuizApp/>},
         { path: '/post/:postId', element: <PostDetail /> },
-        { path: '/interview', element: <VoiceInterview /> },
+        { path: '/interview', element: (<ProtectedRoute><VoiceInterview/></ProtectedRoute>) },
         { path: '/message/:userId', element: (<ProtectedRoute><Message /></ProtectedRoute>) },
         {path: '/chatbot',element: <Chatbot/>},
         {path: '/result',element: <Result/>},
