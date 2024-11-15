@@ -15,7 +15,7 @@ const FollowList = () => {
     const [profile,setProfile]=useState();
     const {username}=useParams();
     const {userdata} = useUserContext();
-    const shortenString = (len,str) => str.length > len ? str.slice(0, len) + "...   " : str;
+    const shortenString = (len,str) => str?.length > len ? str.slice(0, len) + "...   " : str;
     useEffect(()=>{
         const getProfile = async () => {
             try {
@@ -123,7 +123,7 @@ const FollowList = () => {
        </Link>
       </div>
             <div className="border-t border-b border-gray-200 px-5 mb-2">
-              <div className="flex justify-between px-4 py-2">
+              <div className="flex justify-between px-4 py-2 gap-4">
                 <div>
                   <span className="text-gray-600 text-sm">Followers</span>
                   <p className="text-blue-500 font-semibold text-center">{profile?.followers?.length}</p>

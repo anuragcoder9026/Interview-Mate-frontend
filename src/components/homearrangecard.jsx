@@ -6,9 +6,8 @@ import { FaFacebookF } from "react-icons/fa";
 import { useUserContext } from "../context/usercontext";
 import EventCard from "./eventCard";
 function CardGrid() {
- const {posts}= useUserContext();
+ const {posts,events}= useUserContext();
  const [state,SetState]=useState('blogs');
- const events=[1,2,3,4,5];
  const handleState=(data)=>{
    SetState(data);
  }
@@ -32,7 +31,7 @@ function CardGrid() {
        }
        {
         state === 'events' && 
-        events?.map((item,index)=><EventCard saveStae="Save"/>)
+        events?.map((item,index)=><EventCard event={item} saveStae="Save"/>)
        }
       </div>
       

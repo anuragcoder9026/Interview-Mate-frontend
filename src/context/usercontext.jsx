@@ -20,6 +20,7 @@ export const UserProvider = ({ children }) => {
   const dispatch=useDispatch(); 
   const [userdata, setUserdata] = useState(null);
   const [posts,setPost] = useState();
+  const [events,setEvents]=useState();
   const [logout,setLogOut]=useState(false);
   const [unseenMessageCount,setUnseenMessageCount]=useState(0);
   const [unseenNotificationCount,setUnseenNotificationCount]=useState(null);
@@ -29,19 +30,27 @@ export const UserProvider = ({ children }) => {
       const response = await axios.get("http://localhost:3200/api/posts/get-all-post", {
         withCredentials: true,
       });
-      console.log("posts:",response.data);
       setPost(response.data);
       const initUserOnline = response.data.reduce((acc, post) => {
         acc[post.postUser._id] = post.postUser.online;
         return acc;
       }, {});
-      console.log("init:",initUserOnline);
-      
       setOnlineStatus(initUserOnline);
      } catch (error) {
       console.log(error);
      }
   }
+  const getAllEvents = async () =>{
+    try {
+     const response = await axios.get("http://localhost:3200/api/event/get-all-event", {
+       withCredentials: true,
+     });
+     console.log("events:",response.data);
+     setEvents(response.data);
+    } catch (error) {
+     console.log(error);
+    }
+ }
 
   const getUsers = async () => {
     try {
@@ -83,6 +92,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     getUsers();
     getAllPosts();
+    getAllEvents();
     handleUnseenMessagesCount();
     socket.on('TotalUnseenCount', ({TotalUnseenCount}) => {
       setUnseenMessageCount((prev)=>{
@@ -98,7 +108,7 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ userdata, setUserdata ,posts,setPost,logout,setLogOut,unseenMessageCount,setUnseenMessageCount,unseenNotificationCount,setUnseenNotificationCount,OnlineStatus,setOnlineStatus}}>
+    <UserContext.Provider value={{ userdata, setUserdata ,posts,setPost,logout,setLogOut,unseenMessageCount,setUnseenMessageCount,unseenNotificationCount,setUnseenNotificationCount,OnlineStatus,setOnlineStatus,events,setEvents}}>
       {children}
     </UserContext.Provider>
   );

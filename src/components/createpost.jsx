@@ -45,7 +45,7 @@ const CreatePost = () => {
   const handlePost = async() => {
     const postData={postId:defaultPost ? defaultPost._id :null, title:title,content:postContent,postImage:imageFile ?imageFile : defaultPost? defaultPost.postImage : null,imageExistType:imageFile?1:defaultPost?.postImage ? 2 : 3};
     console.log(postData);
-    
+    setIsPostLoading(true); 
     try {
       const res = await axios.post('http://localhost:3200/api/posts/publish-post', postData, {
           headers: {
@@ -56,8 +56,10 @@ const CreatePost = () => {
       console.log(res);
       if(res.status===200){
         toast.success('Post created successfully!');
+        setIsPostLoading(false); 
       }
      } catch (error) {
+      setIsPostLoading(false); 
       toast.error('something went wrong');
       console.log(error);
      }
@@ -82,6 +84,8 @@ const CreatePost = () => {
       }
   };    
   const [isLoading,setIsLoading]=useState(false);
+  const [isPostLoading,setIsPostLoading]=useState(false);
+  const [isEventLoading,setIsEventLoading]=useState(false);
   const handleAiPost=async()=>{
     setIsLoading(true); 
     const res=await GenerateAiPost(aiPost);
@@ -100,7 +104,6 @@ const CreatePost = () => {
   }
   const handleTimeChange = (newTime) => {
     setTime(newTime);
-    console.log("Selected Time:", newTime.format('YYYY-MM-DDTHH:mm:ss.SSSZ')); 
   };
 
   const handleEventPopupOpen = () => {
@@ -110,11 +113,28 @@ const CreatePost = () => {
   const handleEventPopupClose = () => {
     setIsEventPopupOpen(false);
   };
-  const handleEventSubmit = () => {
-    console.log(eventDate);
-    console.log(time);
-    console.log(eventTitle);
-    console.log(eventDetails);
+  const handleEventSubmit = async() => {
+    setIsEventLoading(true); 
+    const eventData = JSON.stringify({title:eventTitle,detail:eventDetails,time:time.format('YYYY-MM-DDTHH:mm:ss.SSSZ')});  
+    console.log(eventData);
+    try {
+      const res = await axios.post('http://localhost:3200/api/event/create-event', eventData, {
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          withCredentials: true // Include this line to allow cookies
+      });
+      console.log(res);
+      if(res.status===200){
+        toast.success('Event created successfully!');
+        setIsEventLoading(false); 
+      }
+     } catch (error) {
+      toast.error('something went wrong');
+      setIsEventLoading(false); 
+      console.log(error);
+     }
+     handleClosePopup(); 
   };
   return (
     <>
@@ -217,7 +237,7 @@ const CreatePost = () => {
                     <FaImage className="inline w-4 h-4 mr-1" />
                     Media
                   </label>
-                  {isLoading ? <div className="w-8 h-8 border-4 border-blue border-t-transparent rounded-full animate-spin mr-2 mt-1"></div>:  <button
+                  {isPostLoading ? <div className="w-8 h-8 border-4 border-blue border-t-transparent rounded-full animate-spin mr-2 mt-1"></div>:  <button
                     className="px-4 py-2 text-white bg-blue rounded-full text-sm md:text-base flex items-center"
                     onClick={handlePost}
                   >
@@ -293,13 +313,15 @@ const CreatePost = () => {
                   />
                 </div>
                 <div className="flex items-center justify-end space-x-4">
-                  <button
+                {isEventLoading ? <div className="w-8 h-8 border-4 border-blue border-t-transparent rounded-full animate-spin mr-2 mt-1"></div>:   <button
                    type='submit'
                     className="px-4 py-2 text-white bg-blue rounded-full text-sm md:text-base flex items-center"
                     onClick={handleEventSubmit}
                   >
                     Create Event
-                  </button>
+                  </button>}
+                
+
                   <button
                     className="px-4 py-2 text-gray-500 bg-gray-200 rounded-full text-sm md:text-base"
                     onClick={handleEventPopupClose}

@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FaRegCircle, FaRegDotCircle } from 'react-icons/fa';
 import { TbPlayerTrackNextFilled } from 'react-icons/tb';
 import { generateQuizData } from './GenerateQuizData';
-import { useUserContext } from '../context/usercontext';
-import axios from 'axios';
 
 const QuizApp = () => {
   const [step, setStep] = useState(1);
@@ -36,7 +34,6 @@ const QuizApp = () => {
       } else {
         calculateScore();
         setShowResults(true);
-        saveScore();
       }
       // Reset selectedOption for next question
       setSelectedOption(userAnswers[currentQuestion + 1] ?? null);
@@ -82,30 +79,6 @@ const QuizApp = () => {
 
   const score = calculateScore();
   const percentage = (quizData.length > 0) ? (score / (quizData.length * 10)) * 100 : 0;
-
-  const saveScore = async () => {
-    console.log(score);
-    try {
-      const response = await axios.post('http://localhost:3200/api/saveresult', {
-        topic: topic,
-        score: score
-      }, {
-        withCredentials: true
-      });
-      console.log('Score saved successfully:', response.data);
-    } catch (error) {
-      console.error('Failed to save score:', error.response?.data || error.message);
-    }
-  };
-  
-
-  // useEffect to save score when showResults becomes true
-  useEffect(() => {
-    if (showResults) {
-      saveScore();  // Save the score once results are shown
-    }
-  }, [showResults]);  // Dependency array with showResults
- 
 
   return (
     <div className="flex justify-center items-center pl-3 pr-3 min-h-[80vh] bg-gray-900 text-gray-100 overflow-hidden">

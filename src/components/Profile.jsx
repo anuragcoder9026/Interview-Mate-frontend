@@ -14,7 +14,7 @@ import EditExperienceForm from "./editExperience";
 import { useDispatch } from 'react-redux';
 import { userExperienceAction } from '../store/userExperienceSlice';
 import EditSkillsForm from "./editSkills";
-import { FaShare } from "react-icons/fa6";
+import { FaShare, FaAngleRight ,FaAngleLeft } from "react-icons/fa6";
 import axios from "axios"
 import { timeAgo } from "../utils/dateAgo";
 import { MdClose, MdPostAdd } from 'react-icons/md'; 
@@ -250,6 +250,19 @@ const ProfileSection = () => {
     const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappURL, '_blank');
 };
+
+ const [currentIndex, setCurrentIndex] = useState(0);
+ const [events,setEvents]=useState([1,2,3,4]);
+  // Function to go to the next slide
+  const goToNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % events.length);
+  };
+
+  // Function to go to the previous slide
+  const goToPrev = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + events.length) % events.length);
+  };
+
     return (
         userdata && <div className="flex flex-col items-center w-full bg-slate-200 p-2">
             {/* Profile Header Section */}
@@ -369,36 +382,43 @@ const ProfileSection = () => {
       <div className="w-full mt-2 max-w-4xl">
         
          {/*upcoming events */}
-         <div className="bg-white p-6 pt-3 rounded-lg shadow-md mb-2">
-             <h3 className="text-2xl font-semibold">You Upconing Events</h3>
+        
 
-        <div class="carousel relative overflow-hidden w-full h-64">
-    <div id="slides" class="carousel-inner flex transition-transform duration-500">
-       
-        <div class="carousel-item w-full flex-shrink-0 bg-blue-500 text-white flex items-center justify-center">
-            <h2 class="text-2xl">Slide 1</h2>
-        </div>
-    
-        <div class="carousel-item w-full flex-shrink-0 bg-green-500 text-white flex items-center justify-center">
-            <h2 class="text-2xl">Slide 2</h2>
-        </div>
-       
-        <div class="carousel-item w-full flex-shrink-0 bg-red-500 text-white flex items-center justify-center">
-            <h2 class="text-2xl">Slide 3</h2>
-        </div>
-    </div>
+<div id="controls-carousel" className="relative w-full bg-white p-3 rounded-lg shadow-md mb-2">
+  <h1 className="text-2xl font-medium mb-2 text-purple">Your Upcoming Events</h1>
+  <div className=" rounded-lg">
+    {events?.map((event, index) => (
+      <div
+        key={index}
+        className={`transition-all duration-700 ease-in-out ${
+          index === currentIndex ? 'block' : 'hidden'
+        }`}
+      >
+        <EventCard creatorName={`john dae${index}`} />
+      </div>
+    ))}
+  </div>
 
-    <button id="prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded">
-        Prev
-    </button>
-    <button id="next" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded">
-        Next
-    </button>
+  <button
+    type="button"
+    className="absolute top-1/2 left-4 transform -translate-y-1/2 z-40 flex items-center justify-center p-2 bg-gray-700/50 rounded-full shadow-lg hover:bg-gray-700/70 focus:outline-none"
+    onClick={goToPrev}
+  >
+    <FaAngleLeft className="text-white w-6 h-6" />
+  </button>
+
+  {/* Next Button */}
+  <button
+    type="button"
+    className="absolute top-1/2 right-4 transform -translate-y-1/2 z-40 flex items-center justify-center p-2 bg-gray-700/50 rounded-full shadow-lg hover:bg-gray-700/70 focus:outline-none"
+    onClick={goToNext}
+  >
+    <FaAngleRight className="text-white w-6 h-6" />
+  </button>
 </div>
 
-        {/* <EventCard/> */}
-         
-        </div>
+   
+    
 
         {/* About Section */}
         <div className="bg-white p-6 pt-3 rounded-lg shadow-md mb-2">

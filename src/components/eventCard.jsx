@@ -9,19 +9,11 @@ import user from "../assets/images/user.png";
 import { BsThreeDots } from "react-icons/bs";
 import axios from "axios"
 import { useNavigate } from 'react-router-dom';
-const EventCard = ({
-  creatorName = "Jane Doe",
-  creatorImage = user,
-  eventTitle = "Weekly Team Sync",
-  eventDescription = "Join us for our weekly team sync where we'll discuss project progress and upcoming tasks.",
-  eventDateTime = "2024-11-13T22:00:00",
-  eventLocation = "Online - Interview Mate",
-  participants = 15,
-   saveStae
-}) => {
+import { useUserContext } from '../context/usercontext';
+const EventCard = ({event,saveStae,onUnSave}) => {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
-  const [isEventStarted, setIsEventStarted] = useState(false)
-  
+  const [isEventStarted, setIsEventStarted] = useState(event?.status==='live')
+  const {userdata}=useUserContext();
   const [showMenu, setShowMenu] = useState(false); 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -49,19 +41,18 @@ const EventCard = ({
       });
 }
 
-const[savedEvent,setSavedEvent]=useState({id:1});
  const handleCopylink = async ()=>{
-  copyToClipboard(`http://localhost:5173/Interview-Mate-frontend/post/${savedEvent?._id}`);
+  copyToClipboard(`http://localhost:5173/Interview-Mate-frontend/post/${event?._id}`);
   toast.success("post linked copied.")
 }
  const handleWhatsappClick = () => {
-  const message = `Check this post on Interview Mate: https://localhost:5173/Interview-Mate-frontend/post/${savedEvent?._id}`;
+  const message = `Check this post on Interview Mate: https://localhost:5173/Interview-Mate-frontend/post/${event?._id}`;
   const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message)}`;
   window.open(whatsappURL, '_blank');
 };
 
 const handleFacebookClick = () => {
-  const message = `Check this post on Interview Mate: https://localhost:5173/Interview-Mate-frontend/post/${savedEvent?._id}`;
+  const message = `Check this post on Interview Mate: https://localhost:5173/Interview-Mate-frontend/post/${event?._id}`;
   const facebookURL = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(message)}`;
   window.open(facebookURL, '_blank');
 };
@@ -74,24 +65,40 @@ const handleShareClick = () => {
 };
 
 
-const handleSavePost = async() =>{
+const handleSaveEvent = async() =>{
   try {
-    const jsonData = JSON.stringify({postId:savedEvent?._id,save:'Unsave'});  
-    const res = await axios.post('http://localhost:3200/api/posts/save-post',jsonData, {
+    const jsonData = JSON.stringify({eventId:event?._id,save:saveStae});  
+    const res = await axios.post('http://localhost:3200/api/event/save-event',jsonData, {
       headers: {
         'Content-Type': 'application/json'
       },
       withCredentials: true 
     });
-    toast.success("Post UnSaved successfully!");
+    toast.success( `Event ${saveStae}d successfully!`);
+    if(saveStae==='Unsave')onUnSave(event?._id);
   } catch (error) {
     toast.error("Something Went Wrong!");
   }
 }
+const [timeDiffNeg,setTimeDiffNeg]=useState(false);
+useEffect(()=>{
+  const difference = new Date(event?.time).getTime() - new Date().getTime();
+  if (difference > 0) {
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000)
+    setTimeLeft({ days, hours, minutes, seconds })
+  }
+  else{
+    setTimeDiffNeg(true);
+  }
+},[])
+
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date().getTime()
-      const eventTime = new Date(eventDateTime).getTime()
+      const eventTime = new Date(event?.time).getTime()
       const difference = eventTime - now
 
       if (difference > 0) {
@@ -102,13 +109,12 @@ const handleSavePost = async() =>{
 
         setTimeLeft({ days, hours, minutes, seconds })
       } else {
-        setIsEventStarted(true)
+        setTimeDiffNeg(true)
         clearInterval(timer)
       }
     }, 1000)
-
     return () => clearInterval(timer)
-  }, []) // Removed `eventDateTime` from the dependency array
+  }, []) 
 
   const CountdownUnit = ({ value, label }) => (
     <div className="flex flex-col items-center">
@@ -121,72 +127,90 @@ const handleSavePost = async() =>{
     navigate("/event-chat")
   }
 
+  
+
   return (
     <div className="relative w-full overflow-hidden bg-white rounded-lg border border-gray-300 shadow-lg">
+      
       <div className="h-3 bg-gradient-to-r from-purple to-pink" />
       <div className="flex items-center gap-4 p-4 pb-2 gap-2">
         <div className="relative w-12 h-12">
           <img
-            src={creatorImage}
-            alt={creatorName}
+            src={event?.eventAdmin.profileimg || user}
+            alt={event?.eventAdmin.name}
             className="w-10 h-10 rounded-full mr-3"
           />
         </div>
         <div className="w-[90%]">
-          <h2 className="text-xl font-bold">{eventTitle}</h2>
-          <p className="text-sm text-gray-600">Hosted by {creatorName}</p>
+          <h2 className="text-xl font-bold">{event?.title}</h2>
+          <p className="text-sm text-gray-600">Hosted by {event?.eventAdmin.name}</p>
         </div>
           <span className="hover:bg-gray-300 p-2 rounded-full " onClick={toggleMenu}>
             <BsThreeDots className="text-2xl hover:cursor-pointer " />
             </span>
       </div>
       <div className="px-4 py-2">
-        <p className="mb-4 text-sm text-gray-600">{eventDescription}</p>
+        <p className="mb-4 text-sm text-gray-600">{event?.detail}</p>
         <div className="space-y-2 mb-4">
           <div className="flex items-center gap-2 text-sm">
             <FaCalendar className="text-blue-500" />
-            <time dateTime={eventDateTime} className="text-gray-600">
-              {new Date(eventDateTime).toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'short' })}
+            <time dateTime={event?.time} className="text-gray-600">
+              {new Date(event?.time).toLocaleString(undefined, { dateStyle: 'full', timeStyle: 'short' })}
             </time>
           </div>
           <div className="flex items-center gap-2 text-sm">
             <FaMapMarkerAlt className="text-red-500" />
-            <span className="text-gray-600">{eventLocation}</span>
+            <span className="text-gray-600">Online - Interview Mate</span>
           </div>
           <div className="flex items-center gap-2 text-sm">
             <FaUsers className="text-yellow-500" />
-            <span className="text-gray-600">{participants} People intrested</span>
+            <span className="text-gray-600">{event?.interested.length} People intrested</span>
           </div>
         </div>
-        <div className="bg-gray-200 rounded-lg p-4 mb-4">
+        {!timeDiffNeg &&
+        <div className="bg-gray-200 rounded-lg p-4 ">
           <h3 className="text-center text-sm font-semibold mb-2">
-            {isEventStarted ? "Event has started!" : "Time Remaining"}
+            Time Remaining
           </h3>
-          {!isEventStarted && (
+         
             <div className="flex justify-between">
               <CountdownUnit value={timeLeft.days} label="Days" />
               <CountdownUnit value={timeLeft.hours} label="Hours" />
               <CountdownUnit value={timeLeft.minutes} label="Minutes" />
               <CountdownUnit value={timeLeft.seconds} label="Seconds" />
             </div>
-          )}
+        
         </div>
+        }
       </div>
+      {event?.eventAdmin._id === userdata?._id  && 
+        <div className="bg-gray-50 px-4 py-3">
+          <button className="w-full py-2 px-4 bg-gradient-to-r from-purple to-pink text-white font-semibold rounded-md  hover:from-pink hover:to-purple transition-all duration-300" onClick={handleJoinNow}>
+            {isEventStarted ? "Live" : timeDiffNeg ? "Go live" : "Yet to start"}
+          </button>
+        </div>
+      }
+
+      {event?.eventAdmin._id !== userdata?._id  &&         
       <div className="bg-gray-50 px-4 py-3">
         <button className="w-full py-2 px-4 bg-gradient-to-r from-purple to-pink text-white font-semibold rounded-md  hover:from-pink hover:to-purple transition-all duration-300" onClick={handleJoinNow}>
-          {isEventStarted ? "Join Now" : "Set Reminder"}
+          {isEventStarted ? "Join Now" : timeDiffNeg ? "Starting Soon" : "Set Reminder"}
         </button>
       </div>
+      }
+
 
       {showMenu &&
         <div className="absolute right-2 top-16 bg-white shadow-lg border border-gray-200 rounded-lg py-2 w-[95%] sm:w-[250px] z-50 text-gray-600"
         ref={popupRef}
         >
         <ul>
-          <li className="px-4 py-4 hover:bg-gray-300 cursor-pointer flex items-center" onClick={handleSavePost}>
+          {saveStae &&
+          <li className="px-4 py-4 hover:bg-gray-300 cursor-pointer flex items-center" onClick={handleSaveEvent}>
             <FaBookmark className="mr-4" />
             {saveStae}
           </li>
+          }
           <li className="px-4 py-4 hover:bg-gray-300 cursor-pointer flex items-center" onClick={handleShareClick}>
             <FaShareAlt className="mr-4" />
             Share
