@@ -8,11 +8,6 @@ import { Progress } from '../ui/progress';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '../ui/table';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../ui/tabs';
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../ui/dialog';
-<<<<<<< HEAD
-
-=======
-import { useUserContext } from "../context/usercontext"; // Import the context
->>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
 import { BookOpen, Brain, ChevronRight, Clock, Cpu, GraduationCap, LayoutDashboard, LogOut, User, BarChart, TrendingUp, TrendingDown } from "lucide-react"
 import { FaArrowDown,FaArrowUp } from "react-icons/fa";
 
@@ -21,10 +16,6 @@ import { FaArrowDown,FaArrowUp } from "react-icons/fa";
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('dashboard')
  
-<<<<<<< HEAD
-=======
- 
->>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
 
  
   const renderContent = () => {
@@ -129,10 +120,6 @@ function DashboardContent() {
   const months = ['Current Month', 'Last Month', '2 Months Ago']
 
   const [interviewCount, setInterviewCount] = useState(null);
-<<<<<<< HEAD
-=======
-  const [quizcount,setquizcount] = useState(null);
->>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -160,56 +147,15 @@ function DashboardContent() {
   useEffect(() => {
       fetchInterviewCount();
   }, []);
-<<<<<<< HEAD
   let val = {interviewCount};
   return (
     <div className="space-y-6">
       <h2 className="text-3xl font-bold text-gray-800 ">Welcome Anurag Singh</h2>
-=======
-
-
-
-  //quiz 
-
-   // Fetch interview count from the server
-   const fetchquizCount = async () => {
-    setLoading(true);
-    setError(null);
-    
-    try {
-        const response = await axios.get('http://localhost:3200/api/quiz-count', {
-            withCredentials: true, // Include if session-based auth is used
-        });
-
-        console.log(response.data); // Log to check the structure of response data
-        setquizcount(response.data.quizCount);
-    } catch (err) {
-        console.error("Error fetching interview count:", err);
-        setError('Failed to fetch interview count');
-    } finally {
-        setLoading(false);
-    }
-};
-
-// Fetch quiz count on component mount
-useEffect(() => {
-    fetchquizCount();
-}, []);
-const { userdata } = useUserContext();
-
-  return (
-    <div className="space-y-6">
-      <h2 className="text-3xl font-bold text-gray-800 ">Welcome {userdata.name}</h2>
->>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
       
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         {[
-<<<<<<< HEAD
           { title: 'Quizzes Completed', value: 24, icon: BookOpen, color: 'bg-blue' },
-=======
-          { title: 'Quizzes Completed', value: quizcount, icon: BookOpen, color: 'bg-blue' },
->>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
           { title: 'AI Interviews Done', value: interviewCount, icon: Cpu, color: 'bg-green' },
           { title: 'Overall Score', value: '85%', icon: GraduationCap, color: 'bg-purple' },
         ].map((stat) => (
@@ -333,33 +279,6 @@ function QuizzesContent() {
     { id: 3, name: 'CSS Grid Layout', category: 'Web Design', questions: 20, timeLimit: '30 mins', difficulty: 'Intermediate' },
   ]
 
-<<<<<<< HEAD
-=======
-
-  const [allResults, setAllResults] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-      const fetchAllResults = async () => {
-          try {
-              const res = await fetch(`http://localhost:3200/api/all-quiz`, {
-                  method: 'GET',
-                  credentials: 'include', // Ensures cookies are sent with the request
-              });
-              if (!res.ok) {
-                  throw new Error('Failed to fetch results');
-              }
-              const data = await res.json();
-              setAllResults(data.users);
-          } catch (error) {
-              setError(error.message);
-          }
-      };
-
-      fetchAllResults();
-  }, []);
-console.log(allResults);
->>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
   return (
     <div className="space-y-6">
       <h2 className="text-3xl font-bold text-gray-800 ">Quizzes</h2>
@@ -385,7 +304,6 @@ console.log(allResults);
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-<<<<<<< HEAD
                   {pastQuizzes.map((quiz) => (
                     <TableRow key={quiz.id}>
                       <TableCell className="font-medium">{quiz.name}</TableCell>
@@ -443,68 +361,6 @@ console.log(allResults);
                     </TableRow>
                   ))}
                 </TableBody>
-=======
-  {allResults.map((user, userIndex) => (
-    user.quizzes.map((quiz, quizIndex) => (
-      <TableRow key={`${userIndex}-${quizIndex}`}>
-        <TableCell className="font-medium">{quiz.topic}</TableCell> {/* Display Quiz Name */}
-        <TableCell>
-          <div className="flex flex-col lg:flex-row items-center">
-            <Progress value={(quiz.correct / quiz.total) * 100} className="w-full mr-4" />
-            <span>{quiz.correct}/{quiz.total}</span>
-          </div>
-        </TableCell>
-        <TableCell>{new Date(quiz.date).toLocaleDateString()}</TableCell> {/* Format quiz date */}
-        <TableCell>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="outline" size="sm" className='py-2'>Review</Button>
-            </DialogTrigger>
-            <DialogContent className='min-w-[90%] md:min-w-[50%] px-6 pt-4 pb-7'>
-              <DialogHeader>
-                <DialogTitle>{quiz.topic} - Review</DialogTitle>
-                <DialogDescription>
-                  Quiz taken on {new Date(quiz.date).toLocaleDateString()}
-                </DialogDescription>
-              </DialogHeader>
-              <div className="space-y-4 mt-4">
-                <div className="flex justify-between">
-                  <span>Your Score:</span>
-                  <span>{quiz.correct}/{quiz.total} ({((quiz.correct / quiz.total) * 100).toFixed(2)}%)</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Average Score:</span>
-                  <span>{quiz.total}%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Time Spent:</span>
-                  <span>{quiz.timeSpent}</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="mr-2">Performance:</span>
-                  {quiz.correct > quiz.averageScore ? (
-                    <TrendingUp className="text-green-500" />
-                  ) : (
-                    <TrendingDown className="text-red-500" />
-                  )}
-                  <span className={quiz.correct >= quiz.total ? "text-green-500 ml-1" : "text-red-500 ml-1"}>
-                    {Math.abs(quiz.correct - quiz.total).toFixed(2)}% {quiz.correct > quiz.total ? "above" : "below"} average
-                  </span>
-                </div>
-                <div>
-                  <h4 className="font-semibold">Feedback:</h4>
-                  <p className="text-sm text-gray-600 mt-1">{quiz.feedback}</p>
-                </div>
-              </div>
-            </DialogContent>
-          </Dialog>
-        </TableCell>
-      </TableRow>
-    ))
-  ))}
-</TableBody>
-
->>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
               </Table>
             </CardContent>
           </Card>

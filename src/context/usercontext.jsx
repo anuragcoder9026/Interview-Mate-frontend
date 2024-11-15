@@ -20,10 +20,7 @@ export const UserProvider = ({ children }) => {
   const dispatch=useDispatch(); 
   const [userdata, setUserdata] = useState(null);
   const [posts,setPost] = useState();
-<<<<<<< HEAD
   const [events,setEvents]=useState();
-=======
->>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
   const [logout,setLogOut]=useState(false);
   const [unseenMessageCount,setUnseenMessageCount]=useState(0);
   const [unseenNotificationCount,setUnseenNotificationCount]=useState(null);
@@ -33,26 +30,16 @@ export const UserProvider = ({ children }) => {
       const response = await axios.get("http://localhost:3200/api/posts/get-all-post", {
         withCredentials: true,
       });
-<<<<<<< HEAD
-=======
-      console.log("posts:",response.data);
->>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
       setPost(response.data);
       const initUserOnline = response.data.reduce((acc, post) => {
         acc[post.postUser._id] = post.postUser.online;
         return acc;
       }, {});
-<<<<<<< HEAD
-=======
-      console.log("init:",initUserOnline);
-      
->>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
       setOnlineStatus(initUserOnline);
      } catch (error) {
       console.log(error);
      }
   }
-<<<<<<< HEAD
   const getAllEvents = async () =>{
     try {
      const response = await axios.get("http://localhost:3200/api/event/get-all-event", {
@@ -64,8 +51,6 @@ export const UserProvider = ({ children }) => {
      console.log(error);
     }
  }
-=======
->>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
 
   const getUsers = async () => {
     try {
@@ -107,10 +92,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     getUsers();
     getAllPosts();
-<<<<<<< HEAD
     getAllEvents();
-=======
->>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
     handleUnseenMessagesCount();
     socket.on('TotalUnseenCount', ({TotalUnseenCount}) => {
       setUnseenMessageCount((prev)=>{
@@ -126,11 +108,7 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   return (
-<<<<<<< HEAD
     <UserContext.Provider value={{ userdata, setUserdata ,posts,setPost,logout,setLogOut,unseenMessageCount,setUnseenMessageCount,unseenNotificationCount,setUnseenNotificationCount,OnlineStatus,setOnlineStatus,events,setEvents}}>
-=======
-    <UserContext.Provider value={{ userdata, setUserdata ,posts,setPost,logout,setLogOut,unseenMessageCount,setUnseenMessageCount,unseenNotificationCount,setUnseenNotificationCount,OnlineStatus,setOnlineStatus}}>
->>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
       {children}
     </UserContext.Provider>
   );
