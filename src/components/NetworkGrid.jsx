@@ -8,6 +8,7 @@ import { BsThreeDots } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/usercontext";
 import { timeAgo } from "../utils/dateAgo";
+import {URL} from "../../url"
 import { MdDeleteOutline } from "react-icons/md";
 function NetworkGrid() {
     const [grow,setGrow]=useState(true);
@@ -43,7 +44,7 @@ function NetworkGrid() {
 
       try {
         const jsonFormData = JSON.stringify({username:data.actionUser.username, follow:data.actionUser.isFollowing ? "Following":"Follow" });  
-        const res = await axios.post('http://localhost:3200/api/users/follow', jsonFormData, {
+        const res = await axios.post(`${URL}/api/users/follow`, jsonFormData, {
           headers: {
             'Content-Type': 'application/json'
           },
@@ -58,7 +59,7 @@ function NetworkGrid() {
   const handleNotificationRead=async(notification,isNavigate,navigateUrl)=>{
     try {
       const jsonFormData = JSON.stringify({notificationId:notification?._id});  
-      const res = await axios.post('http://localhost:3200/api/users/read-notification', jsonFormData, {
+      const res = await axios.post(`${URL}/api/users/read-notification`, jsonFormData, {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -75,7 +76,7 @@ function NetworkGrid() {
   const deleteNotification=async(notificationId)=>{
     try {
       const jsonFormData = JSON.stringify({notificationId});  
-      const res = await axios.post('http://localhost:3200/api/users/delete-notification', jsonFormData, {
+      const res = await axios.post(`${URL}/api/users/delete-notification`, jsonFormData, {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -99,7 +100,7 @@ function NetworkGrid() {
     useEffect(()=>{
       const handleFollwerSuggestions = async() => {
         try {
-          const res = await axios.get('http://localhost:3200/api/users/get-follwer-suggestions', {
+          const res = await axios.get(`${URL}/api/users/get-follwer-suggestions`, {
             headers: {
               'Content-Type': 'application/json'
             },
@@ -112,7 +113,7 @@ function NetworkGrid() {
       };
       const handleFollwerNotification = async() => {
         try {
-          const res = await axios.get('http://localhost:3200/api/users/get-follower-notification', {
+          const res = await axios.get(`${URL}/api/users/get-follower-notification`, {
             headers: {
               'Content-Type': 'application/json'
             },
@@ -125,7 +126,7 @@ function NetworkGrid() {
       };
       const handlePostNotification = async() => {
         try {
-          const res = await axios.get('http://localhost:3200/api/users/get-post-notification', {
+          const res = await axios.get(`${URL}/api/users/get-post-notification`, {
             headers: {
               'Content-Type': 'application/json'
             },

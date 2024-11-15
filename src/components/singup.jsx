@@ -4,6 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useState } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import {URL} from "../../url"
 const SignUpForm = () => {
   const [formData, setData] = useState({ name: "",username: "", email: "", password: "",pconfirm:"",branch:"",year:0,college:"" });
   const [passwordError,setPasswordError]=useState(false);
@@ -28,7 +29,7 @@ const SignUpForm = () => {
     console.log(formData);
     try {
       const jsonFormData = JSON.stringify(formData); 
-      const res = await axios.post('https://interview-mate-backend.onrender.com/api/users/signup', jsonFormData, {
+      const res = await axios.post('http://localhost:3200/api/users/signup', jsonFormData, {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -36,7 +37,7 @@ const SignUpForm = () => {
       });
       console.log("resp:",res);
       if(res.status==200){
-         window.location.href="http://localhost:5173/Interview-Mate-frontend/Interview-Mate-frontend/profile"
+         window.location.href="http://localhost:5173/Interview-Mate-frontend/profile"
       }
     } catch (error) {
       console.log(error.response.data.message);
@@ -48,7 +49,7 @@ const SignUpForm = () => {
   const queryParams = new URLSearchParams(location.search);
   const SignUpError = queryParams.get('error');
   const signupwithgoogle = () => {
-    window.open("http://localhost:3200/auth/google/signup", "_self");
+    window.open(`${URL}/auth/google/signup`, "_self");
   };
   return (
     <div className="min-h-screen bg-gray-50 flex z-50 flex-col justify-center py-12 sm:px-6 lg:px-8 m-6 mt-0 mb-0">

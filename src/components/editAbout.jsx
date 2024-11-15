@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; 
 import axios from "axios";
+import {URL} from "../../url"
 const EditAboutForm = ({ closeAboutpopup }) => {
   const dispatch=useDispatch(); 
   const [formData, setFormData] = useState(useSelector(store=>store.userAbout));
@@ -19,7 +20,7 @@ const EditAboutForm = ({ closeAboutpopup }) => {
     setIsLoading(true); // Show loader
     try {
       const jsonFormData = JSON.stringify(formData);  
-      const res = await axios.post('http://localhost:3200/api/users/about', jsonFormData, {
+      const res = await axios.post(`${URL}/api/users/about`, jsonFormData, {
         headers: {
           'Content-Type': 'application/json'
         },

@@ -10,14 +10,10 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '../ui/tabs';
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../ui/dialog';
 import { BookOpen, Brain, ChevronRight, Clock, Cpu, GraduationCap, LayoutDashboard, LogOut, User, BarChart, TrendingUp, TrendingDown } from "lucide-react"
 import { FaArrowDown,FaArrowUp } from "react-icons/fa";
-
-
+import {URL} from "../../url"
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('dashboard')
- 
-
- 
   const renderContent = () => {
     switch (activeTab) {
       case 'dashboard':

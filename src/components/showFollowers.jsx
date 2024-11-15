@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import user from "../assets/images/user.png";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
+import {URL} from "../../url"
  const ShowFollowers=()=>{
     const [grow,setGrow]=useState(false);
     const [followers,setFollowers]=useState([1,2,3,4,5]);
@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
     useEffect(()=>{
       const getUserFollowers=async()=>{
         try {
-          const res = await axios.get("http://localhost:3200/api/users/get-user-followers", {
+          const res = await axios.get(`${URL}/api/users/get-user-followers`, {
             withCredentials: true,
           });
           setFollowers(res.data);
@@ -21,7 +21,7 @@ import { Link } from "react-router-dom";
       }
       const getUserFollowings=async()=>{
         try {
-          const res = await axios.get("http://localhost:3200/api/users/get-user-followings", {
+          const res = await axios.get(`${URL}/api/users/get-user-followings`, {
             withCredentials: true,
           });
           setFollowings(res.data);

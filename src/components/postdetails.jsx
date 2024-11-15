@@ -11,6 +11,7 @@ import { timeAgo } from '../utils/dateAgo';
 import { useDispatch, useSelector } from 'react-redux';
 import { userFollowingAction } from "../store/userFollowing";
 import toast, { Toaster } from "react-hot-toast";
+import {URL} from "../../url"
 const PostDetail = () => {
   const dispatch=useDispatch();
   const userFollowing = useSelector(store => store.userFollowing);
@@ -49,7 +50,7 @@ const PostDetail = () => {
  useEffect(()=>{
   const getPost = async()=>{
     try {
-      const res = await axios.get('http://localhost:3200/api/posts/get-post', {
+      const res = await axios.get(`${URL}/api/posts/get-post`, {
         params: {postId},
         headers: {
           'Content-Type': 'application/json'
@@ -66,7 +67,7 @@ const PostDetail = () => {
   }
   const getPostComments = async()=>{
     try {
-      const res = await axios.get('http://localhost:3200/api/posts/get-post-comments', {
+      const res = await axios.get(`${URL}/api/posts/get-post-comments`, {
         params: {postId},
         headers: {
           'Content-Type': 'application/json'
@@ -92,7 +93,7 @@ const PostDetail = () => {
     if (comment.trim()) {
       setLoading(true);
       try {
-        const res = await axios.post('http://localhost:3200/api/posts/set-comment',{comment}, {
+        const res = await axios.post(`${URL}/api/posts/set-comment`,{comment}, {
           params: {postId},
           headers: {
             'Content-Type': 'application/json'
@@ -104,7 +105,7 @@ const PostDetail = () => {
         setComments([{
           commentUser:{
             intro:{
-              tagline:userdata?.intro.tagline,
+              tagline:userdata?.intro?.tagline,
             },
             name:userdata?.name,
             profileimg:userdata?.profileimg,
@@ -134,7 +135,7 @@ const PostDetail = () => {
     setIsFollowing(!isFollowing);
     try {
       const jsonFormData = JSON.stringify({username:post?.postUser?.username,follow:isFollowing?"Following":"Follow"});  
-      const res = await axios.post('http://localhost:3200/api/users/follow', jsonFormData, {
+      const res = await axios.post(`${URL}/api/users/follow`, jsonFormData, {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -149,7 +150,7 @@ const PostDetail = () => {
     setLikesCount((likesCount)=>liked ?likesCount-1 : likesCount+1);
     setLiked(!liked);
     try {
-      const res = await axios.get('http://localhost:3200/api/posts/set-like', {
+      const res = await axios.get(`${URL}/api/posts/set-like`, {
         params: {postId:post?._id},
         headers: {
           'Content-Type': 'application/json'
@@ -278,7 +279,7 @@ const PostDetail = () => {
                </Link>
                <p className="text-gray-600 " style={{fontSize:"14px"}}>{timeAgo(comment?.date)}</p>
               </div> 
-              <p className="text-gray-500" style={{fontSize:"13px"}}>{comment?.commentUser?.intro.tagline}</p>
+              <p className="text-gray-500" style={{fontSize:"13px"}}>{comment?.commentUser?.intro?.tagline}</p>
               </div>
               <p className="text-gray-900">{comment?.content}</p>
               </div>

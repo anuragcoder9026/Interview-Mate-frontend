@@ -9,6 +9,7 @@ import { BsWhatsapp } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios"
+import {URL} from "../../url"
 const  SavedItemDetails = ({savedPost,onUnSave}) => {
   const [showMenu, setShowMenu] = useState(false); 
   const toggleMenu = () => {
@@ -61,7 +62,7 @@ const handleShareClick = () => {
 const handleSavePost = async() =>{
   try {
     const jsonData = JSON.stringify({postId:savedPost?._id,save:'Unsave'});  
-    const res = await axios.post('http://localhost:3200/api/posts/save-post',jsonData, {
+    const res = await axios.post(`${URL}/api/posts/save-post`,jsonData, {
       headers: {
         'Content-Type': 'application/json'
       },

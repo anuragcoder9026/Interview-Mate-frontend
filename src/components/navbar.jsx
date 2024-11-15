@@ -16,6 +16,7 @@ import { IoMdMail } from "react-icons/io"; // Message icon
 import { FaUsers } from "react-icons/fa"; // My Network icon
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {URL} from "../../url"
 import socket from "../../socket";
 export default function NavBar() {
   const [isNavBarToggled, setIsNavBarToggled] = useState(false);
@@ -31,7 +32,7 @@ export default function NavBar() {
       const logout = async (e) => {
         e.preventDefault();
         try { 
-            const res = await axios.get('http://localhost:3200/api/users/logout',{
+            const res = await axios.get(`${URL}/api/users/logout`,{
                 headers: {
                     'Content-Type': 'application/json'
                 },
