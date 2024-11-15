@@ -27,7 +27,7 @@ const LoginPopup = () => {
 
   const handleUnseenMessagesCount=async()=>{
     try { 
-      const res = await axios.get('http://localhost:3200/api/users/unseen-messages-count', {
+      const res = await axios.get('https://interview-mate-backend.onrender.com/api/users/unseen-messages-count', {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -45,7 +45,7 @@ const LoginPopup = () => {
     try {
       const jsonFormData = JSON.stringify(formData); 
       console.log("data:",jsonFormData);
-      const response = await axios.post('http://localhost:3200/api/users/login', jsonFormData, {
+      const response = await axios.post('https://interview-mate-backend.onrender.com/api/users/login', jsonFormData, {
         headers: {
           'Content-Type': 'application/json'
         },
