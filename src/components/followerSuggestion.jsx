@@ -4,14 +4,14 @@ import user from "../assets/images/user.png";
 import ProfileBg from "../assets/images/college_bg.jpg";
 import { Link } from "react-router-dom";
 import { FiUserPlus } from 'react-icons/fi';
-import {URL} from "../../url"
+import {BACKEND_URL} from "../../url"
 const FollowerSuggestion=({suggestion})=>{
     const [isFollowing,setIsFollowing]=useState(false);
     const toggleFollow = async () => {
       setIsFollowing(!isFollowing);
       try {
         const jsonFormData = JSON.stringify({username:suggestion?.username,follow:isFollowing?"Following":"Follow"});  
-        const res = await axios.post(`${URL}/api/users/follow`, jsonFormData, {
+        const res = await axios.post(`${BACKEND_URL}/api/users/follow`, jsonFormData, {
           headers: {
             'Content-Type': 'application/json'
           },

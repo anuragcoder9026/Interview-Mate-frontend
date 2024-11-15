@@ -11,7 +11,7 @@ import { userExperienceAction } from '../store/userExperienceSlice';
 import { userSkillAction } from '../store/userSkillSlice';
 import { userFollowingAction } from "../store/userFollowing";
 import socket from "../../socket";
-import {URL} from "../../url"
+import {BACKEND_URL} from "../../url"
 const LoginPopup = () => {
   
   const { setUserdata ,setUnseenMessageCount,setUnseenNotificationCount} = useUserContext();
@@ -29,7 +29,7 @@ const LoginPopup = () => {
 
   const handleUnseenMessagesCount=async()=>{
     try { 
-      const res = await axios.get(`${URL}/api/users/unseen-messages-count`, {
+      const res = await axios.get(`${BACKEND_URL}/api/users/unseen-messages-count`, {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -47,7 +47,7 @@ const LoginPopup = () => {
     try {
       const jsonFormData = JSON.stringify(formData); 
       console.log("data:",jsonFormData);
-      const response = await axios.post(`${URL}/api/users/login`, jsonFormData, {
+      const response = await axios.post(`${BACKEND_URL}/api/users/login`, jsonFormData, {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -76,7 +76,7 @@ const LoginPopup = () => {
     
   }
   const loginwitgoogle = () => {
-    window.open(`${URL}/auth/google/signin`, "_self");
+    window.open(`${BACKEND_URL}/auth/google/signin`, "_self");
   };
   return (
     <div

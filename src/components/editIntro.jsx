@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { userIntroAction } from '../store/userIntroSilice';
 import { useSelector } from "react-redux";
 import axios from "axios"
-import {URL} from "../../url"
+import {BACKEND_URL} from "../../url"
 const EditIntroForm = ({ closeIntroPopup }) => {
   const dispatch=useDispatch(); 
   
@@ -28,7 +28,7 @@ const EditIntroForm = ({ closeIntroPopup }) => {
     setIsLoading(true); // Show loader
     try {
       const jsonFormData = JSON.stringify(formData);  
-      const res = await axios.post(`${URL}/api/users/intro`, jsonFormData, {
+      const res = await axios.post(`${BACKEND_URL}/api/users/intro`, jsonFormData, {
         headers: {
           'Content-Type': 'application/json'
         },

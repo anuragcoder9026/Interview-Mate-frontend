@@ -10,7 +10,7 @@ import { BsThreeDots } from "react-icons/bs";
 import axios from "axios"
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../context/usercontext';
-import {URL} from "../../url"
+import {BACKEND_URL} from "../../url"
 const EventCard = ({event,saveStae,onUnSave}) => {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
   const [isEventStarted, setIsEventStarted] = useState(event?.status==='live')
@@ -69,7 +69,7 @@ const handleShareClick = () => {
 const handleSaveEvent = async() =>{
   try {
     const jsonData = JSON.stringify({eventId:event?._id,save:saveStae});  
-    const res = await axios.post(`${URL}/api/event/save-event`,jsonData, {
+    const res = await axios.post(`${BACKEND_URL}/api/event/save-event`,jsonData, {
       headers: {
         'Content-Type': 'application/json'
       },

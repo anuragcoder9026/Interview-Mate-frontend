@@ -6,7 +6,7 @@ import { Sidebar } from './MessageSearch';
 import axios from "axios"
 import user from "../assets/images/user.png";
 import { useParams } from 'react-router-dom';
-import {URL} from "../../url"
+import {BACKEND_URL} from "../../url"
 import { useUserContext } from "../context/usercontext"; 
 const Message = () => {
   const {userId}=useParams();
@@ -81,7 +81,7 @@ const UpdateUnseen=(userId)=>{
     const getChatsProfile =async()=>{
       const jsonFormData = JSON.stringify({currentuserId:userId});  
       try {
-        const res = await axios.post(`${URL}/api/message/all-chats-profile`,jsonFormData,{
+        const res = await axios.post(`${BACKEND_URL}/api/message/all-chats-profile`,jsonFormData,{
           headers: {
             'Content-Type': 'application/json'
           },

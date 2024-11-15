@@ -8,7 +8,7 @@ import user from "../assets/images/user.png";
 import ProfileBg from "../assets/images/college_bg.jpg";
 import { FiUserPlus } from 'react-icons/fi';
 import SavedItemDetails from './saveItemDetails';
-import {URL} from "../../url"
+import {BACKEND_URL} from "../../url"
 import axios from "axios";
 import EventCard from './eventCard';
 const SavedItems = () => {
@@ -30,7 +30,7 @@ const SavedItems = () => {
  
     const getAllSavedEvents = async () =>{
         try {
-         const response = await axios.get(`${URL}/api/event/get-all-savedevent`, {
+         const response = await axios.get(`${BACKEND_URL}/api/event/get-all-savedevent`, {
            withCredentials: true,
          });
         setSavedEvents(response.data);
@@ -41,7 +41,7 @@ const SavedItems = () => {
 
      const getAllSavedPosts = async () =>{
       try {
-       const response = await axios.get(`${URL}/api/posts/get-all-savedpost`, {
+       const response = await axios.get(`${BACKEND_URL}/api/posts/get-all-savedpost`, {
          withCredentials: true,
        });
        setSavedPosts(response.data.savedPosts);

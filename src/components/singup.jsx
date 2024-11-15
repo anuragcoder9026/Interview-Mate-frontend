@@ -4,7 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useState } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import {URL} from "../../url"
+import {BACKEND_URL} from "../../url"
 const SignUpForm = () => {
   const [formData, setData] = useState({ name: "",username: "", email: "", password: "",pconfirm:"",branch:"",year:0,college:"" });
   const [passwordError,setPasswordError]=useState(false);
@@ -49,7 +49,7 @@ const SignUpForm = () => {
   const queryParams = new URLSearchParams(location.search);
   const SignUpError = queryParams.get('error');
   const signupwithgoogle = () => {
-    window.open(`${URL}/auth/google/signup`, "_self");
+    window.open(`${BACKEND_URL}/auth/google/signup`, "_self");
   };
   return (
     <div className="min-h-screen bg-gray-50 flex z-50 flex-col justify-center py-12 sm:px-6 lg:px-8 m-6 mt-0 mb-0">

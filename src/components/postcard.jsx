@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userFollowingAction } from "../store/userFollowing";
 import { BsWhatsapp } from "react-icons/bs";
 import { FaFacebookF,FaCircle } from "react-icons/fa";
-import {URL} from "../../url"
+import {BACKEND_URL} from "../../url"
 function CustomCard({ post }) {
   const dispatch=useDispatch();
   const userFollowing = useSelector(store => store.userFollowing);
@@ -39,7 +39,7 @@ function CustomCard({ post }) {
     setIsFollowing(!isFollowing);
     try {
       const jsonFormData = JSON.stringify({username:post?.postUser?.username,follow:isFollowing?"Following":"Follow"});  
-      const res = await axios.post(`${URL}/api/users/follow`, jsonFormData, {
+      const res = await axios.post(`${BACKEND_URL}/api/users/follow`, jsonFormData, {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -93,7 +93,7 @@ function CustomCard({ post }) {
     setLiked((liked)=>!liked);
 
     try {
-      const res = await axios.get(`${URL}/api/posts/set-like`, {
+      const res = await axios.get(`${BACKEND_URL}/api/posts/set-like`, {
         params: {postId:post?._id},
         headers: {
           'Content-Type': 'application/json'
@@ -110,7 +110,7 @@ function CustomCard({ post }) {
   const handleSubmit =async () => {
     setLoading(true);
     try {
-      const res = await axios.post(`${URL}/api/posts/set-comment`,{comment}, {
+      const res = await axios.post(`${BACKEND_URL}/api/posts/set-comment`,{comment}, {
         params: {postId:post?._id},
         headers: {
           'Content-Type': 'application/json'
@@ -132,7 +132,7 @@ function CustomCard({ post }) {
   const handleSavePost = async() =>{
     try {
       const jsonData = JSON.stringify({postId:post?._id,save:'Save'});  
-      const res = await axios.post(`${URL}/api/posts/save-post`,jsonData, {
+      const res = await axios.post(`${BACKEND_URL}/api/posts/save-post`,jsonData, {
         headers: {
           'Content-Type': 'application/json'
         },

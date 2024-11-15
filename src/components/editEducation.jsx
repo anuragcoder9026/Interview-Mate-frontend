@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { userEducationAction } from '../store/userEducationSlice';
 import { useSelector } from "react-redux";
 import axios from "axios"
-import {URL} from "../../url"
+import {BACKEND_URL} from "../../url"
 const EditEducationForm = ({closeEduPopup,id}) => {
   const dispatch=useDispatch(); 
   const eduImage="https://feualabang.edu.ph/assets/features/34/Pt6wH.png"
@@ -26,7 +26,7 @@ const EditEducationForm = ({closeEduPopup,id}) => {
      setIsLoading(true); // Show loader
     try {
       const jsonFormData = JSON.stringify({id:id,education:formData});  
-      const res = await axios.post(`${URL}/api/users/education`, jsonFormData, {
+      const res = await axios.post(`${BACKEND_URL}/api/users/education`, jsonFormData, {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -48,7 +48,7 @@ const EditEducationForm = ({closeEduPopup,id}) => {
     setIsLoading(true); // Show loader
     try {
       const jsonFormData = JSON.stringify({educationId:formData._id});  
-      const res = await axios.post(`${URL}/api/users/delete-education`, jsonFormData, {
+      const res = await axios.post(`${BACKEND_URL}/api/users/delete-education`, jsonFormData, {
         headers: {
           'Content-Type': 'application/json'
         },
