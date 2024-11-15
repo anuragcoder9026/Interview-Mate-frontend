@@ -1,4 +1,4 @@
 import io from 'socket.io-client';
-import {URL} from "./url"
-const socket = io(URL);
+import {BACKEND_URL} from "./url"
+const socket = io(BACKEND_URL);
 export default socket;

@@ -23,7 +23,7 @@ import { FaImage, FaCalendarAlt, FaPen } from 'react-icons/fa';
 import toast, { Toaster } from 'react-hot-toast';
 import { IoCameraOutline } from "react-icons/io5";
 import EventCard from "./eventCard";
-import {URL} from "../../url"
+import {BACKEND_URL} from "../../url"
 const ProfileSection = () => {
   const { userdata } = useUserContext(); 
   const dispatch=useDispatch(); 
@@ -82,7 +82,7 @@ const ProfileSection = () => {
   useEffect(()=>{
       const getUserPosts =async()=>{
         try {
-          const res = await axios.get(`${URL}/api/posts/get-activity-posts`,{
+          const res = await axios.get(`${BACKEND_URL}/api/posts/get-activity-posts`,{
             params: {userId:userdata?._id},
             headers: {
               'Content-Type': 'application/json'
@@ -96,7 +96,7 @@ const ProfileSection = () => {
       }
       const getUserComments =async()=>{
         try {
-          const res = await axios.get(`${URL}/api/posts/get-activity-comments`,{
+          const res = await axios.get(`${BACKEND_URL}/api/posts/get-activity-comments`,{
             params: {userId:userdata?._id},
             headers: {
               'Content-Type': 'application/json'
@@ -110,7 +110,7 @@ const ProfileSection = () => {
       }
       const getFollowerSummary =async()=>{
         try {
-          const res = await axios.get(`${URL}/api/users/get-followers-summary`,{
+          const res = await axios.get(`${BACKEND_URL}/api/users/get-followers-summary`,{
             params: {username:userdata?.username},
             headers: {
               'Content-Type': 'application/json'
@@ -152,7 +152,7 @@ const ProfileSection = () => {
     console.log(postData);
     
     try {
-      const res = await axios.post(`${URL}/api/posts/publish-post`, postData, {
+      const res = await axios.post(`${BACKEND_URL}/api/posts/publish-post`, postData, {
           headers: {
               'Content-Type': 'multipart/form-data'
           },
@@ -209,7 +209,7 @@ const ProfileSection = () => {
           const formData = new FormData();
           formData.append('userCover', file);
   
-          const res = await axios.post(`${URL}/api/users/user-cover-img`, formData, {
+          const res = await axios.post(`${BACKEND_URL}/api/users/user-cover-img`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             },
@@ -229,7 +229,7 @@ const ProfileSection = () => {
           const formData = new FormData();
           formData.append('userProfile', file);
   
-          const res = await axios.post(`${URL}/api/users/user-profile-img`, formData, {
+          const res = await axios.post(`${BACKEND_URL}/api/users/user-profile-img`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             },

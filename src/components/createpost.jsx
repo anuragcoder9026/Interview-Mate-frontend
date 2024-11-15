@@ -15,7 +15,7 @@ import axios from "axios"
 import { SiGooglegemini } from "react-icons/si";
 import { GenerateAiPost } from './getAiPost';
 import ClockTimePicker from './clockTime';
-import {URL} from "../../url"
+import {BACKEND_URL} from "../../url"
 const CreatePost = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const handleOpenPopup = () => {
@@ -48,7 +48,7 @@ const CreatePost = () => {
     console.log(postData);
     setIsPostLoading(true); 
     try {
-      const res = await axios.post(`${URL}/api/posts/publish-post`, postData, {
+      const res = await axios.post(`${BACKEND_URL}/api/posts/publish-post`, postData, {
           headers: {
               'Content-Type': 'multipart/form-data'
           },
@@ -119,7 +119,7 @@ const CreatePost = () => {
     const eventData = JSON.stringify({title:eventTitle,detail:eventDetails,time:time.format('YYYY-MM-DDTHH:mm:ss.SSSZ')});  
     console.log(eventData);
     try {
-      const res = await axios.post(`${URL}/api/event/create-event`, eventData, {
+      const res = await axios.post(`${BACKEND_URL}/api/event/create-event`, eventData, {
           headers: {
               'Content-Type': 'application/json'
           },

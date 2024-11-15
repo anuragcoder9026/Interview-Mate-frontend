@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {URL} from "../../url"
+import {BACKEND_URL} from "../../url"
 const AllResults = () => {
     const [allResults, setAllResults] = useState([]);
     const [error, setError] = useState(null);
@@ -7,7 +7,7 @@ const AllResults = () => {
     useEffect(() => {
         const fetchAllResults = async () => {
             try {
-                const res = await fetch(`${URL}/api/all-results`, {
+                const res = await fetch(`${BACKEND_URL}/api/all-results`, {
                     method: 'GET',
                     credentials: 'include', // Ensures cookies are sent with the request
                 });

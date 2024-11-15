@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { userExperienceAction } from '../store/userExperienceSlice';
 import { useSelector } from "react-redux";
 import axios from "axios";
-import {URL} from "../../url"
+import {BACKEND_URL} from "../../url"
 const EditExperienceForm = ({closeExpPopup,id}) => {
   const dispatch=useDispatch(); 
   const expImage="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa4Vy2MHI6zbHxDmZiHG17HVgyBCRfZYvM5Q&s";
@@ -30,7 +30,7 @@ const EditExperienceForm = ({closeExpPopup,id}) => {
      setIsLoading(true);
     try {
       const jsonFormData = JSON.stringify({id:id,experience:formData});  
-      const res = await axios.post(`${URL}/api/users/experience`, jsonFormData, {
+      const res = await axios.post(`${BACKEND_URL}/api/users/experience`, jsonFormData, {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -53,7 +53,7 @@ const EditExperienceForm = ({closeExpPopup,id}) => {
     setIsLoading(true); 
     try {
       const jsonFormData = JSON.stringify({experienceId:formData._id});  
-      const res = await axios.post(`${URL}/api/users/delete-experience`, jsonFormData, {
+      const res = await axios.post(`${BACKEND_URL}/api/users/delete-experience`, jsonFormData, {
         headers: {
           'Content-Type': 'application/json'
         },

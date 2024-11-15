@@ -10,10 +10,9 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '../ui/tabs';
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../ui/dialog';
 import { BookOpen, Brain, ChevronRight, Clock, Cpu, GraduationCap, LayoutDashboard, LogOut, User, BarChart, TrendingUp, TrendingDown } from "lucide-react"
 import { FaArrowDown,FaArrowUp } from "react-icons/fa";
-import {URL} from "../../url"
+import {BACKEND_URL} from "../../url"
 import { useUserContext } from '../context/usercontext';
 export default function Dashboard() {
-  const {userdata}=useUserContext();
   const [activeTab, setActiveTab] = useState('dashboard')
   const renderContent = () => {
     switch (activeTab) {
@@ -126,7 +125,7 @@ function DashboardContent() {
       setError(null);
       
       try {
-          const response = await axios.get(`${URL}/api/interview-count`, {
+          const response = await axios.get(`${BACKEND_URL}/api/interview-count`, {
               withCredentials: true, // Include if session-based auth is used
           });
 
@@ -145,6 +144,7 @@ function DashboardContent() {
       fetchInterviewCount();
   }, []);
   let val = {interviewCount};
+  const {userdata}=useUserContext();
   return (
     <div className="space-y-6">
       <h2 className="text-3xl font-bold text-gray-800 ">Welcome {userdata?.name}</h2>
@@ -422,7 +422,7 @@ function InterviewsContent() {
   useEffect(() => {
       const fetchAllResults = async () => {
           try {
-              const res = await fetch(`${URL}/api/all-results`, {
+              const res = await fetch(`${BACKEND_URL}/api/all-results`, {
                   method: 'GET',
                   credentials: 'include', // Ensures cookies are sent with the request
               });

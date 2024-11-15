@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../context/usercontext';
 import axios from "axios";
-
+import {BACKEND_URL} from "../../url"
 const VoiceInterview = () => {
   const { user } = useUserContext();  // Access user context
   const [showResult, setShowResult] = useState(false);  // Track if the result should be displayed
@@ -36,7 +36,7 @@ const VoiceInterview = () => {
   // Function to send the transcript to the backend with additional form data
   const sendTranscriptToApi = async (message) => {
     try {
-      const res = await axios.post(`${URL}/api/gemini`, {
+      const res = await axios.post(`${BACKEND_URL}/api/gemini`, {
         message: message,
         company: company,  // Include company name
         role: role,

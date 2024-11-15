@@ -10,7 +10,7 @@ import { useUserContext } from "../context/usercontext";
 import { useDispatch, useSelector } from 'react-redux';
 import { userFollowingAction } from "../store/userFollowing";
 import { timeAgo } from "../utils/dateAgo";
-import {URL} from "../../url"
+import {BACKEND_URL} from "../../url"
 const UserProfile = () => {
   const dispatch=useDispatch();
   const userFollowing = useSelector(store => store.userFollowing);
@@ -53,7 +53,7 @@ useEffect(()=>{
   useEffect(()=>{
     const getUserPosts =async()=>{
       try {
-        const res = await axios.get(`${URL}/api/posts/get-activity-posts`,{
+        const res = await axios.get(`${BACKEND_URL}/api/posts/get-activity-posts`,{
           params: {userId:userdata?._id},
           headers: {
             'Content-Type': 'application/json'
@@ -67,7 +67,7 @@ useEffect(()=>{
     }
     const getUserComments =async()=>{
       try {
-        const res = await axios.get(`${URL}/api/posts/get-activity-comments`,{
+        const res = await axios.get(`${BACKEND_URL}/api/posts/get-activity-comments`,{
           params: {userId:userdata?._id},
           headers: {
             'Content-Type': 'application/json'
@@ -86,7 +86,7 @@ useEffect(()=>{
   useEffect(() => {
     const getProfile = async () => {
         try {
-            const response = await axios.get(`${URL}/api/users/get-profile/${id}`,{
+            const response = await axios.get(`${BACKEND_URL}/api/users/get-profile/${id}`,{
               withCredentials: true
           });
           
@@ -105,7 +105,7 @@ useEffect(()=>{
         };
         const getFollowerSummary =async()=>{
           try {
-            const res = await axios.get(`${URL}/api/users/get-followers-summary`,{
+            const res = await axios.get(`${BACKEND_URL}/api/users/get-followers-summary`,{
               params: {username:id},
               headers: {
                 'Content-Type': 'application/json'
@@ -133,7 +133,7 @@ useEffect(()=>{
         setFollow((isFollow)=>!isFollow);
         try {
           const jsonFormData = JSON.stringify({username:userdata.username,follow:!isFollow?"Following":"Follow"});  
-          const res = await axios.post(`${URL}/api/users/follow`, jsonFormData, {
+          const res = await axios.post(`${BACKEND_URL}/api/users/follow`, jsonFormData, {
             headers: {
               'Content-Type': 'application/json'
             },

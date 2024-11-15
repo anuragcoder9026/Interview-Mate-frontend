@@ -6,7 +6,7 @@ import { MdOutlineKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../context/usercontext";
 import axios from "axios";
-import {URL} from "../../url"
+import {BACKEND_URL} from "../../url"
 const ProfileCard = () => {
   const [showMore, setShowMore] = useState(false);
   const {userdata}=useUserContext();
@@ -14,7 +14,7 @@ const ProfileCard = () => {
   useEffect(()=>{
     const handlePostImpression = async() => {
       try {
-        const res = await axios.get(`${URL}/api/users/get-post-impression`, {
+        const res = await axios.get(`${BACKEND_URL}/api/users/get-post-impression`, {
           headers: {
             'Content-Type': 'application/json'
           },

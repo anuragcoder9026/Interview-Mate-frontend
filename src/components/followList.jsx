@@ -8,7 +8,7 @@ import { FaUserFriends } from "react-icons/fa";
 import { Link, useParams } from 'react-router-dom';
 import axios from "axios"
 import { useUserContext } from '../context/usercontext';
-import {URL} from "../../url"
+import {BACKEND_URL} from "../../url"
 const FollowList = () => {
     const [grow,setGrow]=useState(false);
     const [followers,setFollowers]=useState();
@@ -20,7 +20,7 @@ const FollowList = () => {
     useEffect(()=>{
         const getProfile = async () => {
             try {
-                const res = await axios.get(`${URL}/api/users/get-profile/${username}`,{
+                const res = await axios.get(`${BACKEND_URL}/api/users/get-profile/${username}`,{
                   withCredentials: true
               });
                 setProfile(res.data);
@@ -30,7 +30,7 @@ const FollowList = () => {
         };
         const getFollowerList = async () => {
                 try {
-                    const res = await axios.get(`${URL}/api/users/get-followers-list/${username}`,{
+                    const res = await axios.get(`${BACKEND_URL}/api/users/get-followers-list/${username}`,{
                       withCredentials: true
                   });
                     console.log(res);
@@ -43,7 +43,7 @@ const FollowList = () => {
 
         const getFollowingList = async () => {
             try {
-                const res = await axios.get(`${URL}/api/users/get-followings-list/${username}`,{
+                const res = await axios.get(`${BACKEND_URL}/api/users/get-followings-list/${username}`,{
                   withCredentials: true
               });
                 setFollowings(res.data);
@@ -86,7 +86,7 @@ const FollowList = () => {
     const handleSetFollow=async(username,isFollow)=>{
         try {
             const jsonFormData = JSON.stringify({username,follow:isFollow ? "Following":"Follow" });  
-            const res = await axios.post(`${URL}/api/users/follow`, jsonFormData, {
+            const res = await axios.post(`${BACKEND_URL}/api/users/follow`, jsonFormData, {
               headers: {
                 'Content-Type': 'application/json'
               },
