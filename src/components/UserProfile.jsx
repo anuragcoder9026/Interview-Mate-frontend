@@ -165,7 +165,13 @@ useEffect(()=>{
         {/* User Details */}
         { <div className="flex flex-col justify-center  mt-16 ml-6 mr-2">
           <h2 className="text-2xl font-semibold">
+<<<<<<< HEAD
           {userdata?.name}
+=======
+          {userIntro?.name 
+                ? ` ${userIntro?.name}`
+                : userdata?.name ? ` ${userdata?.name}`:""}
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
           </h2>
           {/* Bio Section */}
           <div className="mt-4 w-1/1 flex gap-4 flex-col sm:flex-row mr-3">
@@ -330,7 +336,11 @@ useEffect(()=>{
                   </div>
                   <div className="flex-1">
                     <p className="font-semibold text-gray-900">
+<<<<<<< HEAD
                     {userdata?.name} posted this
+=======
+                      {userIntro?.name} posted this
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
                     </p>
                     <p className="text-sm text-gray-500">{timeAgo(post?.date)}</p>
                     <div className="mt-2 text-gray-700"
@@ -358,7 +368,11 @@ useEffect(()=>{
                     <Link to={`/post/${comment?.post}`} className="flex space-x-4">
                   <div className="flex flex-col">
                     <p className=" text-sm text-gray-500">
+<<<<<<< HEAD
                       <span className="font-semibold text-gray-600"> {userdata?.name}</span> commented this • <span>🌍</span> {timeAgo(comment?.date)}
+=======
+                      <span className="font-semibold text-gray-600">{userIntro?.name}</span> posted this • <span>🌍</span> {timeAgo(comment?.date)}
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
                     </p>
                     <p className="mt-2 text-black">
                      {comment?.content}

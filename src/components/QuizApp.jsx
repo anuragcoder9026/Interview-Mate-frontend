@@ -1,7 +1,16 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { FaRegCircle, FaRegDotCircle } from 'react-icons/fa';
 import { TbPlayerTrackNextFilled } from 'react-icons/tb';
 import { generateQuizData } from './GenerateQuizData';
+=======
+import React, { useState, useEffect } from 'react';
+import { FaRegCircle, FaRegDotCircle } from 'react-icons/fa';
+import { TbPlayerTrackNextFilled } from 'react-icons/tb';
+import { generateQuizData } from './GenerateQuizData';
+import { useUserContext } from '../context/usercontext';
+import axios from 'axios';
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
 
 const QuizApp = () => {
   const [step, setStep] = useState(1);
@@ -34,6 +43,10 @@ const QuizApp = () => {
       } else {
         calculateScore();
         setShowResults(true);
+<<<<<<< HEAD
+=======
+        saveScore();
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
       }
       // Reset selectedOption for next question
       setSelectedOption(userAnswers[currentQuestion + 1] ?? null);
@@ -80,6 +93,33 @@ const QuizApp = () => {
   const score = calculateScore();
   const percentage = (quizData.length > 0) ? (score / (quizData.length * 10)) * 100 : 0;
 
+<<<<<<< HEAD
+=======
+  const saveScore = async () => {
+    console.log(score);
+    try {
+      const response = await axios.post('http://localhost:3200/api/saveresult', {
+        topic: topic,
+        score: score
+      }, {
+        withCredentials: true
+      });
+      console.log('Score saved successfully:', response.data);
+    } catch (error) {
+      console.error('Failed to save score:', error.response?.data || error.message);
+    }
+  };
+  
+
+  // useEffect to save score when showResults becomes true
+  useEffect(() => {
+    if (showResults) {
+      saveScore();  // Save the score once results are shown
+    }
+  }, [showResults]);  // Dependency array with showResults
+ 
+
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
   return (
     <div className="flex justify-center items-center pl-3 pr-3 min-h-[80vh] bg-gray-900 text-gray-100 overflow-hidden">
       <div className="w-[100%] md:w-[75%] lg:w-[60%] p-2 sm:p-6 bg-gray-800 rounded-lg shadow-lg border border-gray-700 z-10">

@@ -45,7 +45,11 @@ const CreatePost = () => {
   const handlePost = async() => {
     const postData={postId:defaultPost ? defaultPost._id :null, title:title,content:postContent,postImage:imageFile ?imageFile : defaultPost? defaultPost.postImage : null,imageExistType:imageFile?1:defaultPost?.postImage ? 2 : 3};
     console.log(postData);
+<<<<<<< HEAD
     setIsPostLoading(true); 
+=======
+    
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
     try {
       const res = await axios.post('http://localhost:3200/api/posts/publish-post', postData, {
           headers: {
@@ -56,10 +60,15 @@ const CreatePost = () => {
       console.log(res);
       if(res.status===200){
         toast.success('Post created successfully!');
+<<<<<<< HEAD
         setIsPostLoading(false); 
       }
      } catch (error) {
       setIsPostLoading(false); 
+=======
+      }
+     } catch (error) {
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
       toast.error('something went wrong');
       console.log(error);
      }
@@ -84,8 +93,11 @@ const CreatePost = () => {
       }
   };    
   const [isLoading,setIsLoading]=useState(false);
+<<<<<<< HEAD
   const [isPostLoading,setIsPostLoading]=useState(false);
   const [isEventLoading,setIsEventLoading]=useState(false);
+=======
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
   const handleAiPost=async()=>{
     setIsLoading(true); 
     const res=await GenerateAiPost(aiPost);
@@ -104,6 +116,10 @@ const CreatePost = () => {
   }
   const handleTimeChange = (newTime) => {
     setTime(newTime);
+<<<<<<< HEAD
+=======
+    console.log("Selected Time:", newTime.format('YYYY-MM-DDTHH:mm:ss.SSSZ')); 
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
   };
 
   const handleEventPopupOpen = () => {
@@ -113,6 +129,7 @@ const CreatePost = () => {
   const handleEventPopupClose = () => {
     setIsEventPopupOpen(false);
   };
+<<<<<<< HEAD
   const handleEventSubmit = async() => {
     setIsEventLoading(true); 
     const eventData = JSON.stringify({title:eventTitle,detail:eventDetails,time:time.format('YYYY-MM-DDTHH:mm:ss.SSSZ')});  
@@ -135,6 +152,13 @@ const CreatePost = () => {
       console.log(error);
      }
      handleClosePopup(); 
+=======
+  const handleEventSubmit = () => {
+    console.log(eventDate);
+    console.log(time);
+    console.log(eventTitle);
+    console.log(eventDetails);
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
   };
   return (
     <>
@@ -237,7 +261,11 @@ const CreatePost = () => {
                     <FaImage className="inline w-4 h-4 mr-1" />
                     Media
                   </label>
+<<<<<<< HEAD
                   {isPostLoading ? <div className="w-8 h-8 border-4 border-blue border-t-transparent rounded-full animate-spin mr-2 mt-1"></div>:  <button
+=======
+                  {isLoading ? <div className="w-8 h-8 border-4 border-blue border-t-transparent rounded-full animate-spin mr-2 mt-1"></div>:  <button
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
                     className="px-4 py-2 text-white bg-blue rounded-full text-sm md:text-base flex items-center"
                     onClick={handlePost}
                   >
@@ -313,15 +341,23 @@ const CreatePost = () => {
                   />
                 </div>
                 <div className="flex items-center justify-end space-x-4">
+<<<<<<< HEAD
                 {isEventLoading ? <div className="w-8 h-8 border-4 border-blue border-t-transparent rounded-full animate-spin mr-2 mt-1"></div>:   <button
+=======
+                  <button
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
                    type='submit'
                     className="px-4 py-2 text-white bg-blue rounded-full text-sm md:text-base flex items-center"
                     onClick={handleEventSubmit}
                   >
                     Create Event
+<<<<<<< HEAD
                   </button>}
                 
 
+=======
+                  </button>
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
                   <button
                     className="px-4 py-2 text-gray-500 bg-gray-200 rounded-full text-sm md:text-base"
                     onClick={handleEventPopupClose}

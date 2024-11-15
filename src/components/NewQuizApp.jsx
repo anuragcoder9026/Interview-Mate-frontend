@@ -177,6 +177,10 @@ export default function NewQuizApp() {
             )}
             {status === "finished" && (
               <FinishScreen
+<<<<<<< HEAD
+=======
+                topic = {topic}
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
                 points={points}
                 maxPossiblePoints={maxPossiblePoints}
                 highscore={highscore}

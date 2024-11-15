@@ -13,11 +13,15 @@ import EventCard from './eventCard';
 const SavedItems = () => {
     const [state,setState]=useState('post');
     const [savedPosts,setSavedPosts]=useState();
+<<<<<<< HEAD
     const [savedEvents,setSavedEvents]=useState();
+=======
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
     const handleDeleteSavedPost = (id) => {
         const updatedSavedPosts = savedPosts.filter(savedPost => savedPost._id !== id);
         setSavedPosts(updatedSavedPosts);
     };
+<<<<<<< HEAD
     const handleDeleteSavedEvent = (id) => {
       const updatedSavedEvents = savedEvents.filter(savedEvent => savedEvent._id !== id);
       setSavedEvents(updatedSavedEvents);
@@ -33,11 +37,25 @@ const SavedItems = () => {
            withCredentials: true,
          });
         setSavedEvents(response.data);
+=======
+    useEffect(()=>{
+        getAllSavedPosts();
+    },[]);
+ 
+    const getAllSavedPosts = async () =>{
+        try {
+         const response = await axios.get("http://localhost:3200/api/posts/get-all-savedpost", {
+           withCredentials: true,
+         });
+         console.log(response.data.savedPosts);
+         setSavedPosts(response.data.savedPosts);
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
         } catch (error) {
          console.log(error);
         }
      }
 
+<<<<<<< HEAD
      const getAllSavedPosts = async () =>{
       try {
        const response = await axios.get("http://localhost:3200/api/posts/get-all-savedpost", {
@@ -49,6 +67,8 @@ const SavedItems = () => {
       }
    }
 
+=======
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
   return (
     <div className="bg-gray-100 flex justify-center px-0 pt-4 min-h-[60vh]">
       <div className="flex flex-col lg:flex-row w-full max-w-6xl lg:space-x-1 space-y-4 lg:space-y-0">
@@ -86,8 +106,15 @@ const SavedItems = () => {
 
              { state==='event' && 
                <div className="mt-4 p-3 py-3 bg-white border rounded-lg border-gray-300">
+<<<<<<< HEAD
                 {savedEvents?.length>0 ? <div className="flex flex-col gap-4">
                 {savedEvents?.map((item,index)=><EventCard event={item} saveStae="Unsave" onUnSave={handleDeleteSavedEvent}/>)}</div> : <h1 className="text-4xl p-5">No Saved Events</h1>} 
+=======
+             <div className="flex flex-col gap-4">
+              <EventCard saveStae="Unsave"/>
+              <EventCard saveStae="Unsave"/>
+              </div>
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
               </div>
              }
 

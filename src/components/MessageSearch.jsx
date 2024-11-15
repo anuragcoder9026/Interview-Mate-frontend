@@ -38,7 +38,11 @@ const UserListItem = ({ user, onClick,isOnline, active,typing }) =>{
       <div className="flex flex-col  w-full">
         <div className="flex justify-between">
           <h4 className="font-semibold text-white">{user.name}</h4>
+<<<<<<< HEAD
           <span className={`text-xs mt-1`} style={{color:unseenCount>0 ?"greenyellow" :"gray"}}>{lastMessage?.time}</span>
+=======
+          <span className={`text-xs mt-1 ${unseenCount>0 ? 'text-green': 'text-gray-500'}`} >{lastMessage?.time}</span>
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
         </div>
           <div className="flex justify-between pr-1">
           {typing ? <p className=" text-sm" style={{color:"greenyellow"}}>Typing...</p>:<p className="text-sm text-gray-400">{lastMessage?.content?.image ? <span className="flex"><FaRegImages className="mr-2 mt-1"/> Image </span>: <span className={`truncate block w-[215px] sm:w-[245px] overflow-hidden text-ellipsis whitespace-nowrap`}>{lastMessage?.content?.text}</span>}</p>}

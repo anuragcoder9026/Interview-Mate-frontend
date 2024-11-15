@@ -14,7 +14,11 @@ import EditExperienceForm from "./editExperience";
 import { useDispatch } from 'react-redux';
 import { userExperienceAction } from '../store/userExperienceSlice';
 import EditSkillsForm from "./editSkills";
+<<<<<<< HEAD
 import { FaShare, FaAngleRight ,FaAngleLeft } from "react-icons/fa6";
+=======
+import { FaShare } from "react-icons/fa6";
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
 import axios from "axios"
 import { timeAgo } from "../utils/dateAgo";
 import { MdClose, MdPostAdd } from 'react-icons/md'; 
@@ -23,7 +27,10 @@ import { FaImage, FaCalendarAlt, FaPen } from 'react-icons/fa';
 import toast, { Toaster } from 'react-hot-toast';
 import { IoCameraOutline } from "react-icons/io5";
 import EventCard from "./eventCard";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
 const ProfileSection = () => {
   const { userdata } = useUserContext(); 
   const dispatch=useDispatch(); 
@@ -251,6 +258,7 @@ const ProfileSection = () => {
     const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappURL, '_blank');
 };
+<<<<<<< HEAD
 
  const [currentIndex, setCurrentIndex] = useState(0);
  const [events,setEvents]=useState([1,2,3,4]);
@@ -264,6 +272,8 @@ const ProfileSection = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + events.length) % events.length);
   };
 
+=======
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
     return (
         userdata && <div className="flex flex-col items-center w-full bg-slate-200 p-2">
             {/* Profile Header Section */}
@@ -383,6 +393,7 @@ const ProfileSection = () => {
       <div className="w-full mt-2 max-w-4xl">
         
          {/*upcoming events */}
+<<<<<<< HEAD
         
 
 <div id="controls-carousel" className="relative w-full bg-white p-3 rounded-lg shadow-md mb-2">
@@ -420,6 +431,38 @@ const ProfileSection = () => {
 
    
     
+=======
+         <div className="bg-white p-6 pt-3 rounded-lg shadow-md mb-2">
+             <h3 className="text-2xl font-semibold">You Upconing Events</h3>
+
+        <div class="carousel relative overflow-hidden w-full h-64">
+    <div id="slides" class="carousel-inner flex transition-transform duration-500">
+       
+        <div class="carousel-item w-full flex-shrink-0 bg-blue-500 text-white flex items-center justify-center">
+            <h2 class="text-2xl">Slide 1</h2>
+        </div>
+    
+        <div class="carousel-item w-full flex-shrink-0 bg-green-500 text-white flex items-center justify-center">
+            <h2 class="text-2xl">Slide 2</h2>
+        </div>
+       
+        <div class="carousel-item w-full flex-shrink-0 bg-red-500 text-white flex items-center justify-center">
+            <h2 class="text-2xl">Slide 3</h2>
+        </div>
+    </div>
+
+    <button id="prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded">
+        Prev
+    </button>
+    <button id="next" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded">
+        Next
+    </button>
+</div>
+
+        {/* <EventCard/> */}
+         
+        </div>
+>>>>>>> 9e904d66572461b92fa34095bfffcf0e07918051
 
         {/* About Section */}
         <div className="bg-white p-6 pt-3 rounded-lg shadow-md mb-2">
