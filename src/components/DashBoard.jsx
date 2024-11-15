@@ -353,80 +353,53 @@ console.log(allResults);
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-  {allResults.map((result) =>
-    result.quizzes.map((quiz) => (
-      <TableRow key={quiz.id}>
-        {/* Quiz Name */}
-        <TableCell className="font-medium">{quiz.name}</TableCell>
-        
-        {/* Score with Progress Bar */}
+                {allResults.map((user, userIndex) => (
+    user.quizzes.map((quiz, quizIndex) => (
+      <TableRow key={`${userIndex}-${quizIndex}`}>
+        <TableCell className="font-medium">{quiz.topic}</TableCell> {/* Display Quiz Name */}
         <TableCell>
           <div className="flex flex-col lg:flex-row items-center">
             <Progress value={(quiz.correct / quiz.total) * 100} className="w-full mr-4" />
-            <span>{quiz.score}/{quiz.totalScore}</span>
+            <span>{quiz.correct}/{quiz.total}</span>
           </div>
         </TableCell>
-        
-        {/* Quiz Date */}
-        <TableCell>{new Date(quiz.date).toLocaleDateString()}</TableCell>
-        
-        {/* Review Action */}
+        <TableCell>{new Date(quiz.date).toLocaleDateString()}</TableCell> {/* Format quiz date */}
         <TableCell>
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="outline" size="sm" className="py-2">
-                Review
-              </Button>
+              <Button variant="outline" size="sm" className='py-2'>Review</Button>
             </DialogTrigger>
-            <DialogContent className="min-w-[90%] md:min-w-[50%] px-6 pt-4 pb-7">
+            <DialogContent className='min-w-[90%] md:min-w-[50%] px-6 pt-4 pb-7'>
               <DialogHeader>
-                <DialogTitle>{quiz.name} - Review</DialogTitle>
+                <DialogTitle>{quiz.topic} - Review</DialogTitle>
                 <DialogDescription>
                   Quiz taken on {new Date(quiz.date).toLocaleDateString()}
                 </DialogDescription>
               </DialogHeader>
               <div className="space-y-4 mt-4">
-                {/* Score */}
                 <div className="flex justify-between">
                   <span>Your Score:</span>
-                  <span>
-                    {quiz.score}/{quiz.totalScore} ({((quiz.score / quiz.totalScore) * 100).toFixed(2)}%)
-                  </span>
+                  <span>{quiz.correct}/{quiz.total} ({((quiz.correct / quiz.total) * 100).toFixed(2)}%)</span>
                 </div>
-                
-                {/* Average Score */}
                 <div className="flex justify-between">
                   <span>Average Score:</span>
-                  <span>{quiz.averageScore}%</span>
+                  <span>{quiz.total}%</span>
                 </div>
-                
-                {/* Time Spent */}
                 <div className="flex justify-between">
                   <span>Time Spent:</span>
                   <span>{quiz.timeSpent}</span>
                 </div>
-                
-                {/* Performance Indicator */}
                 <div className="flex items-center">
                   <span className="mr-2">Performance:</span>
-                  {quiz.score > quiz.averageScore ? (
+                  {quiz.correct > quiz.averageScore ? (
                     <TrendingUp className="text-green-500" />
                   ) : (
                     <TrendingDown className="text-red-500" />
                   )}
-                  <span
-                    className={
-                      quiz.score > quiz.averageScore
-                        ? "text-green-500 ml-1"
-                        : "text-red-500 ml-1"
-                    }
-                  >
-                    {Math.abs(quiz.score - quiz.averageScore).toFixed(2)}%{" "}
-                    {quiz.score > quiz.averageScore ? "above" : "below"} average
+                  <span className={quiz.correct >= quiz.total ? "text-green-500 ml-1" : "text-red-500 ml-1"}>
+                    {Math.abs(quiz.correct - quiz.total).toFixed(2)}% {quiz.correct > quiz.total ? "above" : "below"} average
                   </span>
                 </div>
-                
-                {/* Feedback */}
                 <div>
                   <h4 className="font-semibold">Feedback:</h4>
                   <p className="text-sm text-gray-600 mt-1">{quiz.feedback}</p>
@@ -437,7 +410,7 @@ console.log(allResults);
         </TableCell>
       </TableRow>
     ))
-  )}
+  ))}
 </TableBody>
 
               </Table>
