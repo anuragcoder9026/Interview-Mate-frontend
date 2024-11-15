@@ -11,7 +11,9 @@ import { userExperienceAction } from '../store/userExperienceSlice';
 import { userSkillAction } from '../store/userSkillSlice';
 import { userFollowingAction } from "../store/userFollowing";
 import socket from "../../socket";
+import {URL} from "../../url"
 const LoginPopup = () => {
+  
   const { setUserdata ,setUnseenMessageCount,setUnseenNotificationCount} = useUserContext();
   const dispatch=useDispatch(); 
   const navigate =useNavigate();
@@ -27,7 +29,7 @@ const LoginPopup = () => {
 
   const handleUnseenMessagesCount=async()=>{
     try { 
-      const res = await axios.get('https://interview-mate-backend.onrender.com/api/users/unseen-messages-count', {
+      const res = await axios.get(`${URL}/api/users/unseen-messages-count`, {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -45,7 +47,7 @@ const LoginPopup = () => {
     try {
       const jsonFormData = JSON.stringify(formData); 
       console.log("data:",jsonFormData);
-      const response = await axios.post('https://interview-mate-backend.onrender.com/api/users/login', jsonFormData, {
+      const response = await axios.post(`${URL}/api/users/login`, jsonFormData, {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -68,12 +70,13 @@ const LoginPopup = () => {
       }
     } catch (error) {
       console.log(error.response.data.message);
+      console.log(error)
       if(error.response?.data?.message) setLoginError(error.response?.data?.message);
     }
     
   }
   const loginwitgoogle = () => {
-    window.open("http://localhost:3200/auth/google/signin", "_self");
+    window.open(`${URL}/auth/google/signin`, "_self");
   };
   return (
     <div

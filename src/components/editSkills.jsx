@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userSkillAction } from '../store/userSkillSlice';
 import axios from "axios";
+import {URL} from "../../url"
 const allSkills = [
     "C++", "C#", "Python", "Java", "Go", "Rust", "SQL", "Bash", "Perl", "R", "Matlab", "Scala", "Dart",
     "HTML", "CSS", "JavaScript", "TypeScript", "React.js", "Angular", "Vue", "Node.js", "Express.js", 
@@ -47,7 +48,7 @@ const EditSkillsForm = ({ closeSkillpopup }) => {
       setIsLoading(true); 
     try {
       const jsonFormData = JSON.stringify({skill:selectedSkill});  
-      const res = await axios.post('http://localhost:3200/api/users/skill', jsonFormData, {
+      const res = await axios.post(`${URL}/api/users/skill`, jsonFormData, {
         headers: {
           'Content-Type': 'application/json'
         },

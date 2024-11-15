@@ -36,7 +36,7 @@ const VoiceInterview = () => {
   // Function to send the transcript to the backend with additional form data
   const sendTranscriptToApi = async (message) => {
     try {
-      const res = await axios.post('http://localhost:3200/api/gemini', {
+      const res = await axios.post(`${URL}/api/gemini`, {
         message: message,
         company: company,  // Include company name
         role: role,

@@ -10,6 +10,7 @@ import axios from "axios";
 import socket from "../../socket";
 import messagingImage from "../assets/images/messaging.png";
 import { useParams } from 'react-router-dom';
+import {URL} from "../../url"
 const MessageSection = ({ selectedUser,UpdateUsersLastMessage,usersTyping,handleUserTyping, handleUserOnline,onBack }) => {
   const { userdata,setOnlineStatus } = useUserContext();
   const selid=useParams().userId;
@@ -156,7 +157,7 @@ const MessageSection = ({ selectedUser,UpdateUsersLastMessage,usersTyping,handle
  useEffect(()=>{
   const getUserMessages=async()=>{
     try {
-      const res = await axios.get('http://localhost:3200/api/message/get-message',  {
+      const res = await axios.get(`${URL}/api/message/get-message`,  {
           params:{receiverId:selectedUser?._id},
           headers: {
              'Content-Type': 'application/json'
@@ -190,7 +191,7 @@ const MessageSection = ({ selectedUser,UpdateUsersLastMessage,usersTyping,handle
  const getMessageImageUrl=async(file)=>{
   const postData={messageImage:file};
   try {
-    const res = await axios.post('http://localhost:3200/api/message/get-image-url', postData, {
+    const res = await axios.post(`${URL}/api/message/get-image-url`, postData, {
         headers: {
             'Content-Type': 'multipart/form-data'
         },

@@ -11,6 +11,7 @@ import { userSkillAction } from '../store/userSkillSlice';
 import { userFollowingAction } from "../store/userFollowing";
 import socket from "../../socket";
 import notificationSound from "../assets/notification.mp3";
+import {URL} from "../../url"
 // import notificationSound from "../assets/Recording.mp3";
 // Create a context
 const UserContext = createContext();
@@ -27,7 +28,7 @@ export const UserProvider = ({ children }) => {
   const [OnlineStatus,setOnlineStatus]=useState({});
   const getAllPosts = async () =>{
      try {
-      const response = await axios.get("http://localhost:3200/api/posts/get-all-post", {
+      const response = await axios.get(`${URL}/api/posts/get-all-post`, {
         withCredentials: true,
       });
       setPost(response.data);
@@ -42,7 +43,7 @@ export const UserProvider = ({ children }) => {
   }
   const getAllEvents = async () =>{
     try {
-     const response = await axios.get("http://localhost:3200/api/event/get-all-event", {
+     const response = await axios.get(`${URL}/api/event/get-all-event`, {
        withCredentials: true,
      });
      console.log("events:",response.data);
@@ -54,7 +55,7 @@ export const UserProvider = ({ children }) => {
 
   const getUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:3200/login/success", {
+      const response = await axios.get(`${URL}/login/success`, {
         withCredentials: true,
       });
       setUserdata(response.data.user);
@@ -75,7 +76,7 @@ export const UserProvider = ({ children }) => {
   };
   const handleUnseenMessagesCount=async()=>{
     try { 
-      const res = await axios.get('http://localhost:3200/api/users/unseen-messages-count', {
+      const res = await axios.get(`${URL}/api/users/unseen-messages-count`, {
         headers: {
           'Content-Type': 'application/json'
         },
