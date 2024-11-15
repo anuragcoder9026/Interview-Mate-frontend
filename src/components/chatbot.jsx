@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 // Assuming you have already configured the GoogleGenerativeAI instance
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const API_KEY = 'AIzaSyDcw5qJwF3KkDNZI2cG_9vVvCDjLLMXGik';
+const API_KEY = 'AIzaSyDVNSZROUYG9rwQcCIm28AhjWpyCAHrWnI';
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 

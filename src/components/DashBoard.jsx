@@ -13,7 +13,6 @@ import { FaArrowDown,FaArrowUp } from "react-icons/fa";
 import {URL} from "../../url"
 import { useUserContext } from '../context/usercontext';
 export default function Dashboard() {
-  const {userdata}=useUserContext();
   const [activeTab, setActiveTab] = useState('dashboard')
   const renderContent = () => {
     switch (activeTab) {
@@ -144,7 +143,36 @@ function DashboardContent() {
   useEffect(() => {
       fetchInterviewCount();
   }, []);
+
+  const [quizCount, setquizCount] = useState(null);
+ 
+
+  // Fetch interview count from the server
+  const fetchquizCount = async () => {
+      setLoading(true);
+      setError(null);
+      
+      try {
+          const response = await axios.get(`${URL}/api/quiz-count`, {
+              withCredentials: true, // Include if session-based auth is used
+          });
+
+          console.log(response.data); // Log to check the structure of response data
+          setquizCount(response.data.quizCount);
+      } catch (err) {
+          console.error("Error fetching interview count:", err);
+          setError('Failed to fetch interview count');
+      } finally {
+          setLoading(false);
+      }
+  };
+
+  // Fetch interview count on component mount
+  useEffect(() => {
+      fetchquizCount();
+  }, []);
   let val = {interviewCount};
+  const {userdata}=useUserContext();
   return (
     <div className="space-y-6">
       <h2 className="text-3xl font-bold text-gray-800 ">Welcome {userdata?.name}</h2>
@@ -152,7 +180,7 @@ function DashboardContent() {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         {[
-          { title: 'Quizzes Completed', value: 24, icon: BookOpen, color: 'bg-blue' },
+          { title: 'Quizzes Completed', value: quizCount, icon: BookOpen, color: 'bg-blue' },
           { title: 'AI Interviews Done', value: interviewCount, icon: Cpu, color: 'bg-green' },
           { title: 'Overall Score', value: '85%', icon: GraduationCap, color: 'bg-purple' },
         ].map((stat) => (
@@ -276,6 +304,30 @@ function QuizzesContent() {
     { id: 3, name: 'CSS Grid Layout', category: 'Web Design', questions: 20, timeLimit: '30 mins', difficulty: 'Intermediate' },
   ]
 
+  const [allResults, setAllResults] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+      const fetchAllResults = async () => {
+          try {
+              const res = await fetch(`${URL}/api/all-quiz`, {
+                  method: 'GET',
+                  credentials: 'include', // Ensures cookies are sent with the request
+              });
+              if (!res.ok) {
+                  throw new Error('Failed to fetch results');
+              }
+              const data = await res.json();
+              setAllResults(data.users);
+          } catch (error) {
+              setError(error.message);
+          }
+      };
+
+      fetchAllResults();
+  }, []);
+console.log(allResults);
+
   return (
     <div className="space-y-6">
       <h2 className="text-3xl font-bold text-gray-800 ">Quizzes</h2>
@@ -301,63 +353,93 @@ function QuizzesContent() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {pastQuizzes.map((quiz) => (
-                    <TableRow key={quiz.id}>
-                      <TableCell className="font-medium">{quiz.name}</TableCell>
-                      <TableCell >
-                        <div className="flex flex-col lg:flex-row items-center">
-                          <Progress value={(quiz.score / quiz.totalScore) * 100} className="w-full  mr-4" />
-                          <span>{quiz.score}/{quiz.totalScore}</span>
-                        </div>
-                      </TableCell>
-                      <TableCell>{new Date(quiz.date).toLocaleDateString()}</TableCell>
-                      <TableCell>
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button variant="outline" size="sm" className='py-2'>Review</Button>
-                          </DialogTrigger>
-                          <DialogContent className='min-w-[90%] md:min-w-[50%] px-6 pt-4 pb-7'>
-                            <DialogHeader>
-                              <DialogTitle>{quiz.name} - Review</DialogTitle>
-                              <DialogDescription>
-                                Quiz taken on {new Date(quiz.date).toLocaleDateString()}
-                              </DialogDescription>
-                            </DialogHeader>
-                            <div className="space-y-4 mt-4">
-                              <div className="flex justify-between">
-                                <span>Your Score:</span>
-                                <span>{quiz.score}/{quiz.totalScore} ({((quiz.score / quiz.totalScore) * 100).toFixed(2)}%)</span>
-                              </div>
-                              <div className="flex justify-between">
-                                <span>Average Score:</span>
-                                <span>{quiz.averageScore}%</span>
-                              </div>
-                              <div className="flex justify-between">
-                                <span>Time Spent:</span>
-                                <span>{quiz.timeSpent}</span>
-                              </div>
-                              <div className="flex items-center">
-                                <span className="mr-2">Performance:</span>
-                                {quiz.score > quiz.averageScore ? (
-                                  <TrendingUp className="text-green-500" />
-                                ) : (
-                                  <TrendingDown className="text-red-500" />
-                                )}
-                                <span className={quiz.score > quiz.averageScore ? "text-green-500 ml-1" : "text-red-500 ml-1"}>
-                                  {Math.abs(quiz.score - quiz.averageScore).toFixed(2)}% {quiz.score > quiz.averageScore ? "above" : "below"} average
-                                </span>
-                              </div>
-                              <div>
-                                <h4 className="font-semibold">Feedback:</h4>
-                                <p className="text-sm text-gray-600  mt-1">{quiz.feedback}</p>
-                              </div>
-                            </div>
-                          </DialogContent>
-                        </Dialog>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
+  {allResults.map((result) =>
+    result.quizzes.map((quiz) => (
+      <TableRow key={quiz.id}>
+        {/* Quiz Name */}
+        <TableCell className="font-medium">{quiz.name}</TableCell>
+        
+        {/* Score with Progress Bar */}
+        <TableCell>
+          <div className="flex flex-col lg:flex-row items-center">
+            <Progress value={(quiz.correct / quiz.total) * 100} className="w-full mr-4" />
+            <span>{quiz.score}/{quiz.totalScore}</span>
+          </div>
+        </TableCell>
+        
+        {/* Quiz Date */}
+        <TableCell>{new Date(quiz.date).toLocaleDateString()}</TableCell>
+        
+        {/* Review Action */}
+        <TableCell>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" size="sm" className="py-2">
+                Review
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="min-w-[90%] md:min-w-[50%] px-6 pt-4 pb-7">
+              <DialogHeader>
+                <DialogTitle>{quiz.name} - Review</DialogTitle>
+                <DialogDescription>
+                  Quiz taken on {new Date(quiz.date).toLocaleDateString()}
+                </DialogDescription>
+              </DialogHeader>
+              <div className="space-y-4 mt-4">
+                {/* Score */}
+                <div className="flex justify-between">
+                  <span>Your Score:</span>
+                  <span>
+                    {quiz.score}/{quiz.totalScore} ({((quiz.score / quiz.totalScore) * 100).toFixed(2)}%)
+                  </span>
+                </div>
+                
+                {/* Average Score */}
+                <div className="flex justify-between">
+                  <span>Average Score:</span>
+                  <span>{quiz.averageScore}%</span>
+                </div>
+                
+                {/* Time Spent */}
+                <div className="flex justify-between">
+                  <span>Time Spent:</span>
+                  <span>{quiz.timeSpent}</span>
+                </div>
+                
+                {/* Performance Indicator */}
+                <div className="flex items-center">
+                  <span className="mr-2">Performance:</span>
+                  {quiz.score > quiz.averageScore ? (
+                    <TrendingUp className="text-green-500" />
+                  ) : (
+                    <TrendingDown className="text-red-500" />
+                  )}
+                  <span
+                    className={
+                      quiz.score > quiz.averageScore
+                        ? "text-green-500 ml-1"
+                        : "text-red-500 ml-1"
+                    }
+                  >
+                    {Math.abs(quiz.score - quiz.averageScore).toFixed(2)}%{" "}
+                    {quiz.score > quiz.averageScore ? "above" : "below"} average
+                  </span>
+                </div>
+                
+                {/* Feedback */}
+                <div>
+                  <h4 className="font-semibold">Feedback:</h4>
+                  <p className="text-sm text-gray-600 mt-1">{quiz.feedback}</p>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </TableCell>
+      </TableRow>
+    ))
+  )}
+</TableBody>
+
               </Table>
             </CardContent>
           </Card>
