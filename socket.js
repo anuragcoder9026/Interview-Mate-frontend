@@ -1,3 +1,4 @@
 import io from 'socket.io-client';
-const socket = io('http://localhost:3200');
+import {URL} from "./url"
+const socket = io(URL);
 export default socket;
