@@ -116,6 +116,7 @@ function DashboardContent() {
   const months = ['Current Month', 'Last Month', '2 Months Ago']
 
   const [interviewCount, setInterviewCount] = useState(null);
+  const [quizcount,setquizcount] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -125,7 +126,7 @@ function DashboardContent() {
       setError(null);
       
       try {
-          const response = await axios.get(`${BACKEND_URL}/api/interview-count`, {
+        const response = await axios.get(`${BACKEND_URL}/api/interview-count`, {
               withCredentials: true, // Include if session-based auth is used
           });
 
@@ -144,35 +145,36 @@ function DashboardContent() {
       fetchInterviewCount();
   }, []);
 
-  const [quizCount, setquizCount] = useState(null);
- 
 
-  // Fetch interview count from the server
-  const fetchquizCount = async () => {
-      setLoading(true);
-      setError(null);
-      
-      try {
-          const response = await axios.get(`${BACKEND_URL}/api/quiz-count`, {
-              withCredentials: true, // Include if session-based auth is used
-          });
 
-          console.log(response.data); // Log to check the structure of response data
-          setquizCount(response.data.quizCount);
-      } catch (err) {
-          console.error("Error fetching interview count:", err);
-          setError('Failed to fetch interview count');
-      } finally {
-          setLoading(false);
-      }
-  };
+  //quiz 
 
-  // Fetch interview count on component mount
-  useEffect(() => {
-      fetchquizCount();
-  }, []);
-  let val = {interviewCount};
-  const {userdata}=useUserContext();
+   // Fetch interview count from the server
+   const fetchquizCount = async () => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const response = await axios.get(`${BACKEND_URL}/api/quiz-count`, {
+            withCredentials: true, // Include if session-based auth is used
+        });
+
+        console.log(response.data); // Log to check the structure of response data
+        setquizcount(response.data.quizCount);
+    } catch (err) {
+        console.error("Error fetching interview count:", err);
+        setError('Failed to fetch interview count');
+    } finally {
+        setLoading(false);
+    }
+};
+
+// Fetch quiz count on component mount
+useEffect(() => {
+    fetchquizCount();
+}, []);
+const { userdata } = useUserContext();
+
   return (
     <div className="space-y-6">
       <h2 className="text-3xl font-bold text-gray-800 ">Welcome {userdata?.name}</h2>
@@ -180,7 +182,7 @@ function DashboardContent() {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         {[
-          { title: 'Quizzes Completed', value: quizCount, icon: BookOpen, color: 'bg-blue' },
+          { title: 'Quizzes Completed', value: quizcount, icon: BookOpen, color: 'bg-blue' },
           { title: 'AI Interviews Done', value: interviewCount, icon: Cpu, color: 'bg-green' },
           { title: 'Overall Score', value: '85%', icon: GraduationCap, color: 'bg-purple' },
         ].map((stat) => (
@@ -304,13 +306,14 @@ function QuizzesContent() {
     { id: 3, name: 'CSS Grid Layout', category: 'Web Design', questions: 20, timeLimit: '30 mins', difficulty: 'Intermediate' },
   ]
 
+
   const [allResults, setAllResults] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
       const fetchAllResults = async () => {
           try {
-              const res = await fetch(`${BACKEND_URL}/api/all-quiz`, {
+                const res = await fetch(`${BACKEND_URL}/api/all-quiz`, {
                   method: 'GET',
                   credentials: 'include', // Ensures cookies are sent with the request
               });
@@ -327,7 +330,6 @@ function QuizzesContent() {
       fetchAllResults();
   }, []);
 console.log(allResults);
-
   return (
     <div className="space-y-6">
       <h2 className="text-3xl font-bold text-gray-800 ">Quizzes</h2>
@@ -353,7 +355,7 @@ console.log(allResults);
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                {allResults.map((user, userIndex) => (
+  {allResults.map((user, userIndex) => (
     user.quizzes.map((quiz, quizIndex) => (
       <TableRow key={`${userIndex}-${quizIndex}`}>
         <TableCell className="font-medium">{quiz.topic}</TableCell> {/* Display Quiz Name */}
@@ -477,7 +479,7 @@ function InterviewsContent() {
   useEffect(() => {
       const fetchAllResults = async () => {
           try {
-              const res = await fetch(`${BACKEND_URL}/api/all-results`, {
+                 const res = await fetch(`${BACKEND_URL}/api/all-results`, {
                   method: 'GET',
                   credentials: 'include', // Ensures cookies are sent with the request
               });
