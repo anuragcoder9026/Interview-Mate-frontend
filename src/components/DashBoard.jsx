@@ -153,7 +153,7 @@ function DashboardContent() {
       setError(null);
       
       try {
-          const response = await axios.get(`${URL}/api/quiz-count`, {
+          const response = await axios.get(`${BACKEND_URL}/api/quiz-count`, {
               withCredentials: true, // Include if session-based auth is used
           });
 
@@ -310,7 +310,7 @@ function QuizzesContent() {
   useEffect(() => {
       const fetchAllResults = async () => {
           try {
-              const res = await fetch(`${URL}/api/all-quiz`, {
+              const res = await fetch(`${BACKEND_URL}/api/all-quiz`, {
                   method: 'GET',
                   credentials: 'include', // Ensures cookies are sent with the request
               });
