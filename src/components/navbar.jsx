@@ -40,7 +40,7 @@ export default function NavBar() {
             });
             console.log(res);
             socket.off();
-            window.location.href="http://localhost:5173/Interview-Mate-frontend/";
+            window.location.href="https://alokthakur490.github.io/Interview-Mate-frontend/";
         } catch (err) {
             console.log(err);
         }
