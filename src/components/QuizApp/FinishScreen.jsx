@@ -1,11 +1,12 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
-const saveScore = async (score, topic, total, user_id) => {
+
+const saveScore = async (score, topic,total) => {
   console.log(score);
   try {
     const response = await axios.post(
       'https://interview-mate-backend.onrender.com/api/saveresult',
-      { topic, score, total, user_id },  // Send user_id along with other data
+      { topic, score,total },
       { withCredentials: true }
     );
     console.log('Score saved successfully:', response.data);
@@ -14,14 +15,13 @@ const saveScore = async (score, topic, total, user_id) => {
   }
 };
 
-// Example usage in FinishScreen component
-function FinishScreen({ topic, points, maxPossiblePoints, highscore, dispatch, user_id }) {
+function FinishScreen({ topic, points, maxPossiblePoints, highscore, dispatch }) {
   const percentage = (points / maxPossiblePoints) * 100;
 
   useEffect(() => {
     // Call saveScore only once on component mount
-    saveScore(points, topic, maxPossiblePoints, user_id);
-  }, [points, topic, maxPossiblePoints, user_id]);
+    saveScore(points, topic,maxPossiblePoints);
+  }, [points, topic,maxPossiblePoints]);
 
   let emoji;
   if (percentage === 100) emoji = "🥇";
