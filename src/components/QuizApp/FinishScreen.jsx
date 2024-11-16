@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import axios from "axios";
 const saveScore = async (score, topic, total, user_id) => {
   console.log(score);
   try {
