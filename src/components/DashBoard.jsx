@@ -527,7 +527,7 @@ console.log(allResults);
   user.sessions.map((session, sessionIndex) => (
     <TableRow key={session.id}>
       <TableCell className="font-medium">{session.role}</TableCell>
-      <TableCell>{session.comapany}</TableCell>
+      <TableCell>{session.company}</TableCell>
       <TableCell>
         <div className="flex flex-col lg:flex-row items-center">
           <Progress value={session.score} className="w-full max-w-xs mr-4" />

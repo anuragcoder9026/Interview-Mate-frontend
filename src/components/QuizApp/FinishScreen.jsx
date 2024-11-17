@@ -5,7 +5,7 @@ const saveScore = async (score, topic,total) => {
   console.log(score);
   try {
     const response = await axios.post(
-      'http://localhost:3200/api/saveresult',
+      'https://interview-mate-backend.onrender.com/api/saveresult',
       { topic, score,total },
       { withCredentials: true }
     );
