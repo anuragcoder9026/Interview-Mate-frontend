@@ -23,7 +23,7 @@ const FollowerSuggestion=({suggestion})=>{
     };
     
     return(
-        <div key={suggestion._id} className="border border-gray-300 rounded-lg  relative w-[190px]">
+        <div key={suggestion._id} className="flex flex-col justify-between border border-gray-300 rounded-lg  relative w-[190px] ">
             
         <div className="relative w-full">
           <div
@@ -70,7 +70,7 @@ const FollowerSuggestion=({suggestion})=>{
           
         </div>
         }
-        <div className="flex justify-center my-4 w-full">
+        <div className="flex justify-center my-4 w-full ">
             <div className="flex w-[80%]  justify-center py-1 text-blue border-2 font-semibold border-blue rounded-full " onClick={toggleFollow}>
               <FiUserPlus className="mt-1 mr-3"/>
               <button className="focus:outline-none">{!isFollowing?'Follow':'Following'}</button>

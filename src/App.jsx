@@ -10,8 +10,9 @@ import SplashScreen from './components/SplashScreen';
 import { useUserContext } from './context/usercontext';
 function App() {
   const location = useLocation();
-  const noFooterRoutes = ["/chatbot","/quizapp","/event-chat"];
+  const noFooterRoutes = ["/chatbot","/quizapp"];
   const isMessageRoute = location.pathname.startsWith("/message/");
+  const iseventRoute = location.pathname.startsWith("/event-chat/");
   const {userdata,logout}=useUserContext();
   return (
     !logout && !userdata ?<SplashScreen/>:
@@ -20,7 +21,7 @@ function App() {
      <Header/>
      <NavBar/>
      <Outlet/>
-     {!isMessageRoute && !noFooterRoutes.includes(location.pathname) &&  <FooterWithSocialLinks/>}
+     {!isMessageRoute && !iseventRoute && !noFooterRoutes.includes(location.pathname) &&  <FooterWithSocialLinks/>}
     </>
     
   )

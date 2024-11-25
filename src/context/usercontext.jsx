@@ -26,6 +26,7 @@ export const UserProvider = ({ children }) => {
   const [unseenMessageCount,setUnseenMessageCount]=useState(0);
   const [unseenNotificationCount,setUnseenNotificationCount]=useState(null);
   const [OnlineStatus,setOnlineStatus]=useState({});
+  const [userEvents,setUserEvents]=useState();
   const getAllPosts = async () =>{
      try {
       const response = await axios.get(`${BACKEND_URL}/api/posts/get-all-post`, {
@@ -87,6 +88,21 @@ export const UserProvider = ({ children }) => {
         console.log(error);
     }
   }
+  const getUserEvents = async() => {
+    
+    try {
+      const res = await axios.get(`${BACKEND_URL}/api/event/get-user-event`, {
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          withCredentials: true // Include this line to allow cookies
+      });
+      console.log("evetuser:",res);
+      setUserEvents(res.data);
+     } catch (error) {
+      console.log(error);
+     }
+  };
 
   const [audio] = useState(new Audio(notificationSound));
   const [audioEnabled, setAudioEnabled] = useState(true); 
@@ -94,6 +110,7 @@ export const UserProvider = ({ children }) => {
     getUsers();
     getAllPosts();
     getAllEvents();
+    getUserEvents();
     handleUnseenMessagesCount();
     socket.on('TotalUnseenCount', ({TotalUnseenCount}) => {
       setUnseenMessageCount((prev)=>{
@@ -109,7 +126,7 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ userdata, setUserdata ,posts,setPost,logout,setLogOut,unseenMessageCount,setUnseenMessageCount,unseenNotificationCount,setUnseenNotificationCount,OnlineStatus,setOnlineStatus,events,setEvents}}>
+    <UserContext.Provider value={{ userdata, setUserdata ,posts,setPost,logout,setLogOut,unseenMessageCount,setUnseenMessageCount,unseenNotificationCount,setUnseenNotificationCount,OnlineStatus,setOnlineStatus,events,setEvents,userEvents,}}>
       {children}
     </UserContext.Provider>
   );

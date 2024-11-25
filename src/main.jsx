@@ -48,7 +48,7 @@ const router = createBrowserRouter(
         {path: '/mynetwork',element:(<ProtectedRoute><MyNetwork /></ProtectedRoute>),},
         {path: '/saved-items',element:<SavedItems/> },
         { path: '/follow-list/:username', element:(<ProtectedRoute><FollowList/></ProtectedRoute>) },
-        { path: '/event-chat', element:(<ProtectedRoute><EventChat/></ProtectedRoute>) },
+        { path: '/event-chat/:id', element:(<ProtectedRoute><EventChat/></ProtectedRoute>) },
         
         
       ],
