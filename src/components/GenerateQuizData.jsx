@@ -2,11 +2,11 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { SYSTEM_INSTRUCTION } from "./config"; // Adjust the path as needed
 
-const apiKey = "AIzaSyCFuwmLoBPKlTZhWmW7XOGH_A9Tegv8xuw";
+const apiKey = "AIzaSyBv_BDmcCDZiPZH25Y6bkSOxDxds2I9j14";
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
-  model: "gemini-1.5-flash",
+  model: "gemini-1.5-flash-001",
   systemInstruction: SYSTEM_INSTRUCTION,
 });
 

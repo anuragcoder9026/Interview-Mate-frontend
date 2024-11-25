@@ -8,7 +8,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const apiKey = "AIzaSyAFQFy8UcXbM6uJH_e3Ku2CEJ_axaWML8Q";
 const genAI = new GoogleGenerativeAI(apiKey);
-const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash-002' });
 
 const Chatbot = () => {
   const [chatHistory, setChatHistory] = useState([]);

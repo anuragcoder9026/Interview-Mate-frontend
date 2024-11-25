@@ -29,7 +29,7 @@ const SignUpForm = () => {
     console.log(formData);
     try {
       const jsonFormData = JSON.stringify(formData); 
-      const res = await axios.post('http://localhost:3200/api/users/signup', jsonFormData, {
+      const res = await axios.post(`${BACKEND_URL}/api/users/signup`, jsonFormData, {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -37,7 +37,7 @@ const SignUpForm = () => {
       });
       console.log("resp:",res);
       if(res.status==200){
-         window.location.href="http://localhost:5173/Interview-Mate-frontend/profile"
+         window.location.href="https://alokthakur490.github.io/Interview-Mate-frontend/profile"
       }
     } catch (error) {
       console.log(error.response.data.message);
