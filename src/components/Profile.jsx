@@ -25,7 +25,7 @@ import { IoCameraOutline } from "react-icons/io5";
 import EventCard from "./eventCard";
 import {BACKEND_URL} from "../../url"
 const ProfileSection = () => {
-  const { userdata } = useUserContext(); 
+  const { userdata ,userEvents,setUserEvents} = useUserContext(); 
   const dispatch=useDispatch(); 
   // State management for "Read More" toggles
   const [isAboutExpanded, setAboutExpanded] = useState(false);
@@ -123,9 +123,28 @@ const ProfileSection = () => {
           console.log(error);
         }
       }
+      const getUserEvents = async() => {
+    
+        try {
+          const res = await axios.get(`${BACKEND_URL}/api/event/get-user-event`, {
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              withCredentials: true // Include this line to allow cookies
+          });
+          setEvents(res.data);
+          setUserEvents(res.data);
+         } catch (error) {
+          console.log(error);
+         }
+      };
+    
+
       getUserPosts();
       getUserComments();
+      getUserEvents();
       getFollowerSummary();
+      
   },[]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [postContent, setPostContent] = useState('');
@@ -253,17 +272,18 @@ const ProfileSection = () => {
 };
 
  const [currentIndex, setCurrentIndex] = useState(0);
- const [events,setEvents]=useState([1,2,3,4]);
   // Function to go to the next slide
+  const [events,setEvents]=useState();
   const goToNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % events.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % events?.length);
   };
 
   // Function to go to the previous slide
   const goToPrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + events.length) % events.length);
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + events?.length) % events?.length);
   };
 
+  
     return (
         userdata && <div className="flex flex-col items-center w-full bg-slate-200 p-2">
             {/* Profile Header Section */}
@@ -384,8 +404,8 @@ const ProfileSection = () => {
         
          {/*upcoming events */}
         
-
-<div id="controls-carousel" className="relative w-full bg-white p-3 rounded-lg shadow-md mb-2">
+{events?.length>0 && 
+  <div id="controls-carousel" className="relative w-full bg-white p-3 rounded-lg shadow-md mb-2">
   <h1 className="text-2xl font-medium mb-2 text-purple">Your Upcoming Events</h1>
   <div className=" rounded-lg">
     {events?.map((event, index) => (
@@ -395,7 +415,7 @@ const ProfileSection = () => {
           index === currentIndex ? 'block' : 'hidden'
         }`}
       >
-        <EventCard creatorName={`john dae${index}`} />
+        <EventCard event={event} />
       </div>
     ))}
   </div>
@@ -417,9 +437,8 @@ const ProfileSection = () => {
     <FaAngleRight className="text-white w-6 h-6" />
   </button>
 </div>
+}
 
-   
-    
 
         {/* About Section */}
         <div className="bg-white p-6 pt-3 rounded-lg shadow-md mb-2">

@@ -10,7 +10,8 @@ import { BsThreeDots } from "react-icons/bs";
 import axios from "axios"
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../context/usercontext';
-import {BACKEND_URL} from "../../url"
+import {BACKEND_URL} from "../../url";
+import socket from "../../socket";
 const EventCard = ({event,saveStae,onUnSave}) => {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
   const [isEventStarted, setIsEventStarted] = useState(event?.status==='live')
@@ -125,7 +126,17 @@ useEffect(()=>{
   )
   const navigate=useNavigate();
   const handleJoinNow=()=>{
-    navigate("/event-chat")
+    if(event?.status!=='scheduled' && timeDiffNeg){
+      //socket.emit('joinEvent', { eventId:event?._id, userId: userdata?._id});
+      navigate(`/event-chat/${event?._id}`)
+     }
+  }
+
+  const handleLiveNow=()=>{
+     if(timeDiffNeg){
+      //socket.emit('liveEvent', { eventId:event?._id, userId: userdata?._id});
+      navigate(`/event-chat/${event?._id}`)
+     }
   }
 
   
@@ -137,14 +148,14 @@ useEffect(()=>{
       <div className="flex items-center gap-4 p-4 pb-2 gap-2">
         <div className="relative w-12 h-12">
           <img
-            src={event?.eventAdmin.profileimg || user}
-            alt={event?.eventAdmin.name}
+            src={event?.eventAdmin?.profileimg || user}
+            alt={event?.eventAdmin?.name}
             className="w-10 h-10 rounded-full mr-3"
           />
         </div>
         <div className="w-[90%]">
           <h2 className="text-xl font-bold">{event?.title}</h2>
-          <p className="text-sm text-gray-600">Hosted by {event?.eventAdmin.name}</p>
+          <p className="text-sm text-gray-600">Hosted by {event?.eventAdmin?.name}</p>
         </div>
           <span className="hover:bg-gray-300 p-2 rounded-full " onClick={toggleMenu}>
             <BsThreeDots className="text-2xl hover:cursor-pointer " />
@@ -165,7 +176,7 @@ useEffect(()=>{
           </div>
           <div className="flex items-center gap-2 text-sm">
             <FaUsers className="text-yellow-500" />
-            <span className="text-gray-600">{event?.interested.length} People intrested</span>
+            <span className="text-gray-600">{event?.interested?.length} People intrested</span>
           </div>
         </div>
         {!timeDiffNeg &&
@@ -184,18 +195,18 @@ useEffect(()=>{
         </div>
         }
       </div>
-      {event?.eventAdmin._id === userdata?._id  && 
+      {event?.eventAdmin?._id === userdata?._id  && 
         <div className="bg-gray-50 px-4 py-3">
-          <button className="w-full py-2 px-4 bg-gradient-to-r from-purple to-pink text-white font-semibold rounded-md  hover:from-pink hover:to-purple transition-all duration-300" onClick={handleJoinNow}>
-            {isEventStarted ? "Live" : timeDiffNeg ? "Go live" : "Yet to start"}
+          <button className="w-full py-2 px-4 bg-gradient-to-r from-purple to-pink text-white font-semibold rounded-md  hover:from-pink hover:to-purple transition-all duration-300" onClick={handleLiveNow}>
+            {event?.status==='live' ? "Live" : event?.status==='ended' ? 'event has ended' : timeDiffNeg ? "Go live" : "Yet to start"}
           </button>
         </div>
       }
 
-      {event?.eventAdmin._id !== userdata?._id  &&         
+      {event?.eventAdmin?._id !== userdata?._id  &&         
       <div className="bg-gray-50 px-4 py-3">
         <button className="w-full py-2 px-4 bg-gradient-to-r from-purple to-pink text-white font-semibold rounded-md  hover:from-pink hover:to-purple transition-all duration-300" onClick={handleJoinNow}>
-          {isEventStarted ? "Join Now" : timeDiffNeg ? "Starting Soon" : "Set Reminder"}
+          {event?.status==='live' ? "Join Now" : event?.status==='ended' ? 'event has ended' : timeDiffNeg ? "Starting Soon" : "Set Reminder"}
         </button>
       </div>
       }

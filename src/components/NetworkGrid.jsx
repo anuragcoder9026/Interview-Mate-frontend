@@ -280,7 +280,7 @@ function NetworkGrid() {
          <h4 className="text-gray-600  mb-2">
            People you may know from Dr B R Ambedkar National Institute of Technology, Jalandhar
          </h4>
-         <div className="flex flex-wrap gap-3">
+         <div className="flex flex-wrap justify-center sm:justify-start gap-3">
            {suggestions?.map((suggestion)=> (
              <FollowerSuggestion suggestion={suggestion}/>
            ))}

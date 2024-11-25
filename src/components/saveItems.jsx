@@ -61,7 +61,7 @@ const SavedItems = () => {
           <div className="flex justify-between py-2 px-3 mb-2 border-b-2 border-b-gray" style={{borderLeft:"5px solid blue"}}>
           <p className="text-blue hover:underline cursor-pointer" onClick={()=>setState('post')}>Saved Post and Article</p><span>{savedPosts?.length}</span></div>
           <div className="flex justify-between py-2 px-3 border-b-2 border-t-2 " style={{borderLeft:"5px solid blue",}}>
-           <p className="text-blue hover:underline cursor-pointer" onClick={()=>setState('event')}>Saved Events </p><span>5+</span> </div>
+           <p className="text-blue hover:underline cursor-pointer" onClick={()=>setState('event')}>Saved Events </p><span>{savedEvents?.length}</span> </div>
         </aside>
       </div>
       </div>

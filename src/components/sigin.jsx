@@ -14,11 +14,12 @@ import socket from "../../socket";
 import {BACKEND_URL} from "../../url"
 const LoginPopup = () => {
   
-  const { setUserdata ,setUnseenMessageCount,setUnseenNotificationCount} = useUserContext();
+  const { setUserdata ,setUnseenMessageCount,setUnseenNotificationCount,setUserEvents} = useUserContext();
   const dispatch=useDispatch(); 
   const navigate =useNavigate();
   const [formData, setData] = useState({email: "", password: ""});
   const [loginError,setLoginError]=useState(null);
+  const [loading,setLoading]=useState(false);
   const handleChange = evt => {
     const value = evt.target.value;
     setData({
@@ -26,7 +27,7 @@ const LoginPopup = () => {
       [evt.target.name]: value
     });
   };
-
+  
   const handleUnseenMessagesCount=async()=>{
     try { 
       const res = await axios.get(`${BACKEND_URL}/api/users/unseen-messages-count`, {
@@ -44,6 +45,7 @@ const LoginPopup = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoginError(null);
+    setLoading(true);
     try {
       const jsonFormData = JSON.stringify(formData); 
       console.log("data:",jsonFormData);
@@ -66,11 +68,13 @@ const LoginPopup = () => {
         dispatch(userSkillAction.handleInitSkill(response.data.user.skills));
         socket.emit('join', response.data.user?._id);
         handleUnseenMessagesCount();
+        setLoading(false);
          navigate("/profile");
       }
     } catch (error) {
       console.log(error.response.data.message);
       console.log(error)
+      setLoading(false);
       if(error.response?.data?.message) setLoginError(error.response?.data?.message);
     }
     
@@ -180,10 +184,12 @@ const LoginPopup = () => {
                   Reset your password?
                 </a>
               </p>
+               
               <button
                 type="submit"
                 className="inline-flex w-full items-center justify-center rounded-lg bg-black p-2 py-3 text-sm font-medium text-white outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 disabled:bg-gray-400"
               >
+                {loading && <span className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin mr-2 "></span>}
                 Continue
               </button>
             </form>
