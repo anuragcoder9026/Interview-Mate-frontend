@@ -32,7 +32,7 @@
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/interviewmate.git
+   git clone https://github.com/yourusername/interview-Mate-frontend.git
    cd interviewmate
 
    
