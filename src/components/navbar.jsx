@@ -195,7 +195,7 @@ export default function NavBar() {
               }
               onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
             >
-            VoiceInterview
+            InterviewAI
             </NavLink>
 
             <NavLink
@@ -308,7 +308,7 @@ export default function NavBar() {
                 <IoMdMicrophone size={30} />{" "}
                 {/* Use the appropriate icon for Voice Interview */}
                 <span className="text-sm text-zinc-400">
-                  Voice Interview
+                  InterviewAI
                 </span>{" "}
               </NavLink>
 
