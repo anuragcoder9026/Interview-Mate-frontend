@@ -18,6 +18,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {BACKEND_URL} from "../../url"
 import socket from "../../socket";
+import { IoMdMicrophone } from 'react-icons/io';
 export default function NavBar() {
   const [isNavBarToggled, setIsNavBarToggled] = useState(false);
   const [isProfileDropdownVisible, setIsProfileDropdownVisible] =
@@ -121,7 +122,7 @@ export default function NavBar() {
       </div>
       <div
         className={`flex md:hidden flex-col bg-black text-white pl-4 transition-all duration-300 ease-out`}
-        style={{height:!isNavBarToggled ? '0px' :'180px'}}
+        style={{height:!isNavBarToggled ? '0px' :'202px'}}
       >
         {isNavBarToggled && (
           <>
@@ -183,6 +184,18 @@ export default function NavBar() {
               onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
             >
               Message
+            </NavLink>
+
+              <NavLink
+              to="/interview"
+              className={({ isActive }) =>
+                `font-bold text-xl font-Poppins hover:cursor-pointer ${
+                  isActive ? "text-white" : "text-gray-500 hover:text-white"
+                }`
+              }
+              onClick={() => setIsNavBarToggled(false)} // Shrink menu when clicked
+            >
+            VoiceInterview
             </NavLink>
 
             <NavLink
@@ -283,6 +296,21 @@ export default function NavBar() {
         </div>
             <span className="text-sm text-zinc-400">My Network</span>{" "}
           </NavLink>
+
+          <NavLink
+                to="/interview"
+                className={({ isActive }) =>
+                  `p-4 rounded-2xl font-bold text-2xl font-Poppins hover:cursor-pointer flex flex-col items-center justify-center ${
+                    isActive ? "text-white" : "text-zinc-400 hover:text-white"
+                  }`
+                }
+              >
+                <IoMdMicrophone size={30} />{" "}
+                {/* Use the appropriate icon for Voice Interview */}
+                <span className="text-sm text-zinc-400">
+                  Voice Interview
+                </span>{" "}
+              </NavLink>
 
             <NavLink
             to="/dashboard"
