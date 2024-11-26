@@ -18,7 +18,7 @@
 - **Real-Time Communication**: Socket.io
 - **AI Integration**: Integration with third-party APIs for AI-powered suggestions
 - **Authentication**: Google OAuth, JWT-based authentication
-- **Deployment**: Deployed on [Backend Link](<your_backend_link>)
+- **Deployment**: Deployed on [Backend Link](https://github.com/alokthakur490/Interview-Mate-Backend)
 
 ## Setup Instructions
 
