@@ -3,12 +3,12 @@ import {  GoogleGenerativeAI,HarmCategory,HarmBlockThreshold, } from "@google/ge
 import { marked } from 'marked';
 
 // const apiKey = "AIzaSyCxd0z042alMBmwX97IdfnsiKBvILBOfA8";
-const apiKey = "AIzaSyAFQFy8UcXbM6uJH_e3Ku2CEJ_axaWML8Q";
+const apiKey = "AIzaSyDZQSx-teyN8G-pbMq8i_tWfNV2LbblopQ";
 
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
-    model: "gemini-1.5-flash",
+    model: "gemini-2.5-flash",
     systemInstruction: "creat a detailed post about topic of given prompt by user .",
   });
 
