@@ -2,7 +2,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { SYSTEM_INSTRUCTION } from "./config"; // Adjust the path as needed
 
-const apiKey = "AIzaSyD-3Z6ubHcYwUKIvyJPUJxBrRvGXgR8OZA";
+const apiKey = "AIzaSyD-3Z6ubHcYwUKIvyJPUJxBrRvGXgR8OZA"; // api key new
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
